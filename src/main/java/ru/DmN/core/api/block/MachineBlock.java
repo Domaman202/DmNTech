@@ -9,13 +9,16 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.inventory.SidedInventory;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
+import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 import org.jetbrains.annotations.Nullable;
 import ru.DmN.core.api.block.entity.MachineBlockEntity;
 
 public abstract class MachineBlock extends HorizontalFacingBlock implements BlockEntityProvider, InventoryProvider {
+    public static final BooleanProperty ACTIVE = BooleanProperty.of("active");
     public BlockItem item;
 
     public MachineBlock(Settings settings, BlockItem item) {
@@ -51,6 +54,22 @@ public abstract class MachineBlock extends HorizontalFacingBlock implements Bloc
     @Override
     public BlockItem asItem() {
         return item;
+    }
+
+    public void setFacing(Direction facing, World world, BlockPos pos) {
+        world.setBlockState(pos, world.getBlockState(pos).with(FACING, facing));
+    }
+
+    public Direction getFacing(BlockState state) {
+        return state.get(FACING);
+    }
+
+    public void setActive(Boolean active, World world, BlockPos pos) {
+        world.setBlockState(pos, world.getBlockState(pos).with(ACTIVE, active).with(FACING, world.getBlockState(pos).get(FACING)), 3);
+    }
+
+    public boolean isActive(BlockState state) {
+        return state.get(ACTIVE);
     }
 
     @Nullable
