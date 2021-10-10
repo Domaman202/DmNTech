@@ -1,0 +1,6 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "dmntest:items/test_inf_armor_legs"
+  }
+}

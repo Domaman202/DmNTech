@@ -43,6 +43,7 @@ public class MachineBlockItem extends BlockItem implements IESGetter<ItemStack> 
         return ActionResult.SUCCESS;
     }
 
+    @Override
     public int getItemBarColor(ItemStack stack) {
         if (stack.hasNbt()) {
             NbtCompound dmnData = stack.getNbt().getCompound("dmndata");
