@@ -5,6 +5,7 @@ import net.minecraft.item.ArmorMaterial;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.sound.SoundEvent;
 import ru.DmN.core.api.armor.EnergyArmorItem;
+import ru.DmN.core.api.item.IDmNArmorMaterial;
 import ru.DmN.core.client.DCoreClient;
 
 public class TestInfinityArmor extends EnergyArmorItem {
@@ -14,7 +15,7 @@ public class TestInfinityArmor extends EnergyArmorItem {
     public static final TestInfinityArmor FEET = new TestInfinityArmor(EquipmentSlot.FEET);
 
     public TestInfinityArmor(EquipmentSlot x) {
-        super(new ArmorMaterial() {
+        super(new IDmNArmorMaterial() {
             @Override
             public int getDurability(EquipmentSlot slot) {
                 return -1;
@@ -38,6 +39,11 @@ public class TestInfinityArmor extends EnergyArmorItem {
             @Override
             public Ingredient getRepairIngredient() {
                 return null;
+            }
+
+            @Override
+            public String getNamespace() {
+                return "dmntest";
             }
 
             @Override
