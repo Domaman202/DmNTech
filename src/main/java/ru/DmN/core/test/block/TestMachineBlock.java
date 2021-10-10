@@ -7,10 +7,13 @@ import org.jetbrains.annotations.Nullable;
 import ru.DmN.core.api.block.MachineBlock;
 import ru.DmN.core.api.block.entity.MachineBlockEntity;
 import ru.DmN.core.test.block.entity.TestMachineBlockEntity;
+import ru.DmN.core.test.item.TestMachineItem;
 
 public class TestMachineBlock extends MachineBlock {
+    public static final TestMachineBlock INSTANCE = new TestMachineBlock();
+
     public TestMachineBlock() {
-        super(Settings.of(Material.METAL));
+        super(Settings.of(Material.METAL), TestMachineItem.INSTANCE);
     }
 
     @Override

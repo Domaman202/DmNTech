@@ -13,14 +13,13 @@ import ru.DmN.core.test.item.TestEnergyWandI;
 import ru.DmN.core.test.item.TestMachineItem;
 
 public class TestMain implements ModInitializer {
-    public static TestMachineBlock TEST_MACHINE_BLOCK = new TestMachineBlock();
     public static BlockEntityType<TestMachineBlockEntity> TEST_MACHINE_BLOCK_ENTITY_TYPE;
 
     @Override
     public void onInitialize() {
-        Registry.register(Registry.BLOCK, new Identifier("dmntest", "test_machine_block"), TEST_MACHINE_BLOCK);
-        Registry.register(Registry.ITEM, new Identifier("dmntest", "test_machine_block"), new TestMachineItem());
-        TEST_MACHINE_BLOCK_ENTITY_TYPE = Registry.register(Registry.BLOCK_ENTITY_TYPE, new Identifier("dmntest", "test_machine_block"), FabricBlockEntityTypeBuilder.create(TestMachineBlockEntity::new, TEST_MACHINE_BLOCK).build());
+        Registry.register(Registry.BLOCK, new Identifier("dmntest", "test_machine_block"), TestMachineBlock.INSTANCE);
+        Registry.register(Registry.ITEM, new Identifier("dmntest", "test_machine_block"), TestMachineItem.INSTANCE);
+        TEST_MACHINE_BLOCK_ENTITY_TYPE = Registry.register(Registry.BLOCK_ENTITY_TYPE, new Identifier("dmntest", "test_machine_block"), FabricBlockEntityTypeBuilder.create(TestMachineBlockEntity::new, TestMachineBlock.INSTANCE).build());
         //
         Registry.register(Registry.ITEM, new Identifier("dmntest", "test_energy_wandi"), new TestEnergyWandI());
         Registry.register(Registry.ITEM, new Identifier("dmntest", "test_energy_wandd"), new TestEnergyWandD());

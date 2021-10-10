@@ -3,15 +3,16 @@ package ru.DmN.core.api.block.entity;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.InventoryProvider;
 import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.SidedInventory;
+import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemUsageContext;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.WorldAccess;
 import ru.DmN.core.api.energy.IESGetter;
 import ru.DmN.core.energy.SimpleEnergyStorage;
-import ru.DmN.core.inventory.EmptyInventory;
+import ru.DmN.core.inventory.ConfigurableInventory;
 
 @SuppressWarnings("rawtypes")
 public abstract class MachineBlockEntity extends FastBlockEntity implements IESGetter, InventoryProvider {
@@ -21,23 +22,24 @@ public abstract class MachineBlockEntity extends FastBlockEntity implements IESG
     public MachineBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state, long energy, long maxEnergy) {
         super(type, pos, state);
         this.storage = new SimpleEnergyStorage<>(energy, maxEnergy);
-        this.inventory = new EmptyInventory();
+        this.inventory = new ConfigurableInventory(0);
     }
 
-    public ItemStack onBreak(PlayerEntity player, ItemStack item) {
+    public void onPlace(ItemPlacementContext ctx) {
+        ItemStack stack = ctx.getStack();
+        if (stack.hasNbt() && stack.getNbt().contains("dmndata"))
+            readMyNbt(stack.getNbt());
+    }
+
+    public ItemStack onBreak(ItemUsageContext ctx) {
         ItemStack stack = new ItemStack(world.getBlockState(pos).getBlock(), 1);
         stack.setNbt(writeMyNbt(new NbtCompound()));
         return stack;
     }
 
     @Override
-    public SimpleEnergyStorage<?> getEnergyStorage(Object obj) {
-        return storage;
-    }
-
-    @Override
-    public SidedInventory getInventory(BlockState state, WorldAccess world, BlockPos pos) {
-        return inventory;
+    public NbtCompound toInitialChunkDataNbt() {
+        return writeNbt(new NbtCompound());
     }
 
     @Override
@@ -63,5 +65,15 @@ public abstract class MachineBlockEntity extends FastBlockEntity implements IESG
         NbtCompound dmnData = nbt.getCompound("dmndata");
         storage.setEnergy(dmnData.getLong("energy"));
         storage.setMaxEnergy(dmnData.getLong("max_energy"));
+    }
+
+    @Override
+    public SimpleEnergyStorage<?> getEnergyStorage(Object obj) {
+        return storage;
+    }
+
+    @Override
+    public SidedInventory getInventory(BlockState state, WorldAccess world, BlockPos pos) {
+        return inventory;
     }
 }

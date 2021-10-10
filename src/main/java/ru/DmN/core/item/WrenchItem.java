@@ -25,7 +25,7 @@ public class WrenchItem extends Item {
             BlockPos pos = context.getBlockPos();
             BlockEntity entity = world.getBlockEntity(pos);
             if (entity instanceof MachineBlockEntity) {
-                Block.dropStack(context.getWorld(), context.getBlockPos(), ((MachineBlockEntity) entity).onBreak(context.getPlayer(), context.getStack()));
+                Block.dropStack(context.getWorld(), context.getBlockPos(), ((MachineBlockEntity) entity).onBreak(context));
                 world.removeBlock(pos, false);
                 world.removeBlockEntity(pos);
             }

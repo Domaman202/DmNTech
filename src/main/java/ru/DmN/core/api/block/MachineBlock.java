@@ -5,6 +5,8 @@ import net.minecraft.block.BlockEntityProvider;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.item.BlockItem;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -12,8 +14,11 @@ import org.jetbrains.annotations.Nullable;
 import ru.DmN.core.api.block.entity.MachineBlockEntity;
 
 public abstract class MachineBlock extends Block implements BlockEntityProvider {
-    public MachineBlock(Settings settings) {
+    public BlockItem item;
+
+    public MachineBlock(Settings settings, BlockItem item) {
         super(settings.hardness(1).requiresTool());
+        this.item = item;
     }
 
     @Nullable
@@ -38,5 +43,10 @@ public abstract class MachineBlock extends Block implements BlockEntityProvider 
             if (entity != null)
                 ((MachineBlockEntity) entity).storage.setEnergy(itemStack.getNbt().getCompound("dmndata").getLong("energy"));
         }
+    }
+
+    @Override
+    public BlockItem asItem() {
+        return item;
     }
 }

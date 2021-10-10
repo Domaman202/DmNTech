@@ -34,8 +34,7 @@ public class MachineBlockItem extends BlockItem implements IESGetter<ItemStack> 
             entity = block.createBlockEntity(pos, state);
             world.addBlockEntity(entity);
         }
-        if (stack.hasNbt() && stack.getNbt().contains("dmndata"))
-            entity.readMyNbt(stack.getNbt());
+        entity.onPlace(context);
         if (stack.getCount() == 1)
             context.getPlayer().getInventory().removeOne(stack);
         else

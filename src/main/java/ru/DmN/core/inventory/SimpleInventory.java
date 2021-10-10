@@ -9,41 +9,39 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Arrays;
 
 public class SimpleInventory implements SidedInventory {
-    protected int size;
     protected ItemStack[] inventory;
 
     public SimpleInventory(int size) {
-        this.size = size;
         inventory = new ItemStack[size];
         Arrays.fill(inventory, ItemStack.EMPTY);
     }
 
     @Override
     public int[] getAvailableSlots(Direction side) {
-        int[] sides = new int[size];
-        for (int i = size - 1; i != 0; i--)
+        int[] sides = new int[inventory.length];
+        for (int i = inventory.length - 1; i != 0; i--)
             sides[i] = i;
         return sides;
     }
 
     @Override
     public boolean canInsert(int slot, ItemStack stack, @Nullable Direction dir) {
-        return slot < size;
+        return slot < inventory.length;
     }
 
     @Override
     public boolean canExtract(int slot, ItemStack stack, Direction dir) {
-        return slot < size;
+        return slot < inventory.length;
     }
 
     @Override
     public int size() {
-        return size;
+        return inventory.length;
     }
 
     @Override
     public boolean isEmpty() {
-        for (int i = size - 1; i != 0; i--)
+        for (int i = inventory.length - 1; i != 0; i--)
             if (inventory[i] != ItemStack.EMPTY)
                 return false;
         return true;
@@ -87,7 +85,7 @@ public class SimpleInventory implements SidedInventory {
 
     @Override
     public void clear() {
-        for (int i = size - 1; i != 0; i--)
+        for (int i = inventory.length - 1; i != 0; i--)
             inventory[i] = ItemStack.EMPTY;
     }
 }
