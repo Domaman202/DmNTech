@@ -1,0 +1,5 @@
+{
+  "variants": {
+    "": { "model": "dmntest:block/test_machine_block" }
+  }
+}
