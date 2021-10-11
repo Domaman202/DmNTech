@@ -1,4 +1,5 @@
 # DmNTech
-Sources:
-- https://github.com/TechReborn/RebornCore
-- https://github.com/TechReborn/TechReborn
+Sources & Ideas:
+- https://www.curseforge.com/minecraft/mc-mods/reborncore
+- https://www.curseforge.com/minecraft/mc-mods/techreborn
+- https://www.curseforge.com/minecraft/mc-mods/industrial-craft
