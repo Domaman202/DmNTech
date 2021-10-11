@@ -2,11 +2,14 @@ package ru.DmN.core.api.item;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.inventory.Inventory;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.ActionResult;
+import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
@@ -15,6 +18,10 @@ import ru.DmN.core.api.block.entity.MachineBlockEntity;
 import ru.DmN.core.api.energy.IESGetter;
 import ru.DmN.core.api.energy.IESObject;
 import ru.DmN.core.energy.ItemStackEnergyStorage;
+
+import java.lang.reflect.Field;
+import java.util.Iterator;
+import java.util.List;
 
 public class MachineBlockItem extends BlockItem implements IESGetter<ItemStack> {
     public MachineBlockItem(Block block, Settings settings) {
@@ -37,8 +44,12 @@ public class MachineBlockItem extends BlockItem implements IESGetter<ItemStack> 
         entity.onPlace(context);
         if (stack.getCount() == 1)
             context.getPlayer().getInventory().removeOne(stack);
-        else
-            stack.decrement(1);
+        else {
+            PlayerInventory inventory = context.getPlayer().getInventory();
+            ItemStack newStack = stack.copy();
+            newStack.decrement(1);
+            inventory.setStack(inventory.getSlotWithStack(stack), newStack);
+        }
         return ActionResult.SUCCESS;
     }
 

@@ -6,10 +6,17 @@ import net.minecraft.block.HorizontalFacingBlock;
 import net.minecraft.block.InventoryProvider;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.SidedInventory;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
+import net.minecraft.screen.NamedScreenHandlerFactory;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.state.property.BooleanProperty;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.Hand;
+import net.minecraft.util.Lazy;
+import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
@@ -19,11 +26,18 @@ import ru.DmN.core.api.block.entity.MachineBlockEntity;
 
 public abstract class MachineBlock extends HorizontalFacingBlock implements BlockEntityProvider, InventoryProvider {
     public static final BooleanProperty ACTIVE = BooleanProperty.of("active");
-    public BlockItem item;
+    public Lazy<BlockItem> item;
 
-    public MachineBlock(Settings settings, BlockItem item) {
+    public MachineBlock(Settings settings, Lazy<BlockItem> item) {
         super(settings.hardness(1).requiresTool());
         this.item = item;
+    }
+
+    @Override
+    public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
+        if (!world.isClient)
+            player.openHandledScreen((MachineBlockEntity) world.getBlockEntity(pos));
+        return ActionResult.SUCCESS;
     }
 
     @Override
@@ -53,7 +67,7 @@ public abstract class MachineBlock extends HorizontalFacingBlock implements Bloc
 
     @Override
     public BlockItem asItem() {
-        return item;
+        return item.get();
     }
 
     public void setFacing(Direction facing, World world, BlockPos pos) {

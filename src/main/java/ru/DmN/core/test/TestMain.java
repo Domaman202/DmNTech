@@ -1,5 +1,6 @@
 package ru.DmN.core.test;
 
+import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
 import net.minecraft.block.entity.BlockEntityType;
@@ -12,7 +13,7 @@ import ru.DmN.core.test.item.TestEnergyWandD;
 import ru.DmN.core.test.item.TestEnergyWandI;
 import ru.DmN.core.test.item.TestMachineItem;
 
-public class TestMain implements ModInitializer {
+public class TestMain implements ModInitializer, ClientModInitializer {
     public static BlockEntityType<TestMachineBlockEntity> TEST_MACHINE_BLOCK_ENTITY_TYPE;
 
     @Override
@@ -28,5 +29,10 @@ public class TestMain implements ModInitializer {
         Registry.register(Registry.ITEM, new Identifier("dmntest", "test_inf_armor_chest"), TestInfinityArmor.CHEST);
         Registry.register(Registry.ITEM, new Identifier("dmntest", "test_inf_armor_legs"), TestInfinityArmor.LEGS);
         Registry.register(Registry.ITEM, new Identifier("dmntest", "test_inf_armor_feet"), TestInfinityArmor.FEET);
+    }
+
+    @Override
+    public void onInitializeClient() {
+
     }
 }

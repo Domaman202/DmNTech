@@ -23,17 +23,18 @@
       "ru.DmN.core.test.TestMain"
     ],
     "client": [
-      "ru.DmN.core.client.DCoreClient"
+      "ru.DmN.core.client.DCoreClient",
+      "ru.DmN.core.test.TestMain"
     ]
   },
   "mixins": [
-    "dmntech.mixins.json"
+    "dmncore.mixins.json"
   ],
 
   "depends": {
-    "fabricloader": ">=0.11.3",
+    "fabricloader": "*",
     "fabric": "*",
-    "minecraft": "1.17.x",
+    "minecraft": "*",
     "java": ">=16"
   },
   "suggests": {
