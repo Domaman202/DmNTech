@@ -5,6 +5,7 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemUsageContext;
+import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.text.LiteralText;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.math.BlockPos;
@@ -30,6 +31,8 @@ public class VoltmeterItem extends Item {
             IESObject<BlockEntity> storage = ((IESGetter<BlockEntity>) entity).getEnergyStorage(entity);
             PlayerEntity player = context.getPlayer();
             BlockPos pos = entity.getPos();
+            if (entity instanceof NamedScreenHandlerFactory)
+                player.sendMessage(new LiteralText("DisplayName -> " + ((NamedScreenHandlerFactory) entity).getDisplayName()), false);
             player.sendMessage(new LiteralText("Pos -> { X = " + pos.getX() + "; Y = " + pos.getY() + "; Z = " + pos.getZ() + " }"), false);
             player.sendMessage(new LiteralText("Energy -> " + storage.getEnergy()), false);
             player.sendMessage(new LiteralText("MaxEnergy -> " + storage.getMaxEnergy()), false);

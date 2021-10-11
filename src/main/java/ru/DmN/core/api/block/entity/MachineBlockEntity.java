@@ -13,7 +13,6 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
-import net.minecraft.screen.ScreenHandlerFactory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.WorldAccess;
 import ru.DmN.core.api.energy.IESGetter;
@@ -22,7 +21,7 @@ import ru.DmN.core.energy.SimpleEnergyStorage;
 import ru.DmN.core.inventory.ConfigurableInventory;
 
 @SuppressWarnings("rawtypes")
-public abstract class MachineBlockEntity extends FastBlockEntity implements IESGetter, InventoryProvider, NamedScreenHandlerFactory, ScreenHandlerFactory {
+public abstract class MachineBlockEntity extends FastBlockEntity implements IESGetter, InventoryProvider, NamedScreenHandlerFactory {
     public SimpleEnergyStorage<?> storage;
     public SidedInventory inventory;
 
