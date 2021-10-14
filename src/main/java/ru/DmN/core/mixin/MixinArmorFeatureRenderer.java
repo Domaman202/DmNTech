@@ -3,6 +3,7 @@ package ru.DmN.core.mixin;
 import net.minecraft.client.render.entity.feature.ArmorFeatureRenderer;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.util.Identifier;
+import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -14,7 +15,7 @@ import java.util.Map;
 
 @Mixin(ArmorFeatureRenderer.class)
 public class MixinArmorFeatureRenderer {
-    @Shadow private static Map<String, Identifier> ARMOR_TEXTURE_CACHE;
+    @Final @Shadow private static Map<String, Identifier> ARMOR_TEXTURE_CACHE;
 
     @Inject(method = "getArmorTexture", at = @At("HEAD"), cancellable = true)
     private void getArmorTextureInject(ArmorItem item, boolean legs, String overlay, CallbackInfoReturnable<Identifier> cir) {

@@ -9,7 +9,9 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Identifier;
+import ru.DmN.core.utils.ColorUtils;
 
 import java.awt.*;
 
@@ -29,9 +31,12 @@ public class MachineScreen <T extends MachineScreenHandler> extends HandledScree
         super.render(matrices, mouseX, mouseY, delta);
         this.drawMouseoverTooltip(matrices, mouseX, mouseY);
 
+        int lastEnergy = handler.properties.get(0);
+        int maxEnergy = handler.properties.get(1);
+
         TextRenderer renderer = MinecraftClient.getInstance().textRenderer;
-        renderer.draw(matrices, new LiteralText("Energy -> " + handler.properties.get(0)), (float) (posW *= 1.1315789), (float) (posH *= 1.4545455), Color.RED.getRGB());
-        renderer.draw(matrices, new LiteralText("MaxEnergy -> " + handler.properties.get(1)), posW, (float) (posH *= 1.2272727), Color.RED.getRGB());
+        renderer.draw(matrices, new TranslatableText("text.dmncore.energy", lastEnergy), posW += 5, posH += 20, ColorUtils.calcColorWithEnergy(lastEnergy, maxEnergy));
+        renderer.draw(matrices, new TranslatableText("text.dmncore.max_energy", maxEnergy), posW, posH += 8, Color.GRAY.getRGB());
     }
 
     @Override

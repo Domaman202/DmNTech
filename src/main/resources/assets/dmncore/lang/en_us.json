@@ -1,0 +1,6 @@
+{
+  "text.dmncore.energy": "Energy -> %d",
+  "text.dmncore.max_energy": "Max energy -> %d",
+  "item.dmncore.wrench": "Wrench",
+  "item.dmncore.voltmeter": "Voltmeter"
+}

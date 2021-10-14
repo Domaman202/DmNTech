@@ -9,7 +9,11 @@ import ru.DmN.core.item.WrenchItem;
 public class DCore implements ModInitializer {
     @Override
     public void onInitialize() {
-        Registry.register(Registry.ITEM, new Identifier("dmncore", "wrench"), WrenchItem.INSTANCE);
-        Registry.register(Registry.ITEM, new Identifier("dmncore", "voltmeter"), VoltmeterItem.INSTANCE);
+        try {
+            Registry.register(Registry.ITEM, new Identifier("dmncore", "wrench"), WrenchItem.INSTANCE);
+            Registry.register(Registry.ITEM, new Identifier("dmncore", "voltmeter"), VoltmeterItem.INSTANCE);
+        } catch (Throwable error) {
+            throw new Error(error);
+        }
     }
 }

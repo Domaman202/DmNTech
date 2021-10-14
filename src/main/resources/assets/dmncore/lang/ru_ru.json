@@ -1,0 +1,6 @@
+{
+  "text.dmncore.energy": "Энергия -> %d",
+  "text.dmncore.max_energy": "Макс энергии -> %d",
+  "item.dmncore.wrench": "Гаечный ключ",
+  "item.dmncore.voltmeter": "Вольтметр"
+}

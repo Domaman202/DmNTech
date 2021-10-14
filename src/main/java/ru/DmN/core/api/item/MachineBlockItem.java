@@ -18,6 +18,7 @@ import ru.DmN.core.api.block.entity.MachineBlockEntity;
 import ru.DmN.core.api.energy.IESGetter;
 import ru.DmN.core.api.energy.IESObject;
 import ru.DmN.core.energy.ItemStackEnergyStorage;
+import ru.DmN.core.utils.ColorUtils;
 
 import java.lang.reflect.Field;
 import java.util.Iterator;
@@ -57,8 +58,7 @@ public class MachineBlockItem extends BlockItem implements IESGetter<ItemStack> 
     public int getItemBarColor(ItemStack stack) {
         if (stack.hasNbt()) {
             NbtCompound dmnData = stack.getNbt().getCompound("dmndata");
-            float f = Math.max(0.0F, ((float) dmnData.getLong("energy") - (float) stack.getDamage()) / (float) dmnData.getLong("max_energy"));
-            return MathHelper.hsvToRgb(f / 3.0F, 1.0F, 1.0F);
+            return ColorUtils.calcColorWithEnergy(dmnData.getLong("energy") - stack.getDamage(), dmnData.getLong("max_energy"));
         }
         return 0;
     }
@@ -67,7 +67,7 @@ public class MachineBlockItem extends BlockItem implements IESGetter<ItemStack> 
     public int getItemBarStep(ItemStack stack) {
         if (stack.hasNbt()) {
             NbtCompound dmnData = stack.getNbt().getCompound("dmndata");
-            return 13 - Math.round(13.0F - (float) dmnData.getLong("energy") * 13.0F / (float) dmnData.getLong("max_energy"));
+            return 13 - ColorUtils.calcStepWithEnergy(dmnData.getLong("energy"), dmnData.getLong("max_energy"));
         }
         return 0;
     }
