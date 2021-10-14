@@ -2,10 +2,14 @@ package ru.DmN.core.test;
 
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
 import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.item.ItemGroup;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
+import ru.DmN.core.item.WrenchItem;
 import ru.DmN.core.test.armor.TestInfinityArmor;
 import ru.DmN.core.test.block.TestMachineBlock;
 import ru.DmN.core.test.block.entity.TestMachineBlockEntity;
@@ -14,6 +18,7 @@ import ru.DmN.core.test.item.TestEnergyWandI;
 import ru.DmN.core.test.item.TestMachineItem;
 
 public class TestMain implements ModInitializer, ClientModInitializer {
+    public static final ItemGroup DTestGroup = FabricItemGroupBuilder.create(new Identifier("dmntest", "items")).icon(() -> new ItemStack(TestMachineBlock.INSTANCE)).build();
     public static BlockEntityType<TestMachineBlockEntity> TEST_MACHINE_BLOCK_ENTITY_TYPE;
 
     @Override

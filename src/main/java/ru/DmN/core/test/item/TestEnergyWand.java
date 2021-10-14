@@ -6,11 +6,11 @@ import net.minecraft.item.ItemUsageContext;
 import net.minecraft.util.ActionResult;
 import ru.DmN.core.api.block.entity.MachineBlockEntity;
 import ru.DmN.core.api.energy.IESObject;
-import ru.DmN.core.client.DCoreClient;
+import ru.DmN.core.test.TestMain;
 
 public abstract class TestEnergyWand extends Item {
     public TestEnergyWand() {
-        super(new Settings().group(DCoreClient.DCoreItemGroup));
+        super(new Settings().group(TestMain.DTestGroup));
     }
 
     @Override

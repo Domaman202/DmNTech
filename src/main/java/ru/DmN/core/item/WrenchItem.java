@@ -8,14 +8,14 @@ import net.minecraft.item.ItemUsageContext;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import ru.DmN.core.DCore;
 import ru.DmN.core.api.block.entity.MachineBlockEntity;
-import ru.DmN.core.client.DCoreClient;
 
 public class WrenchItem extends Item {
     public static final WrenchItem INSTANCE = new WrenchItem();
 
     public WrenchItem() {
-        super(new FabricItemSettings().maxCount(1).group(DCoreClient.DCoreItemGroup));
+        super(new FabricItemSettings().maxCount(1).group(DCore.DCoreItemGroup));
     }
 
     @Override

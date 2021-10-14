@@ -1,6 +1,8 @@
 {
   "text.dmncore.energy": "Энергiя -> %d",
   "text.dmncore.max_energy": "Макс энергii -> %d",
+  "itemGroup.dmncore.items": "DmNCore",
+  "itemGroup.dmntest.items": "DmNTest",
   "item.dmncore.wrench": "Гучний ключ",
   "item.dmncore.voltmeter": "Вольтметр"
 }

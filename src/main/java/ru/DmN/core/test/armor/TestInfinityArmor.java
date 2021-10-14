@@ -1,12 +1,11 @@
 package ru.DmN.core.test.armor;
 
 import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.item.ArmorMaterial;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.sound.SoundEvent;
 import ru.DmN.core.api.armor.EnergyArmorItem;
 import ru.DmN.core.api.item.IDmNArmorMaterial;
-import ru.DmN.core.client.DCoreClient;
+import ru.DmN.core.test.TestMain;
 
 public class TestInfinityArmor extends EnergyArmorItem {
     public static final TestInfinityArmor HEAD = new TestInfinityArmor(EquipmentSlot.HEAD);
@@ -60,6 +59,6 @@ public class TestInfinityArmor extends EnergyArmorItem {
             public float getKnockbackResistance() {
                 return 0;
             }
-        }, x, new Settings().group(DCoreClient.DCoreItemGroup));
+        }, x, new Settings().group(TestMain.DTestGroup));
     }
 }
