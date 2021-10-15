@@ -1,0 +1,6 @@
+{
+  "parent": "block/cube_all",
+  "textures": {
+    "all": "dmntest:block/test_machine_block_active"
+  }
+}

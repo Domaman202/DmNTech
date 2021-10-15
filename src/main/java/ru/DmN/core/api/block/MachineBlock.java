@@ -1,21 +1,17 @@
 package ru.DmN.core.api.block;
 
-import net.minecraft.block.BlockEntityProvider;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.HorizontalFacingBlock;
-import net.minecraft.block.InventoryProvider;
+import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.SidedInventory;
-import net.minecraft.item.BlockItem;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.screen.NamedScreenHandlerFactory;
-import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.nbt.NbtCompound;
+import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
-import net.minecraft.util.Lazy;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -23,27 +19,44 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 import org.jetbrains.annotations.Nullable;
 import ru.DmN.core.api.block.entity.MachineBlockEntity;
+import ru.DmN.core.api.item.MachineBlockItem;
 
 public abstract class MachineBlock extends HorizontalFacingBlock implements BlockEntityProvider, InventoryProvider {
     public static final BooleanProperty ACTIVE = BooleanProperty.of("active");
-    public Lazy<BlockItem> item;
+    public MachineBlockItem item;
 
-    public MachineBlock(Settings settings, Lazy<BlockItem> item) {
+    /// CONSTRUCTORS
+
+    public MachineBlock(Settings settings, Item.Settings settings_) {
+        super(settings.hardness(1).requiresTool());
+        this.item = new MachineBlockItem(this, settings_);
+    }
+
+    public MachineBlock(Settings settings, MachineBlockItem item) {
         super(settings.hardness(1).requiresTool());
         this.item = item;
     }
 
+    /// ACTIONS
+
     @Override
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
-        if (!world.isClient)
+        // Change Active
+        if (player.isSneaking())
+            world.setBlockState(pos, state.with(ACTIVE, !state.get(ACTIVE)));
+        // Screen Open
+        else if (!world.isClient)
             player.openHandledScreen((MachineBlockEntity) world.getBlockEntity(pos));
+        //
         return ActionResult.SUCCESS;
     }
 
     @Override
     public void onPlaced(World world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack itemStack) {
-        // Setting Energy Data
+        // Setting Data
         if (itemStack.hasNbt() && itemStack.getNbt().contains("dmntech_data")) {
+            // Getting DmNData
+            NbtCompound nbt = itemStack.getNbt().getCompound("dmndata");
             // Getting Block Entity
             BlockEntity entity = world.getBlockEntity(pos);
             if (entity == null) {
@@ -56,9 +69,13 @@ public abstract class MachineBlock extends HorizontalFacingBlock implements Bloc
             }
             // Setting BlockEntity Energy Data
             if (entity != null)
-                ((MachineBlockEntity) entity).storage.setEnergy(itemStack.getNbt().getCompound("dmndata").getLong("energy"));
+                ((MachineBlockEntity) entity).storage.setEnergy(nbt.getLong("energy"));
+            // Setting Active State
+            world.setBlockState(pos, state.with(ACTIVE, nbt.getBoolean("active")));
         }
     }
+
+    /// GET OVERRIDE
 
     @Override
     public SidedInventory getInventory(BlockState state, WorldAccess world, BlockPos pos) {
@@ -66,8 +83,15 @@ public abstract class MachineBlock extends HorizontalFacingBlock implements Bloc
     }
 
     @Override
-    public BlockItem asItem() {
-        return item.get();
+    public MachineBlockItem asItem() {
+        return item;
+    }
+
+    /// PROPERTIES
+
+    @Override
+    protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
+        builder.add(ACTIVE);
     }
 
     public void setFacing(Direction facing, World world, BlockPos pos) {
@@ -85,6 +109,8 @@ public abstract class MachineBlock extends HorizontalFacingBlock implements Bloc
     public boolean isActive(BlockState state) {
         return state.get(ACTIVE);
     }
+
+    /// BLOCK ENTITY
 
     @Nullable
     @Override

@@ -10,7 +10,7 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import ru.DmN.core.DCore;
-import ru.DmN.core.api.energy.IESGetter;
+import ru.DmN.core.api.energy.IESProvider;
 import ru.DmN.core.api.energy.IESObject;
 
 public class VoltmeterItem extends Item {
@@ -26,8 +26,8 @@ public class VoltmeterItem extends Item {
         if (world.isClient)
             return ActionResult.SUCCESS;
         BlockEntity entity = world.getBlockEntity(context.getBlockPos());
-        if (entity instanceof IESGetter<?>) {
-            IESObject<BlockEntity> storage = ((IESGetter<BlockEntity>) entity).getEnergyStorage(entity);
+        if (entity instanceof IESProvider<?>) {
+            IESObject<BlockEntity> storage = ((IESProvider<BlockEntity>) entity).getEnergyStorage(entity);
             PlayerEntity player = context.getPlayer();
             BlockPos pos = entity.getPos();
             player.sendMessage(new LiteralText("Pos -> { X = " + pos.getX() + "; Y = " + pos.getY() + "; Z = " + pos.getZ() + " }"), false);

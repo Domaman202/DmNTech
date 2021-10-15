@@ -1,6 +1,6 @@
 package ru.DmN.core.api.energy;
 
-public interface IESObject <T> extends IESGetter <T> {
+public interface IESObject <T> extends IESProvider<T> {
     /**
      * Setting energy
      * @param value energy count

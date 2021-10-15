@@ -2,9 +2,9 @@ package ru.DmN.core.utils;
 
 import net.minecraft.util.math.MathHelper;
 
-public class ColorUtils {
+public final class ColorUtils {
     public static int calcColorWithEnergy(long energy, long maxEnergy) {
-        return MathHelper.hsvToRgb(Math.max(0.0F, (float) energy / maxEnergy) / 3.0F, 1.0F, 1.0F);
+        return calcColorWithEnergy(energy, maxEnergy, 1f, 1f);
     }
 
     public static int calcColorWithEnergy(long energy, long maxEnergy, float saturation, float value) {

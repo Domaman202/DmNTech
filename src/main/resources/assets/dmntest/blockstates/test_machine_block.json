@@ -1,5 +1,6 @@
 {
   "variants": {
-    "": { "model": "dmntest:block/test_machine_block" }
+    "active=true": { "model": "dmntest:block/test_machine_block_active" },
+    "active=false": { "model": "dmntest:block/test_machine_block" }
   }
 }

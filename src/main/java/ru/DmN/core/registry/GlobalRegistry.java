@@ -5,7 +5,9 @@ import net.minecraft.block.OreBlock;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.Lazy;
 import net.minecraft.util.registry.Registry;
+import ru.DmN.core.api.block.MachineBlock;
 
 import java.util.ArrayList;
 
@@ -35,5 +37,10 @@ public class GlobalRegistry {
     public static void register(OreBlock ore, Item.Settings settings, Identifier id) {
         ITEMS.add(Registry.register(Registry.ITEM, id, new BlockItem(Registry.register(Registry.BLOCK, id, ore), settings)));
         ORES.add(ore);
+    }
+
+    public static void register(MachineBlock block, Identifier id) {
+        BLOCKS.add(Registry.register(Registry.BLOCK, id, block));
+        ITEMS.add(Registry.register(Registry.ITEM, id, block.item));
     }
 }

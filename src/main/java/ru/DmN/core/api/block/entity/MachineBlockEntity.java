@@ -15,15 +15,27 @@ import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.WorldAccess;
-import ru.DmN.core.api.energy.IESGetter;
+import ru.DmN.core.api.block.MachineBlock;
+import ru.DmN.core.api.energy.IESObject;
+import ru.DmN.core.api.energy.IESProvider;
 import ru.DmN.core.client.gui.SimpleMachineScreenHandler;
 import ru.DmN.core.energy.SimpleEnergyStorage;
 import ru.DmN.core.inventory.ConfigurableInventory;
 
 @SuppressWarnings("rawtypes")
-public abstract class MachineBlockEntity extends FastBlockEntity implements IESGetter, InventoryProvider, NamedScreenHandlerFactory {
+public abstract class MachineBlockEntity extends FastBlockEntity implements IESProvider, InventoryProvider, NamedScreenHandlerFactory {
     public SimpleEnergyStorage<?> storage;
     public SidedInventory inventory;
+
+    /// CONSTRUCTORS
+
+    public MachineBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state, long energy, long maxEnergy) {
+        super(type, pos, state);
+        this.storage = new SimpleEnergyStorage<>(energy, maxEnergy);
+        this.inventory = new ConfigurableInventory(0);
+    }
+
+    /// SCREEN
 
     public PropertyDelegate properties = new PropertyDelegate() {
         @Override
@@ -51,16 +63,12 @@ public abstract class MachineBlockEntity extends FastBlockEntity implements IESG
         }
     };
 
-    public MachineBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state, long energy, long maxEnergy) {
-        super(type, pos, state);
-        this.storage = new SimpleEnergyStorage<>(energy, maxEnergy);
-        this.inventory = new ConfigurableInventory(0);
-    }
-
     @Override
     public ScreenHandler createMenu(int syncId, PlayerInventory playerInventory, PlayerEntity player) {
         return new SimpleMachineScreenHandler(syncId, playerInventory, properties);
     }
+
+    /// ACTIONS
 
     public void onPlace(ItemPlacementContext ctx) {
         ItemStack stack = ctx.getStack();
@@ -73,6 +81,8 @@ public abstract class MachineBlockEntity extends FastBlockEntity implements IESG
         stack.setNbt(writeMyNbt(new NbtCompound()));
         return stack;
     }
+
+    /// NBT
 
     @Override
     public NbtCompound toInitialChunkDataNbt() {
@@ -88,6 +98,7 @@ public abstract class MachineBlockEntity extends FastBlockEntity implements IESG
         NbtCompound dmnData = new NbtCompound();
         dmnData.putLong("energy", storage.getEnergy());
         dmnData.putLong("max_energy", storage.getMaxEnergy());
+        dmnData.putBoolean("active", world.getBlockState(pos).get(MachineBlock.ACTIVE));
         nbt.put("dmndata", dmnData);
         return nbt;
     }
@@ -102,10 +113,14 @@ public abstract class MachineBlockEntity extends FastBlockEntity implements IESG
         NbtCompound dmnData = nbt.getCompound("dmndata");
         storage.setEnergy(dmnData.getLong("energy"));
         storage.setMaxEnergy(dmnData.getLong("max_energy"));
+        if (world != null)
+            world.setBlockState(pos, world.getBlockState(pos).with(MachineBlock.ACTIVE, dmnData.getBoolean("active")));
     }
 
+    /// GET OVERRIDE
+
     @Override
-    public SimpleEnergyStorage<?> getEnergyStorage(Object obj) {
+    public IESObject getEnergyStorage(Object obj) {
         return storage;
     }
 

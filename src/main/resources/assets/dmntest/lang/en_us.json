@@ -1,6 +1,11 @@
 {
+  "itemGroup.dmntest.items": "DmNTest",
   "block.dmntest.test_machine_block": "Test Machine Block",
   "item.dmntest.test_machine_block": "Test Machine Block",
   "item.dmntest.test_energy_wandi": "Test Energy Wand (Inc)",
-  "item.dmntest.test_energy_wandd": "Test Energy Wand (Dec)"
+  "item.dmntest.test_energy_wandd": "Test Energy Wand (Dec)",
+  "item.dmntest.test_inf_armor_head": "Test Infinity Armor (HEAD)",
+  "item.dmntest.test_inf_armor_chest": "Test Infinity Armor (CHEST)",
+  "item.dmntest.test_inf_armor_foot": "Test Infinity Armor (FOOT)",
+  "item.dmntest.test_inf_armor_legs": "Test Infinity Armor (LEGS)"
 }

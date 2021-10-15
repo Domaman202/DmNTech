@@ -6,11 +6,11 @@ import net.minecraft.item.ArmorMaterial;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.math.MathHelper;
-import ru.DmN.core.api.energy.IESGetter;
+import ru.DmN.core.api.energy.IESProvider;
 import ru.DmN.core.api.energy.IESObject;
 import ru.DmN.core.energy.ItemStackEnergyStorage;
 
-public class EnergyArmorItem extends ArmorItem implements IESGetter<ItemStack> {
+public class EnergyArmorItem extends ArmorItem implements IESProvider<ItemStack> {
     public EnergyArmorItem(ArmorMaterial material, EquipmentSlot slot, Settings settings) {
         super(material, slot, settings);
     }

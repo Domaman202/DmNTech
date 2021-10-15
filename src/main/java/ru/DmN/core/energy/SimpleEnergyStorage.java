@@ -3,8 +3,8 @@ package ru.DmN.core.energy;
 import ru.DmN.core.api.energy.IESObject;
 
 public class SimpleEnergyStorage <T extends SimpleEnergyStorage<T>> implements IESObject <T> {
-    long energy = 0;
-    long maxEnergy = 0;
+    public long energy = 0;
+    public long maxEnergy = 0;
 
     public SimpleEnergyStorage(long maxEnergy) {
         this.maxEnergy = maxEnergy;
