@@ -19,7 +19,7 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "ru.DmN.core.DCore",
+      "ru.DmN.core.common.DCore",
       "ru.DmN.core.test.TestMain"
     ],
     "client": [

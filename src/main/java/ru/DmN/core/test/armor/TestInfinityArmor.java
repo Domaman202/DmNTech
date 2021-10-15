@@ -3,8 +3,8 @@ package ru.DmN.core.test.armor;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.sound.SoundEvent;
-import ru.DmN.core.api.armor.EnergyArmorItem;
-import ru.DmN.core.api.item.IDmNArmorMaterial;
+import ru.DmN.core.common.api.armor.EnergyArmorItem;
+import ru.DmN.core.common.api.item.IDmNArmorMaterial;
 import ru.DmN.core.test.TestMain;
 
 public class TestInfinityArmor extends EnergyArmorItem {
