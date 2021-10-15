@@ -1,0 +1,64 @@
+{
+  "multipart": [
+    {
+      "apply": {
+        "model": "dmntest:block/test_cable"
+      }
+    },
+    {
+      "when": {
+        "north": true
+      },
+      "apply": {
+        "model": "dmntest:block/test_cable_side",
+        "x": 270
+      }
+    },
+    {
+      "when": {
+        "east": true
+      },
+      "apply": {
+        "model": "dmntest:block/test_cable_side",
+        "x": 90,
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "south": true
+      },
+      "apply": {
+        "model": "dmntest:block/test_cable_side",
+        "x": 90
+      }
+    },
+    {
+      "when": {
+        "west": true
+      },
+      "apply": {
+        "model": "dmntest:block/test_cable_side",
+        "x": 90,
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "up": true
+      },
+      "apply": {
+        "model": "dmntest:block/test_cable_side",
+        "x": 180
+      }
+    },
+    {
+      "when": {
+        "down": true
+      },
+      "apply": {
+        "model": "dmntest:block/test_cable_side"
+      }
+    }
+  ]
+}

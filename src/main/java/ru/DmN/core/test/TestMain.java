@@ -5,12 +5,14 @@ import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
 import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import ru.DmN.core.common.registry.GlobalRegistry;
 import ru.DmN.core.test.armor.TestInfinityArmor;
+import ru.DmN.core.test.block.TestCableBlock;
 import ru.DmN.core.test.block.TestMachineBlock;
 import ru.DmN.core.test.block.entity.TestMachineBlockEntity;
 import ru.DmN.core.test.item.TestEnergyWandD;
@@ -32,6 +34,8 @@ public class TestMain implements ModInitializer, ClientModInitializer {
         Registry.register(Registry.ITEM, new Identifier("dmntest", "test_inf_armor_chest"), TestInfinityArmor.CHEST);
         Registry.register(Registry.ITEM, new Identifier("dmntest", "test_inf_armor_legs"), TestInfinityArmor.LEGS);
         Registry.register(Registry.ITEM, new Identifier("dmntest", "test_inf_armor_feet"), TestInfinityArmor.FEET);
+        //
+        GlobalRegistry.register(TestCableBlock.INSTANCE, new Item.Settings().group(DTestGroup), new Identifier("dmntest", "test_cable"));
     }
 
     @Override

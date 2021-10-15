@@ -28,7 +28,7 @@
     ]
   },
   "mixins": [
-    "dmncore.mixins.json"
+    "dmncore.client.mixins.json"
   ],
 
   "depends": {
