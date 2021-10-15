@@ -19,7 +19,7 @@ import ru.DmN.core.common.api.block.MachineBlock;
 import ru.DmN.core.common.api.energy.IESObject;
 import ru.DmN.core.common.api.energy.IESProvider;
 import ru.DmN.core.client.gui.SimpleMachineScreenHandler;
-import ru.DmN.core.common.energy.SimpleEnergyStorage;
+import ru.DmN.core.common.impl.energy.SimpleEnergyStorage;
 import ru.DmN.core.common.inventory.ConfigurableInventory;
 
 @SuppressWarnings("rawtypes")

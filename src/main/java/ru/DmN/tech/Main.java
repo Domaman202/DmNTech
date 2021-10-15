@@ -1,4 +1,4 @@
-package ru.DmN.core.common.tech;
+package ru.DmN.tech;
 
 import net.fabricmc.api.ModInitializer;
 

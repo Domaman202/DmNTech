@@ -1,4 +1,4 @@
-package ru.DmN.core.common.energy;
+package ru.DmN.core.common.impl.energy;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;

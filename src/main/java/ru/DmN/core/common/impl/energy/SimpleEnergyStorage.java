@@ -1,4 +1,4 @@
-package ru.DmN.core.common.energy;
+package ru.DmN.core.common.impl.energy;
 
 import ru.DmN.core.common.api.energy.IESObject;
 

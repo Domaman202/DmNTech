@@ -14,7 +14,7 @@ import ru.DmN.core.common.api.block.MachineBlock;
 import ru.DmN.core.common.api.block.entity.MachineBlockEntity;
 import ru.DmN.core.common.api.energy.IESProvider;
 import ru.DmN.core.common.api.energy.IESObject;
-import ru.DmN.core.common.energy.ItemStackEnergyStorage;
+import ru.DmN.core.common.impl.energy.ItemStackEnergyStorage;
 import ru.DmN.core.common.utils.ColorUtils;
 
 public class MachineBlockItem extends BlockItem implements IESProvider<ItemStack> {
