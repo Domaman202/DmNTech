@@ -1,4 +1,4 @@
-package ru.DmN.core.common.mixin.client;
+package ru.DmN.core.client.mixin;
 
 import net.minecraft.client.render.entity.feature.ArmorFeatureRenderer;
 import net.minecraft.item.ArmorItem;
