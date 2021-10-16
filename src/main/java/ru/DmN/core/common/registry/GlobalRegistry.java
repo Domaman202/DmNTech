@@ -1,45 +1,38 @@
 package ru.DmN.core.common.registry;
 
+import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
 import net.minecraft.block.Block;
 import net.minecraft.block.OreBlock;
+import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import ru.DmN.core.common.api.block.MachineBlock;
+import ru.DmN.core.common.api.block.entity.MachineBlockEntity;
+import ru.DmN.core.test.block.TestCableBlock;
+import ru.DmN.core.test.block.entity.TestCableBlockEntity;
 
 import java.util.ArrayList;
 
 public class GlobalRegistry {
     // Settings
     public static final Item.Settings DEFAULT_ITEM_SETTINGS = new Item.Settings();
-    // Registered
-    public static final ArrayList<Block> BLOCKS = new ArrayList<>();
-    public static final ArrayList<OreBlock> ORES = new ArrayList<>();
-    public static final ArrayList<Item> ITEMS = new ArrayList<>();
 
     public static void register(Block block, Identifier id) {
-        ITEMS.add(Registry.register(Registry.ITEM, id, new BlockItem(Registry.register(Registry.BLOCK, id, block), DEFAULT_ITEM_SETTINGS)));
-        BLOCKS.add(block);
+        Registry.register(Registry.ITEM, id, new BlockItem(Registry.register(Registry.BLOCK, id, block), DEFAULT_ITEM_SETTINGS));
     }
 
     public static void register(Block block, Item.Settings settings, Identifier id) {
-        ITEMS.add(Registry.register(Registry.ITEM, id, new BlockItem(Registry.register(Registry.BLOCK, id, block), settings)));
-        BLOCKS.add(block);
-    }
-
-    public static void register(OreBlock ore, Identifier id) {
-        ITEMS.add(Registry.register(Registry.ITEM, id, new BlockItem(Registry.register(Registry.BLOCK, id, ore), DEFAULT_ITEM_SETTINGS)));
-        ORES.add(ore);
-    }
-
-    public static void register(OreBlock ore, Item.Settings settings, Identifier id) {
-        ITEMS.add(Registry.register(Registry.ITEM, id, new BlockItem(Registry.register(Registry.BLOCK, id, ore), settings)));
-        ORES.add(ore);
+        Registry.register(Registry.ITEM, id, new BlockItem(Registry.register(Registry.BLOCK, id, block), settings));
     }
 
     public static void register(MachineBlock block, Identifier id) {
-        BLOCKS.add(Registry.register(Registry.BLOCK, id, block));
-        ITEMS.add(Registry.register(Registry.ITEM, id, block.item));
+        Registry.register(Registry.ITEM, id, Registry.register(Registry.BLOCK, id, block).item);
+    }
+
+    public static <T extends MachineBlockEntity> BlockEntityType<T> register(MachineBlock block, FabricBlockEntityTypeBuilder.Factory<T> factory, Identifier id) {
+        Registry.register(Registry.ITEM, id, Registry.register(Registry.BLOCK, id, block).item);
+        return Registry.register(Registry.BLOCK_ENTITY_TYPE, id, FabricBlockEntityTypeBuilder.create(factory, block).build());
     }
 }

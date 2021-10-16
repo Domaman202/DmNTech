@@ -26,8 +26,7 @@ public class TestMain implements ModInitializer, ClientModInitializer {
 
     @Override
     public void onInitialize() {
-        GlobalRegistry.register(TestMachineBlock.INSTANCE, new Identifier("dmntest", "test_machine_block"));
-        TEST_MACHINE_BLOCK_ENTITY_TYPE = Registry.register(Registry.BLOCK_ENTITY_TYPE, new Identifier("dmntest", "test_machine_block"), FabricBlockEntityTypeBuilder.create(TestMachineBlockEntity::new, TestMachineBlock.INSTANCE).build());
+        TEST_MACHINE_BLOCK_ENTITY_TYPE = GlobalRegistry.register(TestMachineBlock.INSTANCE, TestMachineBlockEntity::new, new Identifier("dmntest", "test_machine_block"));
         //
         Registry.register(Registry.ITEM, new Identifier("dmntest", "test_energy_wandi"), new TestEnergyWandI());
         Registry.register(Registry.ITEM, new Identifier("dmntest", "test_energy_wandd"), new TestEnergyWandD());

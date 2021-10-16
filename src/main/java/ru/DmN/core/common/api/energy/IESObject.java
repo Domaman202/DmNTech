@@ -58,6 +58,22 @@ public interface IESObject <T> extends IESProvider<T> {
     long getMaxEnergy(T obj);
 
     /**
+     * If storage energy equals storage max energy return true
+     * @return storage is full?
+     */
+    default boolean isFull() {
+        return getEnergy() == getMaxEnergy();
+    }
+
+    /**
+     * If storage energy equals storage max energy return true
+     * @return storage is full?
+     */
+    default boolean isFull(T obj) {
+        return getEnergy(obj) == getMaxEnergy(obj);
+    }
+
+    /**
      * Inserting energy
      *
      * @param value energy count

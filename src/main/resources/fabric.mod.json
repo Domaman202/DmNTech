@@ -20,7 +20,8 @@
   "entrypoints": {
     "main": [
       "ru.DmN.core.common.DCore",
-      "ru.DmN.core.test.TestMain"
+      "ru.DmN.core.test.TestMain",
+      "ru.DmN.tech.common.DTech"
     ],
     "client": [
       "ru.DmN.core.client.DCoreClient",
