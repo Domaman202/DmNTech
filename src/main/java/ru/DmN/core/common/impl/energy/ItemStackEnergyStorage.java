@@ -42,22 +42,35 @@ public class ItemStackEnergyStorage extends NBTEnergyStorage <ItemStack> {
 
     @Override
     public long insertEnergy(ItemStack obj, long value) {
-        if (obj.hasNbt() && obj.getNbt().contains("dmn_data")) {
-            long i = value - (obj.getNbt().getLong("max_energy") - obj.getNbt().getLong("energy"));
-            obj.getNbt().putLong("energy", obj.getNbt().getLong("energy") + i);
-            return value - i;
-        }
-        setEnergy(obj, value);
+        if (obj.hasNbt() && obj.getNbt().contains("dmndata")) {
+            NbtCompound DmNData = obj.getNbt().getCompound("dmndata");
+            long energy = DmNData.getLong("energy");
+            long i = DmNData.getLong("max_energy") - energy;
+            if (value > i) {
+                DmNData.putLong("energy", energy + i);
+                return value - i;
+            }
+            DmNData.putLong("energy", energy + value);
+        } else setEnergy(obj, value);
         return 0;
     }
 
     @Override
     public long extractEnergy(ItemStack obj, long value) {
-        if (obj.hasNbt() && obj.getNbt().contains("dmn_data")) {
-            long i = (obj.getNbt().getLong("energy") - value) * -1;
-            if (i >= 0)
-                obj.getNbt().putLong("energy", obj.getNbt().getLong("energy") - value);
-            return i;
+        if (value < 0)
+            return insertEnergy(-value);
+        if (obj.hasNbt() && obj.getNbt().contains("dmndata")) {
+            NbtCompound DmNData = obj.getNbt().getCompound("dmndata");
+            long energy = DmNData.getLong("energy");
+
+            if (value > energy) {
+                long x = -(energy - value);
+                DmNData.putLong("energy", energy - (value - x));
+                return x;
+            }
+
+            DmNData.putLong("energy", energy - value);
+            return 0;
         }
         return value;
     }

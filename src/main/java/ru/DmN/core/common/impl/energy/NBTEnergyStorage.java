@@ -54,9 +54,14 @@ public class NBTEnergyStorage <T> implements IESObject <T> {
 
     @Override
     public long insertEnergy(long value) {
-        long i = value - (nbt.getLong("max_energy") - nbt.getLong("energy"));
-        nbt.putLong("energy", nbt.getLong("energy") + i);
-        return value - i;
+        long energy = nbt.getLong("energy");
+        long i = nbt.getLong("max_energy") - energy;
+        if (value > i) {
+            nbt.putLong("energy", energy + i);
+            return value - i;
+        }
+        nbt.putLong("energy", energy + value);
+        return 0;
     }
 
     @Override
@@ -66,10 +71,19 @@ public class NBTEnergyStorage <T> implements IESObject <T> {
 
     @Override
     public long extractEnergy(long value) {
-        long i = (nbt.getLong("energy") - value) * -1;
-        if (i >= 0)
-            nbt.putLong("energy", nbt.getLong("energy") - value);
-        return i;
+        if (value < 0)
+            return insertEnergy(-value);
+
+        long energy = nbt.getLong("energy");
+
+        if (value > energy) {
+            long x = -(energy - value);
+            nbt.putLong("energy", energy - (value - x));
+            return x;
+        }
+
+        nbt.putLong("energy", energy - value);
+        return 0;
     }
 
     @Override

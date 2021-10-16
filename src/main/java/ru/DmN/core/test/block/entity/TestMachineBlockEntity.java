@@ -14,7 +14,7 @@ import ru.DmN.core.test.TestMain;
 
 public class TestMachineBlockEntity extends MachineBlockEntity {
     public TestMachineBlockEntity(BlockPos pos, BlockState state) {
-        super(TestMain.TEST_MACHINE_BLOCK_ENTITY_TYPE, pos, state, 0, 1024);
+        super(TestMain.TEST_MACHINE_BLOCK_ENTITY_TYPE, pos, state, 0, 1000);
     }
 
     @Override

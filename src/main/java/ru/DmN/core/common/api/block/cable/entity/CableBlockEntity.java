@@ -1,4 +1,4 @@
-package ru.DmN.core.common.api.block.entity;
+package ru.DmN.core.common.api.block.cable.entity;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
@@ -18,7 +18,7 @@ public class CableBlockEntity extends BlockEntity implements IESProvider {
 
     public CableBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state, long maxEnergy) {
         super(type, pos, state);
-        storage = new SimpleEnergyStorage<>(maxEnergy);
+        storage = new CableEnergyStorage(maxEnergy);
     }
 
     /// ENERGY FUNCTIONS
@@ -26,6 +26,30 @@ public class CableBlockEntity extends BlockEntity implements IESProvider {
     @Override
     public IESObject<?> getEnergyStorage(@Nullable Object obj) {
         return storage;
+    }
+
+    public static class CableEnergyStorage extends SimpleEnergyStorage<CableEnergyStorage> {
+        public IESObject<?> LESO = null;
+
+        public CableEnergyStorage(long maxEnergy) {
+            super(maxEnergy);
+        }
+
+        @Override
+        public long suckEnergy(IESObject<?> storage) {
+            long x = super.suckEnergy(storage);
+            if (x != 0)
+                this.LESO = storage;
+            return x;
+        }
+
+        @Override
+        public long equalize(IESObject<?> storage) {
+            long x = super.equalize(storage);
+            if (x != 0)
+                this.LESO = storage;
+            return x;
+        }
     }
 
     /// NBT

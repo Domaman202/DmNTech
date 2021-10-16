@@ -4,7 +4,7 @@ import ru.DmN.core.common.api.energy.IESObject;
 
 public class SimpleEnergyStorage <T extends SimpleEnergyStorage<T>> implements IESObject <T> {
     public long energy = 0;
-    public long maxEnergy = 0;
+    public long maxEnergy;
 
     public SimpleEnergyStorage(long maxEnergy) {
         this.maxEnergy = maxEnergy;
@@ -57,32 +57,54 @@ public class SimpleEnergyStorage <T extends SimpleEnergyStorage<T>> implements I
 
     @Override
     public long insertEnergy(long value) {
-        long i = value - (maxEnergy - energy);
-        energy += i;
-        return value - i;
+        long i = maxEnergy - energy;
+        if (value > i) {
+            energy += i;
+            return value - i;
+        }
+        energy += value;
+        return 0;
     }
 
     @Override
     public long insertEnergy(T obj, long value) {
-        long i = value - (obj.maxEnergy - obj.energy);
-        obj.energy += i;
-        return value - i;
+        long i = obj.maxEnergy - obj.energy;
+        if (value > i) {
+            obj.energy += i;
+            return value - i;
+        }
+        obj.energy += value;
+        return 0;
     }
 
     @Override
     public long extractEnergy(long value) {
-        long i = (energy - value) * -1;
-        if (i >= 0)
-            energy = energy - value;
-        return i;
+        if (value < 0)
+            return insertEnergy(-value);
+
+        if (value > energy) {
+            long x = -(energy - value);
+            energy -= value - x;
+            return x;
+        }
+
+        energy -= value;
+        return 0;
     }
 
     @Override
     public long extractEnergy(T obj, long value) {
-        long i = (obj.energy - value) * -1;
-        if (i >= 0)
-            obj.energy = obj.energy - value;
-        return i;
+        if (value < 0)
+            return insertEnergy(-value);
+
+        if (value > obj.energy) {
+            long x = -(obj.energy - value);
+            obj.energy -= value - x;
+            return x;
+        }
+
+        obj.energy -= value;
+        return 0;
     }
 
     @Override

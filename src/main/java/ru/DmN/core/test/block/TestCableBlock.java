@@ -4,8 +4,8 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.Material;
 import net.minecraft.util.math.BlockPos;
 import org.jetbrains.annotations.Nullable;
-import ru.DmN.core.common.api.block.CableBlock;
-import ru.DmN.core.common.api.block.entity.CableBlockEntity;
+import ru.DmN.core.common.api.block.cable.CableBlock;
+import ru.DmN.core.common.api.block.cable.entity.CableBlockEntity;
 import ru.DmN.core.test.block.entity.TestCableBlockEntity;
 
 public class TestCableBlock extends CableBlock {
@@ -16,7 +16,8 @@ public class TestCableBlock extends CableBlock {
     }
 
     @Override
-    public @Nullable CableBlockEntity createBlockEntity(BlockPos pos, BlockState state) {
+    @Nullable
+    public CableBlockEntity createBlockEntity(BlockPos pos, BlockState state) {
         return new TestCableBlockEntity(pos, state);
     }
 }
