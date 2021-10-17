@@ -12,8 +12,10 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import ru.DmN.core.common.registry.GlobalRegistry;
 import ru.DmN.core.test.armor.TestInfinityArmor;
+import ru.DmN.core.test.block.InfEnergySourceBlock;
 import ru.DmN.core.test.block.TestCableBlock;
 import ru.DmN.core.test.block.TestMachineBlock;
+import ru.DmN.core.test.block.entity.InfEnergySourceBlockEntity;
 import ru.DmN.core.test.block.entity.TestCableBlockEntity;
 import ru.DmN.core.test.block.entity.TestMachineBlockEntity;
 import ru.DmN.core.test.item.TestEnergyWandD;
@@ -23,10 +25,12 @@ public class TestMain implements ModInitializer, ClientModInitializer {
     public static final ItemGroup DTestGroup = FabricItemGroupBuilder.create(new Identifier("dmntest", "items")).icon(() -> new ItemStack(TestMachineBlock.INSTANCE)).build();
     public static BlockEntityType<TestMachineBlockEntity> TEST_MACHINE_BLOCK_ENTITY_TYPE;
     public static BlockEntityType<TestCableBlockEntity> TEST_CABLE_BLOCK_ENTITY_TYPE;
+    public static BlockEntityType<InfEnergySourceBlockEntity> TEST_INF_ENERGY_BLOCK_ENTITY_TYPE;
 
     @Override
     public void onInitialize() {
         TEST_MACHINE_BLOCK_ENTITY_TYPE = GlobalRegistry.register(TestMachineBlock.INSTANCE, TestMachineBlockEntity::new, new Identifier("dmntest", "test_machine_block"));
+        TEST_INF_ENERGY_BLOCK_ENTITY_TYPE = GlobalRegistry.register(InfEnergySourceBlock.INSTANCE, InfEnergySourceBlockEntity::new, new Identifier("dmntest", "inf_energy_source"));
         //
         Registry.register(Registry.ITEM, new Identifier("dmntest", "test_energy_wandi"), new TestEnergyWandI());
         Registry.register(Registry.ITEM, new Identifier("dmntest", "test_energy_wandd"), new TestEnergyWandD());

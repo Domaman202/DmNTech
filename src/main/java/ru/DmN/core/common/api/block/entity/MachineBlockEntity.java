@@ -13,8 +13,11 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
+import net.minecraft.text.LiteralText;
+import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.WorldAccess;
+import org.jetbrains.annotations.Nullable;
 import ru.DmN.core.common.api.block.MachineBlock;
 import ru.DmN.core.common.api.energy.IESObject;
 import ru.DmN.core.common.api.energy.IESProvider;
@@ -24,10 +27,15 @@ import ru.DmN.core.common.inventory.ConfigurableInventory;
 
 @SuppressWarnings("rawtypes")
 public abstract class MachineBlockEntity extends FastBlockEntity implements IESProvider, InventoryProvider, NamedScreenHandlerFactory {
-    public SimpleEnergyStorage<?> storage;
+    public IESObject<?> storage;
     public SidedInventory inventory;
 
     /// CONSTRUCTORS
+
+    public MachineBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
+        super(type, pos, state);
+        this.inventory = new ConfigurableInventory(0);
+    }
 
     public MachineBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state, long energy, long maxEnergy) {
         super(type, pos, state);
@@ -64,8 +72,14 @@ public abstract class MachineBlockEntity extends FastBlockEntity implements IESP
     };
 
     @Override
+    @Nullable
     public ScreenHandler createMenu(int syncId, PlayerInventory playerInventory, PlayerEntity player) {
         return new SimpleMachineScreenHandler(syncId, playerInventory, properties);
+    }
+
+    @Override
+    public Text getDisplayName() {
+        return new LiteralText("Unnamed Machine");
     }
 
     /// ACTIONS

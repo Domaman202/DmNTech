@@ -2,7 +2,6 @@ package ru.DmN.core.common.registry;
 
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
 import net.minecraft.block.Block;
-import net.minecraft.block.OreBlock;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
@@ -10,10 +9,6 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import ru.DmN.core.common.api.block.MachineBlock;
 import ru.DmN.core.common.api.block.entity.MachineBlockEntity;
-import ru.DmN.core.test.block.TestCableBlock;
-import ru.DmN.core.test.block.entity.TestCableBlockEntity;
-
-import java.util.ArrayList;
 
 public class GlobalRegistry {
     // Settings
@@ -28,11 +23,11 @@ public class GlobalRegistry {
     }
 
     public static void register(MachineBlock block, Identifier id) {
-        Registry.register(Registry.ITEM, id, Registry.register(Registry.BLOCK, id, block).item);
+        Registry.register(Registry.ITEM, id, Registry.register(Registry.BLOCK, id, block).asItem());
     }
 
     public static <T extends MachineBlockEntity> BlockEntityType<T> register(MachineBlock block, FabricBlockEntityTypeBuilder.Factory<T> factory, Identifier id) {
-        Registry.register(Registry.ITEM, id, Registry.register(Registry.BLOCK, id, block).item);
+        Registry.register(Registry.ITEM, id, Registry.register(Registry.BLOCK, id, block).asItem());
         return Registry.register(Registry.BLOCK_ENTITY_TYPE, id, FabricBlockEntityTypeBuilder.create(factory, block).build());
     }
 }

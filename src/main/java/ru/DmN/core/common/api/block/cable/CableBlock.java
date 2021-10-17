@@ -22,6 +22,8 @@ import ru.DmN.core.common.api.energy.IESProvider;
 import java.util.ArrayList;
 
 public abstract class CableBlock extends ConnectingBlock implements BlockEntityProvider, BlockEntityTicker<CableBlockEntity> {
+    public static int __DEBUG__ = 0;
+
     /// CONSTRUCTORS
 
     public CableBlock(float radius, Settings settings) {
@@ -66,7 +68,6 @@ public abstract class CableBlock extends ConnectingBlock implements BlockEntityP
             for (CableBlockEntity.CableEnergyStorage entity : entities)
                 if (entity.getEnergy() > 0 && entity.LESO != storage)
                     storage.suckEnergy(entity);
-
     }
 
     /// BLOCK ENTITY

@@ -22,6 +22,8 @@ public class MachineBlockItem extends BlockItem implements IESProvider<ItemStack
         super(block, settings);
     }
 
+    /// ACTIONS
+
     @Override
     public ActionResult place(ItemPlacementContext context) {
         World world = context.getWorld();
@@ -47,6 +49,8 @@ public class MachineBlockItem extends BlockItem implements IESProvider<ItemStack
         return ActionResult.SUCCESS;
     }
 
+    /// ITEM BAR
+
     @Override
     public int getItemBarColor(ItemStack stack) {
         if (stack.hasNbt()) {
@@ -69,6 +73,8 @@ public class MachineBlockItem extends BlockItem implements IESProvider<ItemStack
     public boolean isItemBarVisible(ItemStack stack) {
         return true;
     }
+
+    /// ENERGY FUNCTIONS
 
     @Override
     public IESObject<ItemStack> getEnergyStorage(ItemStack stack) {

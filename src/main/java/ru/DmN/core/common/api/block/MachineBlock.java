@@ -20,19 +20,32 @@ import net.minecraft.world.WorldAccess;
 import org.jetbrains.annotations.Nullable;
 import ru.DmN.core.common.api.block.entity.MachineBlockEntity;
 import ru.DmN.core.common.api.item.MachineBlockItem;
+import ru.DmN.core.common.utils.Lazy;
+
+import java.util.function.Supplier;
 
 public abstract class MachineBlock extends HorizontalFacingBlock implements BlockEntityProvider, InventoryProvider {
     public static final BooleanProperty ACTIVE = BooleanProperty.of("active");
-    public MachineBlockItem item;
+    public Lazy<MachineBlockItem> item;
 
     /// CONSTRUCTORS
 
-    public MachineBlock(Settings settings, Item.Settings settings_) {
-        super(settings.hardness(1).requiresTool());
-        this.item = new MachineBlockItem(this, settings_);
+    public MachineBlock(Settings settings, Item.Settings settings_, Void unused) {
+        super(settings);
+        this.item = new Lazy<>(new MachineBlockItem(this, settings_));
     }
 
-    public MachineBlock(Settings settings, MachineBlockItem item) {
+    public MachineBlock(Settings settings, Item.Settings settings_) {
+        super(settings.hardness(1).requiresTool());
+        this.item = new Lazy<>(new MachineBlockItem(this, settings_));
+    }
+
+    public MachineBlock(Settings settings, Supplier<MachineBlockItem> item) {
+        super(settings.hardness(1).requiresTool());
+        this.item = new Lazy<>(item);
+    }
+
+    public MachineBlock(Settings settings, Lazy<MachineBlockItem> item) {
         super(settings.hardness(1).requiresTool());
         this.item = item;
     }
@@ -45,7 +58,7 @@ public abstract class MachineBlock extends HorizontalFacingBlock implements Bloc
         if (player.isSneaking())
             world.setBlockState(pos, state.with(ACTIVE, !state.get(ACTIVE)));
         // Screen Open
-        else if (!world.isClient)
+        else
             player.openHandledScreen((MachineBlockEntity) world.getBlockEntity(pos));
         //
         return ActionResult.SUCCESS;
@@ -84,7 +97,7 @@ public abstract class MachineBlock extends HorizontalFacingBlock implements Bloc
 
     @Override
     public MachineBlockItem asItem() {
-        return item;
+        return item.get();
     }
 
     /// PROPERTIES
