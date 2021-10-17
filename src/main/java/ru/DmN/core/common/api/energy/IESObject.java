@@ -1,5 +1,7 @@
 package ru.DmN.core.common.api.energy;
 
+import ru.DmN.core.test.block.entity.InfEnergySourceBlockEntity;
+
 public interface IESObject <T> extends IESProvider<T> {
     /**
      * Setting energy
@@ -121,7 +123,7 @@ public interface IESObject <T> extends IESProvider<T> {
         } else if (i > max)
             i = i - (max - i);
         else if (i > storage.getMaxEnergy())
-            i = i - (storage.getMaxEnergy() - i);
+            i += storage.getMaxEnergy() - i;
 
         if (i == 0 || i < 0 && this.getEnergy() == this.getMaxEnergy())
             return 0;

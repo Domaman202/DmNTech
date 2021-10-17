@@ -9,6 +9,7 @@ import org.jetbrains.annotations.Nullable;
 import ru.DmN.core.common.api.block.entity.MachineBlockEntity;
 import ru.DmN.core.common.api.energy.IESObject;
 import ru.DmN.core.test.TestMain;
+import ru.DmN.core.test.block.InfEnergySourceBlock;
 
 public class InfEnergySourceBlockEntity extends MachineBlockEntity {
     public InfEnergySourceBlockEntity(BlockPos pos, BlockState state) {
@@ -23,7 +24,7 @@ public class InfEnergySourceBlockEntity extends MachineBlockEntity {
     }
 
     @SuppressWarnings("rawtypes")
-    public static class InfEnergyStorage implements IESObject {
+    public class InfEnergyStorage implements IESObject {
         public InfEnergyStorage() {
             super();
         }
@@ -38,12 +39,12 @@ public class InfEnergySourceBlockEntity extends MachineBlockEntity {
 
         @Override
         public long getEnergy() {
-            return Long.MAX_VALUE;
+            return world.getBlockState(pos).get(InfEnergySourceBlock.ACTIVE).booleanValue() ? Long.MAX_VALUE : 0;
         }
 
         @Override
         public long getEnergy(Object obj) {
-            return Long.MAX_VALUE;
+            return getEnergy();
         }
 
         @Override
@@ -76,12 +77,12 @@ public class InfEnergySourceBlockEntity extends MachineBlockEntity {
 
         @Override
         public long extractEnergy(long value) {
-            return 0;
+            return value;
         }
 
         @Override
         public long extractEnergy(Object obj, long value) {
-            return 0;
+            return value;
         }
     }
 }
