@@ -1,5 +1,5 @@
 {
-  "parent": "dmntest:block/template/template_thin_cable_side",
+  "parent": "dmncore:block/template/template_thin_cable_side",
   "textures": {
     "cable": "dmntest:block/test_cable"
   }
