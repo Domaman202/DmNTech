@@ -2,6 +2,7 @@ package ru.DmN.core.common.api.item;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemPlacementContext;
@@ -28,8 +29,8 @@ public class MachineBlockItem extends BlockItem implements IESProvider<ItemStack
     public ActionResult place(ItemPlacementContext context) {
         World world = context.getWorld();
         ItemStack stack = context.getStack();
-        MachineBlockEntity entity = (MachineBlockEntity) world.getBlockEntity(context.getBlockPos());
-        if (entity == null) {
+        BlockEntity entity = world.getBlockEntity(context.getBlockPos());
+        if (!(entity instanceof MachineBlockEntity)) {
             MachineBlock block = (MachineBlock) ((BlockItem) stack.getItem()).getBlock();
             BlockState state = block.getDefaultState();
             BlockPos pos = context.getBlockPos();
@@ -37,7 +38,7 @@ public class MachineBlockItem extends BlockItem implements IESProvider<ItemStack
             entity = block.createBlockEntity(pos, state);
             world.addBlockEntity(entity);
         }
-        entity.onPlace(context);
+        ((MachineBlockEntity) entity).onPlace(context);
         if (stack.getCount() == 1)
             context.getPlayer().getInventory().removeOne(stack);
         else {

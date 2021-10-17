@@ -22,8 +22,6 @@ import ru.DmN.core.common.api.energy.IESProvider;
 import java.util.ArrayList;
 
 public abstract class CableBlock extends ConnectingBlock implements BlockEntityProvider, BlockEntityTicker<CableBlockEntity> {
-    public static int __DEBUG__ = 0;
-
     /// CONSTRUCTORS
 
     public CableBlock(float radius, Settings settings) {
@@ -45,29 +43,16 @@ public abstract class CableBlock extends ConnectingBlock implements BlockEntityP
         if (world.isClient)
             return;
 
-        ArrayList<CableBlockEntity.CableEnergyStorage> entities = new ArrayList<>();
-
-        if (shouldConnectCable(world, pos.down()))
-            entities.add((CableBlockEntity.CableEnergyStorage) ((CableBlockEntity) world.getBlockEntity(pos.down())).storage);
-        if (shouldConnectCable(world, pos.up()))
-            entities.add((CableBlockEntity.CableEnergyStorage) ((CableBlockEntity) world.getBlockEntity(pos.up())).storage);
-        if (shouldConnectCable(world, pos.north()))
-            entities.add((CableBlockEntity.CableEnergyStorage) ((CableBlockEntity) world.getBlockEntity(pos.north())).storage);
-        if (shouldConnectCable(world, pos.south()))
-            entities.add((CableBlockEntity.CableEnergyStorage) ((CableBlockEntity) world.getBlockEntity(pos.south())).storage);
-        if (shouldConnectCable(world, pos.east()))
-            entities.add((CableBlockEntity.CableEnergyStorage) ((CableBlockEntity) world.getBlockEntity(pos.east())).storage);
-        if (shouldConnectCable(world, pos.west()))
-            entities.add((CableBlockEntity.CableEnergyStorage) ((CableBlockEntity) world.getBlockEntity(pos.west())).storage);
-
         IESObject<?> storage = blockEntity.storage;
 
         equalizeEnergyWithMachines(world, pos, storage);
 
-        if (storage.getEnergy() < storage.getMaxEnergy())
-            for (CableBlockEntity.CableEnergyStorage entity : entities)
-                if (entity.getEnergy() > 0 && entity.LESO != storage)
-                    storage.suckEnergy(entity);
+        tryTransferCableEnergy(world, pos.down(),   storage);
+        tryTransferCableEnergy(world, pos.up(),     storage);
+        tryTransferCableEnergy(world, pos.north(),  storage);
+        tryTransferCableEnergy(world, pos.south(),  storage);
+        tryTransferCableEnergy(world, pos.east(),   storage);
+        tryTransferCableEnergy(world, pos.west(),   storage);
     }
 
     /// BLOCK ENTITY
@@ -118,6 +103,17 @@ public abstract class CableBlock extends ConnectingBlock implements BlockEntityP
     }
 
     /// PRIVATE UTILS
+
+    public static void tryTransferCableEnergy(World world, BlockPos pos, IESObject<?> storage) {
+        if (shouldConnectCable(world, pos)) {
+            CableBlockEntity.CableEnergyStorage s = (CableBlockEntity.CableEnergyStorage) ((CableBlockEntity) world.getBlockEntity(pos)).storage;
+            if (s.getEnergy() > 0)
+                if (s.LESO != null && s.LESO.getEnergy() > storage.getEnergy())
+                    storage.suckEnergy(s);
+                else
+                    storage.equalize(s);
+        }
+    }
 
     public static boolean shouldConnect(World world, BlockPos pos) {
         Block block = world.getBlockState(pos).getBlock();
