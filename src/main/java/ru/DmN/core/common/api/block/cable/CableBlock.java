@@ -102,7 +102,13 @@ public abstract class CableBlock extends ConnectingBlock implements BlockEntityP
                 .with(WEST, shouldConnect(world, pos.west()));
     }
 
-    /// PRIVATE UTILS
+    /// STATIC UTILS
+
+    public static long trySuckEnergyOfCable(World world, BlockPos pos, IESObject<?> storage) {
+        if (shouldConnectCable(world, pos))
+            return storage.suckEnergy(((CableBlockEntity) world.getBlockEntity(pos)).storage);
+        return 0;
+    }
 
     public static void tryTransferCableEnergy(World world, BlockPos pos, IESObject<?> storage) {
         if (shouldConnectCable(world, pos)) {

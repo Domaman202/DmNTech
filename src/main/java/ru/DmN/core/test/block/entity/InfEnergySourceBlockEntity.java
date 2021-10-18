@@ -6,6 +6,7 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.util.math.BlockPos;
 import org.jetbrains.annotations.Nullable;
+import ru.DmN.core.common.api.block.MachineBlock;
 import ru.DmN.core.common.api.block.entity.MachineBlockEntity;
 import ru.DmN.core.common.api.energy.IESObject;
 import ru.DmN.core.test.TestMain;
@@ -39,7 +40,10 @@ public class InfEnergySourceBlockEntity extends MachineBlockEntity {
 
         @Override
         public long getEnergy() {
-            return world.getBlockState(pos).get(InfEnergySourceBlock.ACTIVE).booleanValue() ? Long.MAX_VALUE : 0;
+            BlockState state = world.getBlockState(pos);
+            if (state.getBlock() instanceof MachineBlock)
+                return state.get(InfEnergySourceBlock.ACTIVE) ? Long.MAX_VALUE : 0;
+            return 0;
         }
 
         @Override

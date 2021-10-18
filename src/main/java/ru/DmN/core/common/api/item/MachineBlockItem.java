@@ -27,13 +27,18 @@ public class MachineBlockItem extends BlockItem implements IESProvider<ItemStack
 
     @Override
     public ActionResult place(ItemPlacementContext context) {
+        //
         World world = context.getWorld();
         ItemStack stack = context.getStack();
+        BlockPos pos = context.getBlockPos();
+        // Check Pos
+        if (!world.getBlockState(pos).isAir())
+            return ActionResult.FAIL;
+        // Place
         BlockEntity entity = world.getBlockEntity(context.getBlockPos());
         if (!(entity instanceof MachineBlockEntity)) {
             MachineBlock block = (MachineBlock) ((BlockItem) stack.getItem()).getBlock();
             BlockState state = block.getDefaultState();
-            BlockPos pos = context.getBlockPos();
             world.setBlockState(pos, state);
             entity = block.createBlockEntity(pos, state);
             world.addBlockEntity(entity);

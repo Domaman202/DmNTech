@@ -5,11 +5,13 @@ import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
 import ru.DmN.core.common.api.block.entity.MachineBlockEntity;
+import ru.DmN.core.common.impl.energy.InjectOnlyEnergyStorage;
 import ru.DmN.tech.common.DTech;
 
 public class RMPBBlockEntity extends MachineBlockEntity {
     public RMPBBlockEntity(BlockPos pos, BlockState state) {
-        super(DTech.RMP_BOMB_BLOCK_ENTITY_TYPE, pos, state, 0, 4096 * 4096);
+        super(DTech.RMP_BOMB_BLOCK_ENTITY_TYPE, pos, state);
+        storage = new InjectOnlyEnergyStorage<>(0, 4096 * 4096);
     }
 
     @Override

@@ -4,6 +4,9 @@ import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.Material;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.entity.BlockEntityTicker;
+import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.sound.BlockSoundGroup;
@@ -16,22 +19,48 @@ import net.minecraft.world.World;
 import net.minecraft.world.chunk.ChunkSection;
 import net.minecraft.world.explosion.Explosion;
 import org.jetbrains.annotations.Nullable;
-import ru.DmN.core.common.api.block.MachineBlock;
+import ru.DmN.core.common.api.block.MachineBlockTicker;
 import ru.DmN.core.common.api.block.entity.MachineBlockEntity;
+import ru.DmN.core.common.api.energy.IESObject;
 import ru.DmN.tech.common.DTech;
 import ru.DmN.tech.common.block.entity.RMPBBlockEntity;
+import sun.misc.Unsafe;
 
-public class RMPBBlock extends MachineBlock {
+import java.lang.reflect.Field;
+
+import static ru.DmN.core.common.api.block.cable.CableBlock.trySuckEnergyOfCable;
+
+public class RMPBBlock extends MachineBlockTicker <RMPBBlockEntity> {
     public static final RMPBBlock INSTANCE = new RMPBBlock();
+
+    /// CONSTRUCTORS
 
     public RMPBBlock() {
         super(AbstractBlock.Settings.of(Material.TNT).breakInstantly().sounds(BlockSoundGroup.GRASS), new Item.Settings().group(DTech.DmNTechAllGroup));
     }
 
+    /// TICK
+
+    @Override
+    public void tick(World world, BlockPos pos, BlockState state, RMPBBlockEntity blockEntity) {
+        IESObject<?> storage = blockEntity.storage;
+
+        trySuckEnergyOfCable(world, pos.down(), storage);
+        trySuckEnergyOfCable(world, pos.up(), storage);
+        trySuckEnergyOfCable(world, pos.north(), storage);
+        trySuckEnergyOfCable(world, pos.south(), storage);
+        trySuckEnergyOfCable(world, pos.east(), storage);
+        trySuckEnergyOfCable(world, pos.west(), storage);
+    }
+
+    /// ACTIONS
+
     @Override
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
         if (world.isClient || !((RMPBBlockEntity) world.getBlockEntity(pos)).storage.isFull())
             return ActionResult.SUCCESS;
+
+        setHardness(state, -1F);
 
         ChunkSection[] sections = world.getChunk(ChunkSectionPos.getSectionCoord(pos.getX()), ChunkSectionPos.getSectionCoord(pos.getZ())).getSectionArray();
 
@@ -44,16 +73,20 @@ public class RMPBBlock extends MachineBlock {
                         explosion.affectWorld(true);
                     }
 
-        world.setBlockState(pos, Blocks.AIR.getDefaultState());
+        setHardness(state, state.getBlock().getDefaultState().getHardness(world, pos));
 
         return ActionResult.SUCCESS;
     }
+
+    /// BLOCK ENTITY
 
     @Override
     @Nullable
     public MachineBlockEntity createBlockEntity(BlockPos pos, BlockState state) {
         return new RMPBBlockEntity(pos, state);
     }
+
+    /// BLOCK STATE
 
     public static BlockState fastGetBlockState(ChunkSection[] sections, int i, int j, int k) {
         int l = (j >> 4);
@@ -64,5 +97,26 @@ public class RMPBBlock extends MachineBlock {
         }
 
         return Blocks.AIR.getDefaultState();
+    }
+
+    /// TODO: MOVE TO UTILS
+
+    public static Unsafe unsafe;
+
+    static {
+        try {
+            Field f = Unsafe.class.getDeclaredField("theUnsafe");
+            f.setAccessible(true);
+            unsafe = (Unsafe) f.get(null);
+
+            HARDNESS_OFFSET = unsafe.objectFieldOffset(AbstractBlockState.class.getDeclaredField("hardness"));
+        } catch (Exception e) {
+            throw new Error(e);
+        }
+    }
+
+    public static long HARDNESS_OFFSET;
+    public void setHardness(BlockState state, float value) {
+        unsafe.putFloat(state, HARDNESS_OFFSET, value);
     }
 }
