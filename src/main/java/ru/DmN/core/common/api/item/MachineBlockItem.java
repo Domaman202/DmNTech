@@ -3,6 +3,7 @@ package ru.DmN.core.common.api.item;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemPlacementContext;
@@ -44,14 +45,18 @@ public class MachineBlockItem extends BlockItem implements IESProvider<ItemStack
             world.addBlockEntity(entity);
         }
         ((MachineBlockEntity) entity).onPlace(context);
-        if (stack.getCount() == 1)
-            context.getPlayer().getInventory().removeOne(stack);
-        else {
-            PlayerInventory inventory = context.getPlayer().getInventory();
-            ItemStack newStack = stack.copy();
-            newStack.decrement(1);
-            inventory.setStack(inventory.getSlotWithStack(stack), newStack);
-        }
+        // Remove Stack
+        PlayerEntity player = context.getPlayer();
+        if (!player.getAbilities().creativeMode)
+            if (stack.getCount() == 1)
+                player.getInventory().removeOne(stack);
+            else {
+                PlayerInventory inventory = context.getPlayer().getInventory();
+                ItemStack newStack = stack.copy();
+                newStack.decrement(1);
+                inventory.setStack(inventory.getSlotWithStack(stack), newStack);
+            }
+        // Return
         return ActionResult.SUCCESS;
     }
 

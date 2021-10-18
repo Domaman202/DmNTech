@@ -15,7 +15,9 @@ import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.registry.Registry;
 import net.minecraft.world.WorldAccess;
 import org.jetbrains.annotations.Nullable;
 import ru.DmN.core.common.api.block.MachineBlock;
@@ -115,6 +117,32 @@ public abstract class MachineBlockEntity extends FastBlockEntity implements IESP
         dmnData.putBoolean("active", world.getBlockState(pos).get(MachineBlock.ACTIVE));
         nbt.put("dmndata", dmnData);
         return nbt;
+    }
+
+    public NbtCompound writeMyInventoryData(NbtCompound nbt) {
+        NbtCompound invData = new NbtCompound();
+
+        int i = inventory.size();
+        invData.putInt("size", i);
+        for (i--; i != 0; i--) {
+            ItemStack stack = inventory.getStack(i);
+            invData.putString("id" + i, Registry.ITEM.getId(stack.getItem()).toString());
+            invData.putInt("c" + i, stack.getCount());
+            invData.put(String.valueOf(i), stack.getNbt());
+        }
+
+        nbt.put("invdata", invData);
+        return nbt;
+    }
+
+    public void readMyInventoryData(NbtCompound nbt) {
+        NbtCompound invData = nbt.getCompound("invdata");
+
+        for (int i = invData.getInt("size") - 1; i != 0; i--) {
+            ItemStack stack = new ItemStack(Registry.ITEM.get(new Identifier(invData.getString("id" + i))), invData.getInt("c" + i));
+            stack.setNbt(invData.getCompound(String.valueOf(i)));
+            inventory.setStack(i, stack);
+        }
     }
 
     @Override

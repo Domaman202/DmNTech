@@ -34,8 +34,7 @@ public class MachineScreen <T extends MachineScreenHandler> extends HandledScree
         int maxEnergy = handler.properties.get(1);
 
         TextRenderer renderer = MinecraftClient.getInstance().textRenderer;
-        renderer.draw(matrices, new TranslatableText("text.dmncore.energy", lastEnergy), posW += 5, posH += 20, ColorUtils.calcColorWithEnergy(lastEnergy, maxEnergy));
-        renderer.draw(matrices, new TranslatableText("text.dmncore.max_energy", maxEnergy), posW, posH += 8, Color.GRAY.getRGB());
+        renderer.draw(matrices, new TranslatableText("text.dmncore.energy", lastEnergy, maxEnergy), posW += 5, posH += 20, ColorUtils.calcColorWithEnergy(lastEnergy, maxEnergy));
     }
 
     @Override

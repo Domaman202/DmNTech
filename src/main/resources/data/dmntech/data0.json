@@ -1,0 +1,22 @@
+{
+  "coil": [
+    {
+      "name": "cupronickel",
+      "temperature": 800,
+      "energy": 4,
+      "max": 4
+    },
+    {
+      "name": "nichrome",
+      "temperature": 1200,
+      "energy": 2,
+      "max": 8
+    },
+    {
+      "name": "cantal",
+      "temperature": 2400,
+      "energy": 10,
+      "max": 8
+    }
+  ]
+}
