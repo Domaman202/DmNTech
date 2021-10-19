@@ -21,11 +21,12 @@
     "main": [
       "ru.DmN.core.common.DCore",
       "ru.DmN.core.test.TestMain",
-      "ru.DmN.tech.common.DTech"
+      "ru.DmN.tech.common.DTech",
+      "ru.DmN.tech.test.TestMain"
     ],
     "client": [
       "ru.DmN.core.client.DCoreClient",
-      "ru.DmN.core.test.TestMain"
+      "ru.DmN.tech.test.TestClientMain"
     ]
   },
   "mixins": [

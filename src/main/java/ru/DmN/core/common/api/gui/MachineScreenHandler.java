@@ -3,13 +3,13 @@ package ru.DmN.core.common.api.gui;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
-import net.minecraft.screen.ArrayPropertyDelegate;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.screen.slot.Slot;
 import org.jetbrains.annotations.Nullable;
 import ru.DmN.core.common.inventory.ConfigurableInventory;
+import ru.DmN.core.common.screen.DynamicPropertyDelegate;
 
 public abstract class MachineScreenHandler extends ScreenHandler {
     public ConfigurableInventory inventory;
@@ -17,7 +17,7 @@ public abstract class MachineScreenHandler extends ScreenHandler {
     public Inventory pInventory;
 
     public MachineScreenHandler(@Nullable ScreenHandlerType<?> type, int syncId, PlayerInventory playerInventory) {
-        this(type, syncId, playerInventory, new ArrayPropertyDelegate(2));
+        this(type, syncId, playerInventory, new DynamicPropertyDelegate());
     }
 
     public MachineScreenHandler(@Nullable ScreenHandlerType<?> type, int syncId, PlayerInventory playerInventory, PropertyDelegate properties) {

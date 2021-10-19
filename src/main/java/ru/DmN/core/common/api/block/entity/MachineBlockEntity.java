@@ -26,9 +26,10 @@ import ru.DmN.core.common.api.energy.IESProvider;
 import ru.DmN.core.client.gui.SimpleMachineScreenHandler;
 import ru.DmN.core.common.impl.energy.SimpleEnergyStorage;
 import ru.DmN.core.common.inventory.ConfigurableInventory;
+import ru.DmN.core.common.screen.MachinePropertyDelegate;
 
 @SuppressWarnings("rawtypes")
-public abstract class MachineBlockEntity extends FastBlockEntity implements IESProvider, InventoryProvider, NamedScreenHandlerFactory {
+public class MachineBlockEntity extends FastBlockEntity implements IESProvider, InventoryProvider, NamedScreenHandlerFactory {
     public IESObject<?> storage;
     public SidedInventory inventory;
 
@@ -36,6 +37,7 @@ public abstract class MachineBlockEntity extends FastBlockEntity implements IESP
 
     public MachineBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
+        this.storage = new SimpleEnergyStorage<>(0, 0);
         this.inventory = new ConfigurableInventory(0);
     }
 
@@ -47,31 +49,7 @@ public abstract class MachineBlockEntity extends FastBlockEntity implements IESP
 
     /// SCREEN
 
-    public PropertyDelegate properties = new PropertyDelegate() {
-        @Override
-        public int get(int index) {
-            if (index == 0) {
-                long energy = storage.getEnergy();
-                return energy > Integer.MAX_VALUE ? Integer.MAX_VALUE : (int) energy;
-            } else {
-                long maxEnergy = storage.getMaxEnergy();
-                return maxEnergy > Integer.MAX_VALUE ? Integer.MAX_VALUE : (int) maxEnergy;
-            }
-        }
-
-        @Override
-        public void set(int index, int value) {
-            if (index == 0)
-                storage.setEnergy(value);
-            else
-                storage.setMaxEnergy(value);
-        }
-
-        @Override
-        public int size() {
-            return 2;
-        }
-    };
+    public MachinePropertyDelegate properties = new MachinePropertyDelegate(this);
 
     @Override
     @Nullable

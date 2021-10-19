@@ -1,6 +1,5 @@
 package ru.DmN.core.test;
 
-import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
@@ -21,7 +20,7 @@ import ru.DmN.core.test.block.entity.TestMachineBlockEntity;
 import ru.DmN.core.test.item.TestEnergyWandD;
 import ru.DmN.core.test.item.TestEnergyWandI;
 
-public class TestMain implements ModInitializer, ClientModInitializer {
+public class TestMain implements ModInitializer {
     public static final ItemGroup DTestGroup = FabricItemGroupBuilder.create(new Identifier("dmntest", "items")).icon(() -> new ItemStack(TestMachineBlock.INSTANCE)).build();
     public static BlockEntityType<TestMachineBlockEntity> TEST_MACHINE_BLOCK_ENTITY_TYPE;
     public static BlockEntityType<TestCableBlockEntity> TEST_CABLE_BLOCK_ENTITY_TYPE;
@@ -42,10 +41,5 @@ public class TestMain implements ModInitializer, ClientModInitializer {
         //
         GlobalRegistry.register(TestCableBlock.INSTANCE, new Item.Settings().group(DTestGroup), new Identifier("dmntest", "test_cable"));
         TEST_CABLE_BLOCK_ENTITY_TYPE = Registry.register(Registry.BLOCK_ENTITY_TYPE, new Identifier("dmntest", "test_cable"), FabricBlockEntityTypeBuilder.create(TestCableBlockEntity::new, TestCableBlock.INSTANCE).build());
-    }
-
-    @Override
-    public void onInitializeClient() {
-
     }
 }
