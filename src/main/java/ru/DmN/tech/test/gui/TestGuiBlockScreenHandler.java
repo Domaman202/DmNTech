@@ -3,19 +3,12 @@ package ru.DmN.tech.test.gui;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.screen.PropertyDelegate;
 import ru.DmN.core.common.api.gui.MachineScreenHandler;
-import ru.DmN.core.common.inventory.ConfigurableInventory;
-import ru.DmN.tech.test.TestClientMain;
+import ru.DmN.core.common.api.inventory.ConfigurableInventory;
 
 public class TestGuiBlockScreenHandler extends MachineScreenHandler {
-    public TestGuiBlockScreenHandler(int syncId, PlayerInventory playerInventory) {
-        super(TestClientMain.TEST_GUI_BLOCK_SCREEN_HANDLER, syncId, playerInventory);
-    }
+    public TestGuiBlockScreenHandler(int syncId, ConfigurableInventory inventory, PlayerInventory playerInventory, PropertyDelegate properties) {
+        super(null, syncId, playerInventory, inventory, properties);
 
-    public TestGuiBlockScreenHandler(int syncId, PlayerInventory playerInventory, PropertyDelegate properties) {
-        super(TestClientMain.TEST_GUI_BLOCK_SCREEN_HANDLER, syncId, playerInventory, properties);
-    }
-
-    public TestGuiBlockScreenHandler(int syncId, PlayerInventory playerInventory, ConfigurableInventory inventory, PropertyDelegate properties) {
-        super(TestClientMain.TEST_GUI_BLOCK_SCREEN_HANDLER, syncId, playerInventory, inventory, properties);
+        this.addSlot(inventory, 0, 30, 30);
     }
 }

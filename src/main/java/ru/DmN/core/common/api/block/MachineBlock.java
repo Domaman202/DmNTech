@@ -1,5 +1,6 @@
 package ru.DmN.core.common.api.block;
 
+import net.fabricmc.fabric.api.container.ContainerProviderRegistry;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.LivingEntity;
@@ -8,10 +9,12 @@ import net.minecraft.inventory.SidedInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -58,8 +61,7 @@ public abstract class MachineBlock extends HorizontalFacingBlock implements Bloc
         if (player.isSneaking())
             world.setBlockState(pos, state.with(ACTIVE, !state.get(ACTIVE)));
         // Screen Open
-        else
-            player.openHandledScreen((MachineBlockEntity) world.getBlockEntity(pos));
+        else ((MachineBlockEntity) world.getBlockEntity(pos)).openScreen(player);
         //
         return ActionResult.SUCCESS;
     }

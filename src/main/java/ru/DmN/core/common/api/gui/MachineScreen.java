@@ -46,4 +46,8 @@ public class MachineScreen <T extends MachineScreenHandler> extends HandledScree
         posH = (this.height - this.backgroundHeight) / 2;
         this.drawTexture(matrices, posW, posH, 0, 0, this.backgroundWidth, this.backgroundHeight);
     }
+
+    public void callClearRender(MatrixStack matrices, int mouseX, int mouseY, float delta) {
+        super.render(matrices, mouseX, mouseY, delta);
+    }
 }

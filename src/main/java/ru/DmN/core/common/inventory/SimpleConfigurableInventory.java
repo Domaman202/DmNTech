@@ -3,22 +3,28 @@ package ru.DmN.core.common.inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Pair;
 import net.minecraft.util.math.Direction;
+import ru.DmN.core.common.api.inventory.ConfigurableInventory;
+import ru.DmN.core.common.api.inventory.SidedInventory;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class ConfigurableInventory extends SimpleInventory {
+public class SimpleConfigurableInventory extends SimpleInventory implements ConfigurableInventory {
     // insert extract table
     Map<Direction, Pair<Boolean, Boolean>> ieTable = new HashMap<>();
 
-    public ConfigurableInventory(int size) {
+    public SimpleConfigurableInventory(int size) {
         super(size);
     }
 
-    void resize(int size) {
-        ItemStack[] newInventory = new ItemStack[size];
-        System.arraycopy(inventory, 0, newInventory, 0, inventory.length - 1);
-        inventory = newInventory;
+    @Override
+    public void setInsertable(Direction side, boolean value) {
+        ieTable.get(side).setLeft(value);
+    }
+
+    @Override
+    public void setExtractable(Direction side, boolean value) {
+        ieTable.get(side).setRight(value);
     }
 
     @Override
@@ -35,12 +41,5 @@ public class ConfigurableInventory extends SimpleInventory {
             return ieTable.get(dir).getLeft() && slot < inventory.length;
         else
             return false;
-    }
-
-    @Override
-    public int[] getAvailableSlots(Direction side) {
-        if (ieTable.containsKey(side))
-            return super.getAvailableSlots(side);
-        return new int[]{};
     }
 }

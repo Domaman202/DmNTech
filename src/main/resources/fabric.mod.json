@@ -17,6 +17,7 @@
   "icon": "assets/dmntech/icon.png",
 
   "environment": "*",
+
   "entrypoints": {
     "main": [
       "ru.DmN.core.common.DCore",
@@ -29,9 +30,13 @@
       "ru.DmN.tech.test.TestClientMain"
     ]
   },
+
   "mixins": [
-    "dmncore.client.mixins.json"
+    "dmncore.mixins.json",
+    "dmntech.mixins.json"
   ],
+
+  "accessWidener" : "dmncore.accesswidener",
 
   "depends": {
     "fabricloader": "*",

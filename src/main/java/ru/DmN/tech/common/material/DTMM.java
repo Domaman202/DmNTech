@@ -1,6 +1,8 @@
 package ru.DmN.tech.common.material;
 
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
+import ru.DmN.tech.common.registry.MaterialRegistry;
 
 /// Default Tool Metal Material
 public enum DTMM implements IMetalToolMaterial {
@@ -18,6 +20,8 @@ public enum DTMM implements IMetalToolMaterial {
         this.craftTime = i;
         this.duration = j;
         this.temperature = k;
+
+        MaterialRegistry.register(this);
     }
 
     @Override
@@ -26,12 +30,17 @@ public enum DTMM implements IMetalToolMaterial {
     }
 
     @Override
-    public int craftTime() {
+    public int craftTime(ItemStack stack) {
         return craftTime;
     }
 
     @Override
-    public int duration() {
+    public int duration(ItemStack stack) {
         return duration;
+    }
+
+    @Override
+    public int temperature(ItemStack stack) {
+        return temperature;
     }
 }

@@ -1,6 +1,8 @@
 package ru.DmN.tech.common.material;
 
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
+import ru.DmN.tech.common.registry.MaterialRegistry;
 
 /// Default Fuel Materials
 public enum DFM implements IFuelMaterial {
@@ -16,35 +18,42 @@ public enum DFM implements IFuelMaterial {
         this.craftTime = i;
         this.burnTime = j;
         this.temperature = k;
+
+        MaterialRegistry.register(this);
     }
 
     @Override
     public Identifier getId() {
-        return null;
+        return id;
     }
 
     @Override
-    public boolean isMetal() {
+    public boolean isMetal(ItemStack stack) {
         return false;
     }
 
     @Override
-    public boolean isToolMaterial() {
+    public boolean isToolMaterial(ItemStack stack) {
         return false;
     }
 
     @Override
-    public int burnTime() {
+    public int burnTime(ItemStack stack) {
         return burnTime;
     }
 
     @Override
-    public int craftTime() {
+    public int craftTime(ItemStack stack) {
         return craftTime;
     }
 
     @Override
-    public int duration() {
+    public int duration(ItemStack stack) {
         return 0;
+    }
+
+    @Override
+    public int temperature(ItemStack stack) {
+        return temperature;
     }
 }

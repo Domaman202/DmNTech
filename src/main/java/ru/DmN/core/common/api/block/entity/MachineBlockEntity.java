@@ -11,45 +11,48 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.screen.NamedScreenHandlerFactory;
-import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.WorldAccess;
 import org.jetbrains.annotations.Nullable;
+import ru.DmN.core.client.gui.SimpleMachineScreenHandler;
 import ru.DmN.core.common.api.block.MachineBlock;
 import ru.DmN.core.common.api.energy.IESObject;
 import ru.DmN.core.common.api.energy.IESProvider;
-import ru.DmN.core.client.gui.SimpleMachineScreenHandler;
+import ru.DmN.core.common.api.inventory.ConfigurableInventory;
 import ru.DmN.core.common.impl.energy.SimpleEnergyStorage;
-import ru.DmN.core.common.inventory.ConfigurableInventory;
+import ru.DmN.core.common.inventory.SimpleConfigurableInventory;
 import ru.DmN.core.common.screen.MachinePropertyDelegate;
 
 @SuppressWarnings("rawtypes")
 public class MachineBlockEntity extends FastBlockEntity implements IESProvider, InventoryProvider, NamedScreenHandlerFactory {
     public IESObject<?> storage;
-    public SidedInventory inventory;
+    public ConfigurableInventory inventory;
 
     /// CONSTRUCTORS
 
     public MachineBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
         this.storage = new SimpleEnergyStorage<>(0, 0);
-        this.inventory = new ConfigurableInventory(0);
+        this.inventory = new SimpleConfigurableInventory(0);
     }
 
     public MachineBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state, long energy, long maxEnergy) {
         super(type, pos, state);
         this.storage = new SimpleEnergyStorage<>(energy, maxEnergy);
-        this.inventory = new ConfigurableInventory(0);
+        this.inventory = new SimpleConfigurableInventory(0);
     }
 
     /// SCREEN
 
     public MachinePropertyDelegate properties = new MachinePropertyDelegate(this);
+
+    public void openScreen(PlayerEntity player) {
+        player.openHandledScreen((MachineBlockEntity) world.getBlockEntity(pos));
+    }
 
     @Override
     @Nullable
@@ -111,16 +114,6 @@ public class MachineBlockEntity extends FastBlockEntity implements IESProvider, 
 
         nbt.put("invdata", invData);
         return nbt;
-    }
-
-    public void readMyInventoryData(NbtCompound nbt) {
-        NbtCompound invData = nbt.getCompound("invdata");
-
-        for (int i = invData.getInt("size") - 1; i != 0; i--) {
-            ItemStack stack = new ItemStack(Registry.ITEM.get(new Identifier(invData.getString("id" + i))), invData.getInt("c" + i));
-            stack.setNbt(invData.getCompound(String.valueOf(i)));
-            inventory.setStack(i, stack);
-        }
     }
 
     @Override
