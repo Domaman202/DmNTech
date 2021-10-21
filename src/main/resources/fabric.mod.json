@@ -36,8 +36,6 @@
     "dmntech.mixins.json"
   ],
 
-  "accessWidener" : "dmncore.accesswidener",
-
   "depends": {
     "fabricloader": "*",
     "fabric": "*",

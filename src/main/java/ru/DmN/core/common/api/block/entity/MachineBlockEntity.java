@@ -37,13 +37,13 @@ public class MachineBlockEntity extends FastBlockEntity implements IESProvider, 
     public MachineBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
         this.storage = new SimpleEnergyStorage<>(0, 0);
-        this.inventory = new SimpleConfigurableInventory(0);
+        this.inventory = new SimpleConfigurableInventory(1);
     }
 
     public MachineBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state, long energy, long maxEnergy) {
         super(type, pos, state);
         this.storage = new SimpleEnergyStorage<>(energy, maxEnergy);
-        this.inventory = new SimpleConfigurableInventory(0);
+        this.inventory = new SimpleConfigurableInventory(1);
     }
 
     /// SCREEN

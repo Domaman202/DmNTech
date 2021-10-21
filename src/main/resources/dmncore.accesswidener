@@ -1,4 +1,0 @@
-accessWidener v1	named
-
-accessible method net/minecraft/client/gui/screen/Screen renderTooltipFromComponents (Lnet/minecraft/client/util/math/MatrixStack;Ljava/util/List;II)V
-extendable method net/minecraft/client/gui/screen/Screen renderTooltipFromComponents (Lnet/minecraft/client/util/math/MatrixStack;Ljava/util/List;II)V

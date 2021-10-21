@@ -13,7 +13,7 @@ import ru.DmN.core.common.api.inventory.DynamicSizeInventory;
 import ru.DmN.tech.test.TestMain;
 import ru.DmN.tech.test.gui.TestGuiBlockScreenHandler;
 
-import static ru.DmN.tech.test.TestClientMain.TEST_GUI_ID;
+import static ru.DmN.tech.test.TestMain.TEST_GUI_ID;
 
 public class TestGuiBlockEntity extends MachineBlockEntityTicker {
     public TestGuiBlockEntity(BlockPos pos, BlockState state) {
