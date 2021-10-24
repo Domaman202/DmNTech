@@ -1,5 +1,6 @@
 package ru.DmN.core.common.api.block.entity;
 
+import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.InventoryProvider;
 import net.minecraft.block.entity.BlockEntityType;
@@ -10,13 +11,15 @@ import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.screen.NamedScreenHandlerFactory;
+import net.minecraft.nbt.NbtList;
+import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.ScreenHandler;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.registry.Registry;
 import net.minecraft.world.WorldAccess;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.DmN.core.client.gui.SimpleMachineScreenHandler;
 import ru.DmN.core.common.api.block.MachineBlock;
@@ -28,22 +31,26 @@ import ru.DmN.core.common.inventory.SimpleConfigurableInventory;
 import ru.DmN.core.common.screen.MachinePropertyDelegate;
 
 @SuppressWarnings("rawtypes")
-public class MachineBlockEntity extends FastBlockEntity implements IESProvider, InventoryProvider, NamedScreenHandlerFactory {
+public class MachineBlockEntity extends SimpleLockableContainerBlockEntity <ConfigurableInventory> implements IESProvider, InventoryProvider, ExtendedScreenHandlerFactory {
     public IESObject<?> storage;
-    public ConfigurableInventory inventory;
 
     /// CONSTRUCTORS
 
     public MachineBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
-        super(type, pos, state);
-        this.storage = new SimpleEnergyStorage<>(0, 0);
-        this.inventory = new SimpleConfigurableInventory(1);
+        this(type, pos, state, new SimpleConfigurableInventory(0));
+    }
+
+    public MachineBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state, ConfigurableInventory inventory) {
+        this(type, pos, state, inventory, 0, 0);
     }
 
     public MachineBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state, long energy, long maxEnergy) {
-        super(type, pos, state);
+        this(type, pos, state, new SimpleConfigurableInventory(0), energy, maxEnergy);
+    }
+
+    public MachineBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state, ConfigurableInventory inventory, long energy, long maxEnergy) {
+        super(type, pos, state, inventory);
         this.storage = new SimpleEnergyStorage<>(energy, maxEnergy);
-        this.inventory = new SimpleConfigurableInventory(1);
     }
 
     /// SCREEN
@@ -55,6 +62,11 @@ public class MachineBlockEntity extends FastBlockEntity implements IESProvider, 
     }
 
     @Override
+    public void writeScreenOpeningData(ServerPlayerEntity player, PacketByteBuf buf) {
+        buf.writeInt(this.inventory.size());
+    }
+
+    @Override
     @Nullable
     public ScreenHandler createMenu(int syncId, PlayerInventory playerInventory, PlayerEntity player) {
         return new SimpleMachineScreenHandler(syncId, playerInventory, properties);
@@ -63,6 +75,11 @@ public class MachineBlockEntity extends FastBlockEntity implements IESProvider, 
     @Override
     public Text getDisplayName() {
         return new LiteralText("Unnamed Machine");
+    }
+
+    @Override
+    protected Text getContainerName() {
+        return this.getDisplayName();
     }
 
     /// ACTIONS
@@ -91,28 +108,13 @@ public class MachineBlockEntity extends FastBlockEntity implements IESProvider, 
         return super.writeNbt(writeMyNbt(nbt));
     }
 
-    public NbtCompound writeMyNbt(NbtCompound nbt) {
+    public NbtCompound writeMyNbt(@NotNull NbtCompound nbt) {
         NbtCompound dmnData = new NbtCompound();
         dmnData.putLong("energy", storage.getEnergy());
         dmnData.putLong("max_energy", storage.getMaxEnergy());
         dmnData.putBoolean("active", world.getBlockState(pos).get(MachineBlock.ACTIVE));
+        dmnData.put("inv", inventory.toNbtList());
         nbt.put("dmndata", dmnData);
-        return nbt;
-    }
-
-    public NbtCompound writeMyInventoryData(NbtCompound nbt) {
-        NbtCompound invData = new NbtCompound();
-
-        int i = inventory.size();
-        invData.putInt("size", i);
-        for (i--; i != 0; i--) {
-            ItemStack stack = inventory.getStack(i);
-            invData.putString("id" + i, Registry.ITEM.getId(stack.getItem()).toString());
-            invData.putInt("c" + i, stack.getCount());
-            invData.put(String.valueOf(i), stack.getNbt());
-        }
-
-        nbt.put("invdata", invData);
         return nbt;
     }
 
@@ -126,6 +128,7 @@ public class MachineBlockEntity extends FastBlockEntity implements IESProvider, 
         NbtCompound dmnData = nbt.getCompound("dmndata");
         storage.setEnergy(dmnData.getLong("energy"));
         storage.setMaxEnergy(dmnData.getLong("max_energy"));
+        inventory.readNbtList((NbtList) dmnData.get("inv"));
         if (world != null)
             world.setBlockState(pos, world.getBlockState(pos).with(MachineBlock.ACTIVE, dmnData.getBoolean("active")));
     }
@@ -140,5 +143,13 @@ public class MachineBlockEntity extends FastBlockEntity implements IESProvider, 
     @Override
     public SidedInventory getInventory(BlockState state, WorldAccess world, BlockPos pos) {
         return inventory;
+    }
+
+    /// OTHER
+
+    @Override
+    public void markDirty() {
+        if (this.world != null)
+            this.world.markDirty(this.pos);
     }
 }

@@ -76,6 +76,16 @@ public class SimpleInventory extends net.minecraft.inventory.SimpleInventory imp
         }
 
         @Override
+        public void readNbtList(NbtList nbtList) {
+            SimpleInventory.this.readNbtList(nbtList);
+        }
+
+        @Override
+        public NbtList toNbtList() {
+            return SimpleInventory.this.toNbtList();
+        }
+
+        @Override
         public boolean canInsert(int slot, ItemStack stack, Direction dir) {
             if (ieTable.containsKey(dir))
                 return ieTable.get(dir).getRight() && slot < SimpleInventory.this.size();
