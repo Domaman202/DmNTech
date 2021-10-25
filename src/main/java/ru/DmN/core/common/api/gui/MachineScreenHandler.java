@@ -3,6 +3,7 @@ package ru.DmN.core.common.api.gui;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
+import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
@@ -63,5 +64,27 @@ public abstract class MachineScreenHandler extends ScreenHandler {
     @Override
     public boolean canUse(PlayerEntity player) {
         return this.inventory.canPlayerUse(player);
+    }
+
+    @Override
+    public ItemStack transferSlot(PlayerEntity player, int invSlot) {
+        ItemStack newStack = ItemStack.EMPTY;
+        Slot slot = this.slots.get(invSlot);
+        slot.markDirty();
+
+        if (slot.hasStack()) {
+            ItemStack originalStack = slot.getStack();
+            newStack = originalStack.copy();
+            if (invSlot < this.inventory.size()) {
+                if (!this.insertItem(originalStack, this.inventory.size(), this.slots.size(), true))
+                    return ItemStack.EMPTY;
+            } else if (!this.insertItem(originalStack, 0, this.inventory.size(), false))
+                return ItemStack.EMPTY;
+
+            if (originalStack.isEmpty())
+                slot.setStack(ItemStack.EMPTY);
+        }
+
+        return newStack;
     }
 }

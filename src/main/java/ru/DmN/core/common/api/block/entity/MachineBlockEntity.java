@@ -21,17 +21,17 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.WorldAccess;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import ru.DmN.core.client.gui.SimpleMachineScreenHandler;
 import ru.DmN.core.common.api.block.MachineBlock;
 import ru.DmN.core.common.api.energy.IESObject;
 import ru.DmN.core.common.api.energy.IESProvider;
 import ru.DmN.core.common.api.inventory.ConfigurableInventory;
+import ru.DmN.core.common.gui.SimpleMachineScreenHandler;
 import ru.DmN.core.common.impl.energy.SimpleEnergyStorage;
 import ru.DmN.core.common.inventory.SimpleConfigurableInventory;
 import ru.DmN.core.common.screen.MachinePropertyDelegate;
 
 @SuppressWarnings("rawtypes")
-public class MachineBlockEntity extends SimpleLockableContainerBlockEntity <ConfigurableInventory> implements IESProvider, InventoryProvider, ExtendedScreenHandlerFactory {
+public class MachineBlockEntity extends SimpleConfigurableLCBlockEntity <ConfigurableInventory> implements IESProvider, InventoryProvider, ExtendedScreenHandlerFactory {
     public IESObject<?> storage;
 
     /// CONSTRUCTORS
@@ -91,7 +91,7 @@ public class MachineBlockEntity extends SimpleLockableContainerBlockEntity <Conf
     }
 
     public ItemStack onBreak(ItemUsageContext ctx) {
-        ItemStack stack = new ItemStack(world.getBlockState(pos).getBlock(), 1);
+        ItemStack stack = new ItemStack(this.world.getBlockState(this.pos).getBlock(), 1);
         stack.setNbt(writeMyNbt(new NbtCompound()));
         return stack;
     }
@@ -110,10 +110,10 @@ public class MachineBlockEntity extends SimpleLockableContainerBlockEntity <Conf
 
     public NbtCompound writeMyNbt(@NotNull NbtCompound nbt) {
         NbtCompound dmnData = new NbtCompound();
-        dmnData.putLong("energy", storage.getEnergy());
-        dmnData.putLong("max_energy", storage.getMaxEnergy());
-        dmnData.putBoolean("active", world.getBlockState(pos).get(MachineBlock.ACTIVE));
-        dmnData.put("inv", inventory.toNbtList());
+        dmnData.putLong("energy", this.storage.getEnergy());
+        dmnData.putLong("max_energy", this.storage.getMaxEnergy());
+        dmnData.putBoolean("active", this.world.getBlockState(pos).get(MachineBlock.ACTIVE));
+        dmnData.put("inv", this.inventory.toNbtList());
         nbt.put("dmndata", dmnData);
         return nbt;
     }
@@ -126,11 +126,11 @@ public class MachineBlockEntity extends SimpleLockableContainerBlockEntity <Conf
 
     public void readMyNbt(NbtCompound nbt) {
         NbtCompound dmnData = nbt.getCompound("dmndata");
-        storage.setEnergy(dmnData.getLong("energy"));
-        storage.setMaxEnergy(dmnData.getLong("max_energy"));
-        inventory.readNbtList((NbtList) dmnData.get("inv"));
-        if (world != null)
-            world.setBlockState(pos, world.getBlockState(pos).with(MachineBlock.ACTIVE, dmnData.getBoolean("active")));
+        this.storage.setEnergy(dmnData.getLong("energy"));
+        this.storage.setMaxEnergy(dmnData.getLong("max_energy"));
+        this.inventory.readNbtList((NbtList) dmnData.get("inv"));
+        if (this.world != null)
+            this.world.setBlockState(this.pos, this.world.getBlockState(this.pos).with(MachineBlock.ACTIVE, dmnData.getBoolean("active")));
     }
 
     /// GET OVERRIDE
@@ -142,14 +142,6 @@ public class MachineBlockEntity extends SimpleLockableContainerBlockEntity <Conf
 
     @Override
     public SidedInventory getInventory(BlockState state, WorldAccess world, BlockPos pos) {
-        return inventory;
-    }
-
-    /// OTHER
-
-    @Override
-    public void markDirty() {
-        if (this.world != null)
-            this.world.markDirty(this.pos);
+        return this;
     }
 }

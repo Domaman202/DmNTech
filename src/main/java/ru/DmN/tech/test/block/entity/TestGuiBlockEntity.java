@@ -14,7 +14,7 @@ import ru.DmN.tech.test.gui.TestGuiBlockScreenHandler;
 
 public class TestGuiBlockEntity extends MachineBlockEntityTicker {
     public TestGuiBlockEntity(BlockPos pos, BlockState state) {
-        super(TestMain.TEST_GUI_BLOCK_ENTITY, pos, state, new SimpleConfigurableInventory(1));
+        super(TestMain.TEST_GUI_BLOCK_ENTITY, pos, state, new SimpleConfigurableInventory(5));
     }
 
     @Override
@@ -25,6 +25,14 @@ public class TestGuiBlockEntity extends MachineBlockEntityTicker {
     @Override
     @Nullable
     public ScreenHandler createMenu(int syncId, PlayerInventory playerInventory, PlayerEntity player) {
-        return new TestGuiBlockScreenHandler(syncId, inventory, playerInventory, properties);
+        return new TestGuiBlockScreenHandler(syncId, this, playerInventory, properties);
     }
 }
+
+/*
+ I -> P -> O
+     ||
+     A1
+     ||
+     A0
+ */

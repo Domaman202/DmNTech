@@ -9,7 +9,7 @@ import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
 import org.jetbrains.annotations.NotNull;
 import ru.DmN.core.common.api.block.entity.MachineBlockEntity;
-import ru.DmN.core.client.gui.SimpleMachineScreenHandler;
+import ru.DmN.core.common.gui.SimpleMachineScreenHandler;
 import ru.DmN.core.test.TestMain;
 
 public class TestMachineBlockEntity extends MachineBlockEntity {
