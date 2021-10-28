@@ -1,8 +1,9 @@
-package ru.DmN.core.common.gui;
+package ru.DmN.core.client.gui;
 
 import com.mojang.blaze3d.systems.RenderSystem;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.util.math.MatrixStack;
@@ -10,8 +11,10 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Identifier;
+import ru.DmN.core.common.gui.MachineScreenHandler;
 import ru.DmN.core.common.utils.ColorUtils;
 
+@Environment(EnvType.CLIENT)
 public class MachineScreen <T extends MachineScreenHandler> extends HandledScreen <T> {
     public static final Identifier DEFAULT_BACKGROUND_TEXTURE = new Identifier("dmncore", "textures/gui/default_machine_gui.png");
     public int posW;
@@ -31,8 +34,7 @@ public class MachineScreen <T extends MachineScreenHandler> extends HandledScree
         int lastEnergy = handler.properties.get(0);
         int maxEnergy = handler.properties.get(1);
 
-        TextRenderer renderer = MinecraftClient.getInstance().textRenderer;
-        renderer.draw(matrices, new TranslatableText("text.dmncore.energy", lastEnergy, maxEnergy), posW += 5, posH += 20, ColorUtils.calcColorWithEnergy(lastEnergy, maxEnergy));
+        MinecraftClient.getInstance().textRenderer.drawWithShadow(matrices, new TranslatableText("text.dmncore.energy", lastEnergy, maxEnergy), posW += 5, posH += 20, ColorUtils.calcColorWithEnergy(lastEnergy, maxEnergy));
     }
 
     @Override

@@ -3,7 +3,7 @@ package ru.DmN.tech.test.gui;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.text.Text;
-import ru.DmN.core.common.gui.MachineScreen;
+import ru.DmN.core.client.gui.MachineScreen;
 
 public class TestGuiBlockScreen extends MachineScreen<TestGuiBlockScreenHandler> {
     public TestGuiBlockScreen(TestGuiBlockScreenHandler handler, PlayerInventory inventory, Text title) {

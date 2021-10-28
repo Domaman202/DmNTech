@@ -5,7 +5,7 @@ import net.fabricmc.fabric.api.client.screenhandler.v1.ScreenRegistry;
 import net.fabricmc.fabric.api.screenhandler.v1.ScreenHandlerRegistry;
 import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.util.Identifier;
-import ru.DmN.core.common.gui.MachineScreen;
+import ru.DmN.core.client.gui.MachineScreen;
 import ru.DmN.core.common.gui.SimpleMachineScreenHandler;
 
 public class DCoreClient implements ClientModInitializer {
