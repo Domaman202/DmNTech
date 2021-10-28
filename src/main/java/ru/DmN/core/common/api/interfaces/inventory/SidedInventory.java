@@ -1,4 +1,4 @@
-package ru.DmN.core.common.api.inventory;
+package ru.DmN.core.common.api.interfaces.inventory;
 
 import net.minecraft.nbt.NbtList;
 

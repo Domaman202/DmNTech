@@ -1,4 +1,4 @@
-package ru.DmN.core.common.api.gui;
+package ru.DmN.core.common.gui;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -10,7 +10,7 @@ import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.screen.slot.Slot;
 import org.jetbrains.annotations.Nullable;
-import ru.DmN.core.common.api.inventory.ConfigurableInventory;
+import ru.DmN.core.common.api.interfaces.inventory.ConfigurableInventory;
 import ru.DmN.core.common.inventory.SimpleConfigurableInventory;
 import ru.DmN.core.common.screen.DynamicPropertyDelegate;
 

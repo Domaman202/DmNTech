@@ -4,7 +4,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
-import ru.DmN.core.common.api.block.entity.MachineBlockEntity;
+import ru.DmN.core.common.block.entity.MachineBlockEntity;
 import ru.DmN.core.common.impl.energy.InjectOnlyEnergyStorage;
 import ru.DmN.tech.common.DTech;
 

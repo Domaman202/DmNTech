@@ -4,9 +4,6 @@ import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.Material;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.entity.BlockEntityTicker;
-import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.sound.BlockSoundGroup;
@@ -19,16 +16,16 @@ import net.minecraft.world.World;
 import net.minecraft.world.chunk.ChunkSection;
 import net.minecraft.world.explosion.Explosion;
 import org.jetbrains.annotations.Nullable;
-import ru.DmN.core.common.api.block.MachineBlockTicker;
-import ru.DmN.core.common.api.block.entity.MachineBlockEntity;
-import ru.DmN.core.common.api.energy.IESObject;
+import ru.DmN.core.common.block.MachineBlockTicker;
+import ru.DmN.core.common.block.entity.MachineBlockEntity;
+import ru.DmN.core.common.api.interfaces.energy.IESObject;
 import ru.DmN.tech.common.DTech;
 import ru.DmN.tech.common.block.entity.RMPBBlockEntity;
 import sun.misc.Unsafe;
 
 import java.lang.reflect.Field;
 
-import static ru.DmN.core.common.api.block.cable.CableBlock.trySuckEnergyOfCable;
+import static ru.DmN.core.common.block.cable.CableBlock.trySuckEnergyOfCable;
 
 public class RMPBBlock extends MachineBlockTicker <RMPBBlockEntity> {
     public static final RMPBBlock INSTANCE = new RMPBBlock();

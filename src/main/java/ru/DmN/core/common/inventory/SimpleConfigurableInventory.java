@@ -3,8 +3,7 @@ package ru.DmN.core.common.inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Pair;
 import net.minecraft.util.math.Direction;
-import ru.DmN.core.common.api.inventory.ConfigurableInventory;
-import ru.DmN.core.common.api.inventory.SidedInventory;
+import ru.DmN.core.common.api.interfaces.inventory.ConfigurableInventory;
 
 import java.util.HashMap;
 import java.util.Map;

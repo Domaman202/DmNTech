@@ -4,8 +4,8 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.Material;
 import net.minecraft.util.math.BlockPos;
 import org.jetbrains.annotations.Nullable;
-import ru.DmN.core.common.api.block.MachineBlock;
-import ru.DmN.core.common.api.block.entity.MachineBlockEntity;
+import ru.DmN.core.common.block.MachineBlock;
+import ru.DmN.core.common.block.entity.MachineBlockEntity;
 import ru.DmN.core.test.block.entity.InfEnergySourceBlockEntity;
 import ru.DmN.core.test.item.InfEnergySourceItem;
 

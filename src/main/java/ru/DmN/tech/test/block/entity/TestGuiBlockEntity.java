@@ -7,7 +7,7 @@ import net.minecraft.screen.ScreenHandler;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
-import ru.DmN.core.common.api.block.entity.MachineBlockEntityTicker;
+import ru.DmN.core.common.block.entity.MachineBlockEntityTicker;
 import ru.DmN.core.common.inventory.SimpleConfigurableInventory;
 import ru.DmN.tech.test.TestMain;
 import ru.DmN.tech.test.gui.TestGuiBlockScreenHandler;

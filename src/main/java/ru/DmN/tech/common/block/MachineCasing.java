@@ -4,9 +4,9 @@ import net.minecraft.block.BlockState;
 import net.minecraft.item.Item;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import ru.DmN.core.common.api.block.MachineBlockTicker;
-import ru.DmN.core.common.api.block.entity.MachineBlockEntityTicker;
-import ru.DmN.core.common.api.item.MachineBlockItem;
+import ru.DmN.core.common.block.MachineBlockTicker;
+import ru.DmN.core.common.block.entity.MachineBlockEntityTicker;
+import ru.DmN.core.common.item.MachineBlockItem;
 import ru.DmN.core.common.utils.Lazy;
 import ru.DmN.tech.common.block.entity.MachineCasingBlockEntity;
 

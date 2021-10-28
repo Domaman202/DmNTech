@@ -1,7 +1,7 @@
 package ru.DmN.core.common.screen;
 
 import net.minecraft.screen.PropertyDelegate;
-import ru.DmN.core.common.api.block.entity.MachineBlockEntity;
+import ru.DmN.core.common.block.entity.MachineBlockEntity;
 
 public class MachinePropertyDelegate implements PropertyDelegate {
     public final MachineBlockEntity entity;

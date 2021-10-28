@@ -1,4 +1,4 @@
-package ru.DmN.core.common.api.block.entity;
+package ru.DmN.core.common.block.entity;
 
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.minecraft.block.BlockState;
@@ -21,10 +21,10 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.WorldAccess;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import ru.DmN.core.common.api.block.MachineBlock;
-import ru.DmN.core.common.api.energy.IESObject;
-import ru.DmN.core.common.api.energy.IESProvider;
-import ru.DmN.core.common.api.inventory.ConfigurableInventory;
+import ru.DmN.core.common.block.MachineBlock;
+import ru.DmN.core.common.api.interfaces.energy.IESObject;
+import ru.DmN.core.common.api.interfaces.energy.IESProvider;
+import ru.DmN.core.common.api.interfaces.inventory.ConfigurableInventory;
 import ru.DmN.core.common.gui.SimpleMachineScreenHandler;
 import ru.DmN.core.common.impl.energy.SimpleEnergyStorage;
 import ru.DmN.core.common.inventory.SimpleConfigurableInventory;

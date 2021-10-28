@@ -6,8 +6,8 @@ import net.minecraft.item.Item;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
-import ru.DmN.core.common.api.block.MachineBlockTicker;
-import ru.DmN.core.common.api.block.entity.MachineBlockEntity;
+import ru.DmN.core.common.block.MachineBlockTicker;
+import ru.DmN.core.common.block.entity.MachineBlockEntity;
 import ru.DmN.core.test.TestMain;
 import ru.DmN.tech.test.block.entity.TestGuiBlockEntity;
 

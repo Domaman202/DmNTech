@@ -7,9 +7,9 @@ import net.minecraft.nbt.NbtList;
 import net.minecraft.util.Pair;
 import net.minecraft.util.math.Direction;
 import org.jetbrains.annotations.Nullable;
-import ru.DmN.core.common.api.inventory.ConfigurableInventory;
-import ru.DmN.core.common.api.inventory.DynamicSizeInventory;
-import ru.DmN.core.common.api.inventory.SidedInventory;
+import ru.DmN.core.common.api.interfaces.inventory.ConfigurableInventory;
+import ru.DmN.core.common.api.interfaces.inventory.DynamicSizeInventory;
+import ru.DmN.core.common.api.interfaces.inventory.SidedInventory;
 import ru.DmN.core.common.utils.UnsafeUtils;
 
 import java.util.HashMap;

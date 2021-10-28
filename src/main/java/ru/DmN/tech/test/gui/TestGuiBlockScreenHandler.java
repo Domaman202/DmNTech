@@ -3,8 +3,8 @@ package ru.DmN.tech.test.gui;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.PropertyDelegate;
-import ru.DmN.core.common.api.gui.MachineScreenHandler;
-import ru.DmN.core.common.api.inventory.ConfigurableInventory;
+import ru.DmN.core.common.gui.MachineScreenHandler;
+import ru.DmN.core.common.api.interfaces.inventory.ConfigurableInventory;
 import ru.DmN.tech.test.TestMain;
 
 public class TestGuiBlockScreenHandler extends MachineScreenHandler {

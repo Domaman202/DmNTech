@@ -1,4 +1,4 @@
-package ru.DmN.core.common.api.energy;
+package ru.DmN.core.common.api.interfaces.energy;
 
 import net.minecraft.block.entity.BlockEntity;
 

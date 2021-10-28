@@ -1,4 +1,4 @@
-package ru.DmN.core.common.api.block;
+package ru.DmN.core.common.block;
 
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
@@ -18,8 +18,8 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 import org.jetbrains.annotations.Nullable;
-import ru.DmN.core.common.api.block.entity.MachineBlockEntity;
-import ru.DmN.core.common.api.item.MachineBlockItem;
+import ru.DmN.core.common.block.entity.MachineBlockEntity;
+import ru.DmN.core.common.item.MachineBlockItem;
 import ru.DmN.core.common.utils.Lazy;
 
 import java.util.function.Supplier;

@@ -1,4 +1,4 @@
-package ru.DmN.core.common.api.block.cable.entity;
+package ru.DmN.core.common.block.cable.entity;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
@@ -6,8 +6,8 @@ import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.math.BlockPos;
 import org.jetbrains.annotations.Nullable;
-import ru.DmN.core.common.api.energy.IESObject;
-import ru.DmN.core.common.api.energy.IESProvider;
+import ru.DmN.core.common.api.interfaces.energy.IESObject;
+import ru.DmN.core.common.api.interfaces.energy.IESProvider;
 import ru.DmN.core.common.impl.energy.SimpleEnergyStorage;
 
 @SuppressWarnings("rawtypes")

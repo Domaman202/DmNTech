@@ -9,7 +9,7 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import ru.DmN.core.common.DCore;
-import ru.DmN.core.common.api.block.entity.MachineBlockEntity;
+import ru.DmN.core.common.block.entity.MachineBlockEntity;
 
 public class WrenchItem extends Item {
     public static final WrenchItem INSTANCE = new WrenchItem();

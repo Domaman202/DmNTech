@@ -1,4 +1,4 @@
-package ru.DmN.core.common.api.block.cable;
+package ru.DmN.core.common.block.cable;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockEntityProvider;
@@ -14,12 +14,10 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 import org.jetbrains.annotations.Nullable;
-import ru.DmN.core.common.api.block.MachineBlock;
-import ru.DmN.core.common.api.block.cable.entity.CableBlockEntity;
-import ru.DmN.core.common.api.energy.IESObject;
-import ru.DmN.core.common.api.energy.IESProvider;
-
-import java.util.ArrayList;
+import ru.DmN.core.common.block.MachineBlock;
+import ru.DmN.core.common.block.cable.entity.CableBlockEntity;
+import ru.DmN.core.common.api.interfaces.energy.IESObject;
+import ru.DmN.core.common.api.interfaces.energy.IESProvider;
 
 public abstract class CableBlock extends ConnectingBlock implements BlockEntityProvider, BlockEntityTicker<CableBlockEntity> {
     /// CONSTRUCTORS

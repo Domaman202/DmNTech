@@ -10,6 +10,7 @@ import ru.DmN.core.common.item.VoltmeterItem;
 import ru.DmN.core.common.item.WrenchItem;
 
 public class DCore implements ModInitializer {
+    public static final String MOD_ID = "dmn_tech";
     public static final ItemGroup DCoreItemGroup = FabricItemGroupBuilder.create(new Identifier("dmncore", "items")).icon(() -> new ItemStack(WrenchItem.INSTANCE)).build();
 
     @Override

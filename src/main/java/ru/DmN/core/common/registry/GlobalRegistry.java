@@ -7,8 +7,8 @@ import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
-import ru.DmN.core.common.api.block.MachineBlock;
-import ru.DmN.core.common.api.block.entity.MachineBlockEntity;
+import ru.DmN.core.common.block.MachineBlock;
+import ru.DmN.core.common.block.entity.MachineBlockEntity;
 
 public class GlobalRegistry {
     // Settings

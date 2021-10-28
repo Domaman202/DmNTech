@@ -6,9 +6,9 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.util.math.BlockPos;
 import org.jetbrains.annotations.Nullable;
-import ru.DmN.core.common.api.block.MachineBlock;
-import ru.DmN.core.common.api.block.entity.MachineBlockEntity;
-import ru.DmN.core.common.api.energy.IESObject;
+import ru.DmN.core.common.block.MachineBlock;
+import ru.DmN.core.common.block.entity.MachineBlockEntity;
+import ru.DmN.core.common.api.interfaces.energy.IESObject;
 import ru.DmN.core.test.TestMain;
 import ru.DmN.core.test.block.InfEnergySourceBlock;
 

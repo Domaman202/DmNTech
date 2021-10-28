@@ -1,4 +1,4 @@
-package ru.DmN.core.common.api.gui;
+package ru.DmN.core.common.gui;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.MinecraftClient;
@@ -11,8 +11,6 @@ import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Identifier;
 import ru.DmN.core.common.utils.ColorUtils;
-
-import java.awt.*;
 
 public class MachineScreen <T extends MachineScreenHandler> extends HandledScreen <T> {
     public static final Identifier DEFAULT_BACKGROUND_TEXTURE = new Identifier("dmncore", "textures/gui/default_machine_gui.png");

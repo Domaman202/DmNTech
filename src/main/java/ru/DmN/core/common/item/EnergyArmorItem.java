@@ -1,4 +1,4 @@
-package ru.DmN.core.common.api.armor;
+package ru.DmN.core.common.item;
 
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.ArmorItem;
@@ -6,8 +6,8 @@ import net.minecraft.item.ArmorMaterial;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.math.MathHelper;
-import ru.DmN.core.common.api.energy.IESProvider;
-import ru.DmN.core.common.api.energy.IESObject;
+import ru.DmN.core.common.api.interfaces.energy.IESProvider;
+import ru.DmN.core.common.api.interfaces.energy.IESObject;
 import ru.DmN.core.common.impl.energy.ItemStackEnergyStorage;
 
 public class EnergyArmorItem extends ArmorItem implements IESProvider<ItemStack> {

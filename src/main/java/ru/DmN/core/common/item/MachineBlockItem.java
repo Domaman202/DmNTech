@@ -1,4 +1,4 @@
-package ru.DmN.core.common.api.item;
+package ru.DmN.core.common.item;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -12,10 +12,10 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import ru.DmN.core.common.api.block.MachineBlock;
-import ru.DmN.core.common.api.block.entity.MachineBlockEntity;
-import ru.DmN.core.common.api.energy.IESProvider;
-import ru.DmN.core.common.api.energy.IESObject;
+import ru.DmN.core.common.block.MachineBlock;
+import ru.DmN.core.common.block.entity.MachineBlockEntity;
+import ru.DmN.core.common.api.interfaces.energy.IESProvider;
+import ru.DmN.core.common.api.interfaces.energy.IESObject;
 import ru.DmN.core.common.impl.energy.ItemStackEnergyStorage;
 import ru.DmN.core.common.utils.ColorUtils;
 

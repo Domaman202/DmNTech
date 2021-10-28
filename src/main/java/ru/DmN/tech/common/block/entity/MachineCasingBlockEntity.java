@@ -3,7 +3,7 @@ package ru.DmN.tech.common.block.entity;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.util.math.BlockPos;
-import ru.DmN.core.common.api.block.entity.MachineBlockEntityTicker;
+import ru.DmN.core.common.block.entity.MachineBlockEntityTicker;
 
 public abstract class MachineCasingBlockEntity extends MachineBlockEntityTicker {
     /// CONSTRUCTORS
