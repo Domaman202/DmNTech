@@ -1,4 +1,4 @@
-package ru.DmN.core.common.api.interfaces.energy;
+package ru.DmN.core.common.energy;
 
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;

@@ -16,8 +16,8 @@ import net.minecraft.world.WorldAccess;
 import org.jetbrains.annotations.Nullable;
 import ru.DmN.core.common.block.MachineBlock;
 import ru.DmN.core.common.block.cable.entity.CableBlockEntity;
-import ru.DmN.core.common.api.interfaces.energy.IESObject;
-import ru.DmN.core.common.api.interfaces.energy.IESProvider;
+import ru.DmN.core.common.energy.IESObject;
+import ru.DmN.core.common.energy.IESProvider;
 
 public abstract class CableBlock extends ConnectingBlock implements BlockEntityProvider, BlockEntityTicker<CableBlockEntity> {
     /// CONSTRUCTORS

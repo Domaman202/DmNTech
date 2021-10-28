@@ -10,8 +10,8 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import ru.DmN.core.common.DCore;
-import ru.DmN.core.common.api.interfaces.energy.IESObject;
-import ru.DmN.core.common.api.interfaces.energy.IESProvider;
+import ru.DmN.core.common.energy.IESObject;
+import ru.DmN.core.common.energy.IESProvider;
 
 public class VoltmeterItem extends Item {
     public static final VoltmeterItem INSTANCE = new VoltmeterItem();

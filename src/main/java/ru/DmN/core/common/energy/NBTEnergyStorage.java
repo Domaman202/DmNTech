@@ -1,7 +1,6 @@
-package ru.DmN.core.common.impl.energy;
+package ru.DmN.core.common.energy;
 
 import net.minecraft.nbt.NbtCompound;
-import ru.DmN.core.common.api.interfaces.energy.IESObject;
 
 import javax.naming.OperationNotSupportedException;
 

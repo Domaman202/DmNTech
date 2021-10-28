@@ -10,7 +10,7 @@ import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.screen.slot.Slot;
 import org.jetbrains.annotations.Nullable;
-import ru.DmN.core.common.api.interfaces.inventory.ConfigurableInventory;
+import ru.DmN.core.common.inventory.ConfigurableInventory;
 import ru.DmN.core.common.inventory.SimpleConfigurableInventory;
 import ru.DmN.core.common.screen.DynamicPropertyDelegate;
 

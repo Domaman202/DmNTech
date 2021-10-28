@@ -5,7 +5,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemUsageContext;
 import net.minecraft.util.ActionResult;
 import ru.DmN.core.common.block.entity.MachineBlockEntity;
-import ru.DmN.core.common.api.interfaces.energy.IESObject;
+import ru.DmN.core.common.energy.IESObject;
 import ru.DmN.core.test.TestMain;
 
 public abstract class TestEnergyWand extends Item {

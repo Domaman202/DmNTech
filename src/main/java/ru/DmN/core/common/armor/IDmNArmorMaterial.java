@@ -1,4 +1,4 @@
-package ru.DmN.core.common.api.interfaces;
+package ru.DmN.core.common.armor;
 
 import net.minecraft.item.ArmorMaterial;
 

@@ -5,7 +5,7 @@ import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
 import ru.DmN.core.common.block.entity.MachineBlockEntity;
-import ru.DmN.core.common.impl.energy.InjectOnlyEnergyStorage;
+import ru.DmN.core.common.energy.InjectOnlyEnergyStorage;
 import ru.DmN.tech.common.DTech;
 
 public class RMPBBlockEntity extends MachineBlockEntity {

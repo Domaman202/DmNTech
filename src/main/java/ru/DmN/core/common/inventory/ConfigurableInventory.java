@@ -1,4 +1,4 @@
-package ru.DmN.core.common.api.interfaces.inventory;
+package ru.DmN.core.common.inventory;
 
 import net.minecraft.util.math.Direction;
 

@@ -1,6 +1,4 @@
-package ru.DmN.core.common.impl.energy;
-
-import ru.DmN.core.common.api.interfaces.energy.IESObject;
+package ru.DmN.core.common.energy;
 
 public class InjectOnlyEnergyStorage <T extends SimpleEnergyStorage<T>> extends SimpleEnergyStorage <T> {
     public InjectOnlyEnergyStorage(long maxEnergy) {

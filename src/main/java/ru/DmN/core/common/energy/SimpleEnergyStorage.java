@@ -1,6 +1,4 @@
-package ru.DmN.core.common.impl.energy;
-
-import ru.DmN.core.common.api.interfaces.energy.IESObject;
+package ru.DmN.core.common.energy;
 
 public class SimpleEnergyStorage <T extends SimpleEnergyStorage<T>> implements IESObject <T> {
     public long energy = 0;

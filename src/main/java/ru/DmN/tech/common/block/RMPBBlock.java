@@ -18,7 +18,7 @@ import net.minecraft.world.explosion.Explosion;
 import org.jetbrains.annotations.Nullable;
 import ru.DmN.core.common.block.MachineBlockTicker;
 import ru.DmN.core.common.block.entity.MachineBlockEntity;
-import ru.DmN.core.common.api.interfaces.energy.IESObject;
+import ru.DmN.core.common.energy.IESObject;
 import ru.DmN.tech.common.DTech;
 import ru.DmN.tech.common.block.entity.RMPBBlockEntity;
 import sun.misc.Unsafe;

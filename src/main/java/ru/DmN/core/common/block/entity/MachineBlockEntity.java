@@ -22,11 +22,11 @@ import net.minecraft.world.WorldAccess;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.DmN.core.common.block.MachineBlock;
-import ru.DmN.core.common.api.interfaces.energy.IESObject;
-import ru.DmN.core.common.api.interfaces.energy.IESProvider;
-import ru.DmN.core.common.api.interfaces.inventory.ConfigurableInventory;
+import ru.DmN.core.common.energy.IESObject;
+import ru.DmN.core.common.energy.IESProvider;
+import ru.DmN.core.common.inventory.ConfigurableInventory;
 import ru.DmN.core.common.gui.SimpleMachineScreenHandler;
-import ru.DmN.core.common.impl.energy.SimpleEnergyStorage;
+import ru.DmN.core.common.energy.SimpleEnergyStorage;
 import ru.DmN.core.common.inventory.SimpleConfigurableInventory;
 import ru.DmN.core.common.screen.MachinePropertyDelegate;
 

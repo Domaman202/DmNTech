@@ -7,7 +7,7 @@ import net.minecraft.nbt.NbtList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import org.jetbrains.annotations.Nullable;
-import ru.DmN.core.common.api.interfaces.inventory.ConfigurableInventory;
+import ru.DmN.core.common.inventory.ConfigurableInventory;
 
 public abstract class SimpleConfigurableLCBlockEntity <T extends ConfigurableInventory> extends SimpleLCBlockEntity<T> implements ConfigurableInventory {
     public SimpleConfigurableLCBlockEntity(BlockEntityType<?> blockEntityType, BlockPos blockPos, BlockState blockState, T inventory) {

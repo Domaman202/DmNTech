@@ -1,4 +1,4 @@
-package ru.DmN.core.common.api.enums;
+package ru.DmN.tech.common.armor;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -8,8 +8,7 @@ import net.minecraft.recipe.Ingredient;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Lazy;
-import ru.DmN.core.common.api.interfaces.IDmNArmorMaterial;
-import ru.DmN.core.common.registry.GlobalRegistry;
+import ru.DmN.core.common.armor.IDmNArmorMaterial;
 
 import java.util.function.Supplier;
 
@@ -17,7 +16,6 @@ import static ru.DmN.core.common.DCore.MOD_ID;
 
 /**
  * @author AlgorithmLX
- * СУКА, ИСПОЛЬЗУЙ ЭТУ ПАРАШУ, А НЕ ТО ЧТО ТЫ ДЕЛАЛ.
  */
 
 public enum DmNTechArmorMaterial implements IDmNArmorMaterial {
@@ -30,16 +28,16 @@ public enum DmNTechArmorMaterial implements IDmNArmorMaterial {
             () -> {
         return Ingredient.ofItems(Items.DIAMOND);
     });
-    //end etc.
-    private static final int[] BASE_DURABILITY = new int[]{13, 15, 16, 11};
-    private final String name;
-    private final int durabilityMultiplier;
-    private final int[] protectionAmounts;
-    private final int enchantability;
-    private final SoundEvent equipSound;
-    private final float toughness;
-    private final float knockbackResistance;
-    private final Lazy<Ingredient> repairIngredientSupplier;
+
+    public static final int[] BASE_DURABILITY = new int[]{13, 15, 16, 11};
+    public final String name;
+    public final int durabilityMultiplier;
+    public final int[] protectionAmounts;
+    public final int enchantability;
+    public final SoundEvent equipSound;
+    public final float toughness;
+    public final float knockbackResistance;
+    public final Lazy<Ingredient> repairIngredientSupplier;
 
     DmNTechArmorMaterial(String name, int durabilityMultiplier, int[] protectionAmounts, int enchantability, SoundEvent equipSound, float toughness, float knockbackResistance, Supplier<Ingredient> repairIngredientSupplier) {
         this.name = name;
@@ -69,7 +67,7 @@ public enum DmNTechArmorMaterial implements IDmNArmorMaterial {
     }
 
     public Ingredient getRepairIngredient() {
-        return (Ingredient)this.repairIngredientSupplier.get();
+        return this.repairIngredientSupplier.get();
     }
 
     @Environment(EnvType.CLIENT)

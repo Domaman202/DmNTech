@@ -9,7 +9,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import ru.DmN.core.common.api.interfaces.IDmNArmorMaterial;
+import ru.DmN.core.common.armor.IDmNArmorMaterial;
 
 import java.util.Map;
 

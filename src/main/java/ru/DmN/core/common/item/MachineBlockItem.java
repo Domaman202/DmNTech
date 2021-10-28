@@ -14,9 +14,9 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import ru.DmN.core.common.block.MachineBlock;
 import ru.DmN.core.common.block.entity.MachineBlockEntity;
-import ru.DmN.core.common.api.interfaces.energy.IESProvider;
-import ru.DmN.core.common.api.interfaces.energy.IESObject;
-import ru.DmN.core.common.impl.energy.ItemStackEnergyStorage;
+import ru.DmN.core.common.energy.IESProvider;
+import ru.DmN.core.common.energy.IESObject;
+import ru.DmN.core.common.energy.ItemStackEnergyStorage;
 import ru.DmN.core.common.utils.ColorUtils;
 
 public class MachineBlockItem extends BlockItem implements IESProvider<ItemStack> {

@@ -80,8 +80,8 @@ public abstract class SimpleLCBlockEntity<T extends Inventory> extends LockableC
 
     @Override
     public int[] getAvailableSlots(Direction side) {
-        if (inventory instanceof ru.DmN.core.common.api.interfaces.inventory.SidedInventory)
-            return ((ru.DmN.core.common.api.interfaces.inventory.SidedInventory) inventory).getAvailableSlots(side);
+        if (inventory instanceof ru.DmN.core.common.inventory.SidedInventory)
+            return ((ru.DmN.core.common.inventory.SidedInventory) inventory).getAvailableSlots(side);
         int[] arr = new int[this.size()];
         for (int i = 0; i < arr.length; i++)
             arr[i] = i;
@@ -90,15 +90,15 @@ public abstract class SimpleLCBlockEntity<T extends Inventory> extends LockableC
 
     @Override
     public boolean canInsert(int slot, ItemStack stack, @Nullable Direction dir) {
-        if (inventory instanceof ru.DmN.core.common.api.interfaces.inventory.SidedInventory)
-            return ((ru.DmN.core.common.api.interfaces.inventory.SidedInventory) inventory).canInsert(slot, stack, dir);
+        if (inventory instanceof ru.DmN.core.common.inventory.SidedInventory)
+            return ((ru.DmN.core.common.inventory.SidedInventory) inventory).canInsert(slot, stack, dir);
         return true;
     }
 
     @Override
     public boolean canExtract(int slot, ItemStack stack, Direction dir) {
-        if (inventory instanceof ru.DmN.core.common.api.interfaces.inventory.SidedInventory)
-            return ((ru.DmN.core.common.api.interfaces.inventory.SidedInventory) inventory).canExtract(slot, stack, dir);
+        if (inventory instanceof ru.DmN.core.common.inventory.SidedInventory)
+            return ((ru.DmN.core.common.inventory.SidedInventory) inventory).canExtract(slot, stack, dir);
         return true;
     }
 
