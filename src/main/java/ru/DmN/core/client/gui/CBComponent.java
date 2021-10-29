@@ -3,8 +3,6 @@ package ru.DmN.core.client.gui;
 import net.minecraft.client.gui.DrawableHelper;
 import net.minecraft.client.util.math.MatrixStack;
 
-import java.util.concurrent.atomic.AtomicInteger;
-
 /// Color Button
 public class CBComponent implements ClickableGuiComponent {
     public int startW, startH;
