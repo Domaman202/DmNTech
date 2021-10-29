@@ -3,10 +3,11 @@ package ru.DmN.core.client.gui;
 import net.minecraft.client.gui.Drawable;
 import net.minecraft.client.util.math.MatrixStack;
 
-public class MethodRefGuiComponent implements IGuiComponent {
+/// Method Reference
+public class MRComponent implements IGuiComponent {
     public final Drawable drawable;
 
-    public MethodRefGuiComponent(Drawable drawable) {
+    public MRComponent(Drawable drawable) {
         this.drawable = drawable;
     }
 

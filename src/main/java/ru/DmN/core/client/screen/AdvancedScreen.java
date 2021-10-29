@@ -5,34 +5,34 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.text.Text;
+import org.apache.commons.lang3.tuple.MutableTriple;
+import org.apache.commons.lang3.tuple.Triple;
 import ru.DmN.core.client.gui.IGuiComponent;
-import ru.DmN.core.client.gui.MethodRefGuiComponent;
-import ru.DmN.core.client.gui.NamedGuiCompound;
-
-import java.util.concurrent.atomic.AtomicInteger;
+import ru.DmN.core.client.gui.MRComponent;
+import ru.DmN.core.client.gui.OffsetsNamedGuiCompound;
 
 public abstract class AdvancedScreen <T extends ScreenHandler> extends HandledScreen <T> {
-    public final NamedGuiCompound components = new NamedGuiCompound();
-    public final AtomicInteger w = new AtomicInteger();
-    public final AtomicInteger h = new AtomicInteger();
+    public final OffsetsNamedGuiCompound components = new OffsetsNamedGuiCompound();
+    public int w = 0;
+    public int h = 0;
 
     public AdvancedScreen(T handler, PlayerInventory inventory, Text title) {
         super(handler, inventory, title);
-        this.addComponent("defaultRender", new MethodRefGuiComponent(this::defaultRender));
+        this.addComponent("defaultRender", new MRComponent(this::defaultRender), 0, 0);
     }
 
-    public void addComponent(String name, IGuiComponent component) {
-        components.components.put(name, component);
+    public void addComponent(String name, IGuiComponent component, int x, int y) {
+        components.components.put(name, new MutableTriple<>(component, x, y));
     }
 
-    public IGuiComponent getCompound(String name) {
+    public Triple<IGuiComponent, Integer, Integer> getCompound(String name) {
         return components.getCompound(name);
     }
 
     @Override
     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
-        w.set((this.width - this.backgroundWidth) / 2);
-        h.set((this.height - this.backgroundHeight) / 2);
+        w = (this.width - this.backgroundWidth) / 2;
+        h = (this.height - this.backgroundHeight) / 2;
         components.render(matrices, mouseX, mouseY, delta, w, h);
     }
 
