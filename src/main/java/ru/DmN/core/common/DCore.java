@@ -8,7 +8,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
-import ru.DmN.core.common.gui.SimpleMachineScreenHandler;
+import ru.DmN.core.common.screen.SimpleMachineScreenHandler;
 import ru.DmN.core.common.item.VoltmeterItem;
 import ru.DmN.core.common.item.WrenchItem;
 

@@ -1,4 +1,4 @@
-package ru.DmN.core.common.gui;
+package ru.DmN.core.common.screen;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;

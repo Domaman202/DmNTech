@@ -3,7 +3,7 @@ package ru.DmN.tech.test.gui;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.PropertyDelegate;
-import ru.DmN.core.common.gui.MachineScreenHandler;
+import ru.DmN.core.common.screen.MachineScreenHandler;
 import ru.DmN.core.common.inventory.ConfigurableInventory;
 import ru.DmN.tech.test.TestMain;
 
