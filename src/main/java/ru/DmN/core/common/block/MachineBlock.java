@@ -45,13 +45,12 @@ public abstract class MachineBlock extends HorizontalFacingBlock implements Bloc
     }
 
     public MachineBlock(Settings settings, Item.Settings settings_) {
-        super(settings.hardness(1).requiresTool());
+        this(settings, (Lazy<MachineBlockItem>) null);
         this.item = new Lazy<>(new MachineBlockItem(this, settings_));
     }
 
     public MachineBlock(Settings settings, Supplier<MachineBlockItem> item) {
-        super(settings.hardness(1).requiresTool());
-        this.item = new Lazy<>(item);
+        this(settings, new Lazy<>(item));
     }
 
     public MachineBlock(Settings settings, Lazy<MachineBlockItem> item) {
@@ -141,12 +140,13 @@ public abstract class MachineBlock extends HorizontalFacingBlock implements Bloc
 
     public static final Identifier MACHINE_DATA_PACKET_ID = new Identifier("dmncore", "machine_data_packet");
 
+    public void receivePacketS(MinecraftServer server, ServerPlayerEntity player, ServerPlayNetworkHandler handler, PacketByteBuf buf, PacketSender responseSender, BlockPos pos) {
+        World world = player.world;
+        world.setBlockState(pos, world.getBlockState(pos).with(MachineBlock.ACTIVE, buf.readBoolean()));
+    }
+
     @Environment(EnvType.CLIENT)
     public void sendPacketC(PacketByteBuf buf) {
         ClientPlayNetworking.send(MACHINE_DATA_PACKET_ID, buf);
-    }
-
-    public void receivePacketS(MinecraftServer server, ServerPlayerEntity player, ServerPlayNetworkHandler handler, PacketByteBuf buf, PacketSender responseSender) {
-        System.out.println("[RECEIVED PACKET INFO] " + player);
     }
 }

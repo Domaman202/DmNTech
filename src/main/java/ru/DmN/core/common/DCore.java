@@ -2,12 +2,15 @@ package ru.DmN.core.common;
 
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
+import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.fabricmc.fabric.api.screenhandler.v1.ScreenHandlerRegistry;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
+import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
 import ru.DmN.core.common.block.MachineBlock;
 import ru.DmN.core.common.screen.SimpleMachineScreenHandler;
@@ -29,7 +32,10 @@ public class DCore implements ModInitializer {
             //
             SIMPLE_MACHINE_SCREEN_HANDLER = ScreenHandlerRegistry.registerExtended(new Identifier("dmncore", "simple_machine_screen"), SimpleMachineScreenHandler::new);
             //
-            ServerPlayNetworking.registerGlobalReceiver(MACHINE_DATA_PACKET_ID, (server, player, handler, buf, responseSender) -> ((MachineBlock) player.getServerWorld().getBlockState(buf.readBlockPos()).getBlock()).receivePacketS(server, player, handler, buf, responseSender));
+            ServerPlayNetworking.registerGlobalReceiver(MACHINE_DATA_PACKET_ID, (server, player, handler, buf, responseSender) -> {
+                BlockPos pos = buf.readBlockPos();
+                ((MachineBlock) player.getServerWorld().getBlockState(pos).getBlock()).receivePacketS(server, player, handler, buf, responseSender, pos);
+            });
         } catch (Throwable error) {
             throw new Error(error);
         }
