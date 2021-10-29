@@ -3,6 +3,7 @@ package ru.DmN.tech.test.gui;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.PropertyDelegate;
+import net.minecraft.util.math.BlockPos;
 import ru.DmN.core.common.screen.MachineScreenHandler;
 import ru.DmN.core.common.inventory.ConfigurableInventory;
 import ru.DmN.tech.test.TestMain;
@@ -14,8 +15,8 @@ public class TestGuiBlockScreenHandler extends MachineScreenHandler {
         addSlots();
     }
 
-    public TestGuiBlockScreenHandler(int syncId, ConfigurableInventory inventory, PlayerInventory playerInventory, PropertyDelegate properties) {
-        super(TestMain.TEST_GUI_SCREEN_HANDLER, syncId, playerInventory, inventory, properties);
+    public TestGuiBlockScreenHandler(int syncId, ConfigurableInventory inventory, PlayerInventory playerInventory, PropertyDelegate properties, BlockPos pos) {
+        super(TestMain.TEST_GUI_SCREEN_HANDLER, syncId, playerInventory, inventory, properties, pos);
 
         addSlots();
     }

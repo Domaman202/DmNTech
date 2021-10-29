@@ -9,6 +9,7 @@ import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.screen.slot.Slot;
+import net.minecraft.util.math.BlockPos;
 import org.jetbrains.annotations.Nullable;
 import ru.DmN.core.common.inventory.ConfigurableInventory;
 import ru.DmN.core.common.inventory.SimpleConfigurableInventory;
@@ -18,24 +19,26 @@ public abstract class MachineScreenHandler extends ScreenHandler {
     public ConfigurableInventory inventory;
     public PropertyDelegate properties;
     public Inventory pInventory;
+    public final BlockPos pos;
 
     public MachineScreenHandler(@Nullable ScreenHandlerType<?> type, int syncId, PlayerInventory playerInventory, PacketByteBuf buf) {
-        this(type, syncId, playerInventory, new SimpleConfigurableInventory(buf.readInt()), new DynamicPropertyDelegate());
+        this(type, syncId, playerInventory, new SimpleConfigurableInventory(buf.readInt()), new DynamicPropertyDelegate(), buf.readBlockPos());
     }
 
-    public MachineScreenHandler(@Nullable ScreenHandlerType<?> type, int syncId, PlayerInventory playerInventory) {
-        this(type, syncId, playerInventory, new DynamicPropertyDelegate());
+    public MachineScreenHandler(@Nullable ScreenHandlerType<?> type, int syncId, PlayerInventory playerInventory, BlockPos pos) {
+        this(type, syncId, playerInventory, new DynamicPropertyDelegate(), pos);
     }
 
-    public MachineScreenHandler(@Nullable ScreenHandlerType<?> type, int syncId, PlayerInventory playerInventory, PropertyDelegate properties) {
-        this(type, syncId, playerInventory, new SimpleConfigurableInventory(0), properties);
+    public MachineScreenHandler(@Nullable ScreenHandlerType<?> type, int syncId, PlayerInventory playerInventory, PropertyDelegate properties, BlockPos pos) {
+        this(type, syncId, playerInventory, new SimpleConfigurableInventory(0), properties, pos);
     }
 
-    public MachineScreenHandler(@Nullable ScreenHandlerType<?> type, int syncId, PlayerInventory playerInventory, ConfigurableInventory inventory, PropertyDelegate properties) {
+    public MachineScreenHandler(@Nullable ScreenHandlerType<?> type, int syncId, PlayerInventory playerInventory, ConfigurableInventory inventory, PropertyDelegate properties, BlockPos pos) {
         super(type, syncId);
         this.pInventory = playerInventory;
         this.properties = properties;
         this.inventory = inventory;
+        this.pos = pos;
 
         inventory.onOpen(playerInventory.player);
 

@@ -1,5 +1,9 @@
 package ru.DmN.core.common.block;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
+import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.LivingEntity;
@@ -8,10 +12,15 @@ import net.minecraft.inventory.SidedInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.network.PacketByteBuf;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.network.ServerPlayNetworkHandler;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -127,4 +136,17 @@ public abstract class MachineBlock extends HorizontalFacingBlock implements Bloc
     @Nullable
     @Override
     public abstract MachineBlockEntity createBlockEntity(BlockPos pos, BlockState state);
+
+    /// NETWORK
+
+    public static final Identifier MACHINE_DATA_PACKET_ID = new Identifier("dmncore", "machine_data_packet");
+
+    @Environment(EnvType.CLIENT)
+    public void sendPacketC(PacketByteBuf buf) {
+        ClientPlayNetworking.send(MACHINE_DATA_PACKET_ID, buf);
+    }
+
+    public void receivePacketS(MinecraftServer server, ServerPlayerEntity player, ServerPlayNetworkHandler handler, PacketByteBuf buf, PacketSender responseSender) {
+        System.out.println("[RECEIVED PACKET INFO] " + player);
+    }
 }

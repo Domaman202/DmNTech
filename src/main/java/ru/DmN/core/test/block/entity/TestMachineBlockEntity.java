@@ -25,6 +25,6 @@ public class TestMachineBlockEntity extends MachineBlockEntity {
     @Override
     @Nullable
     public ScreenHandler createMenu(int syncId, PlayerInventory inv, PlayerEntity player) {
-        return new SimpleMachineScreenHandler(syncId, inv, properties);
+        return new SimpleMachineScreenHandler(syncId, inv, properties, pos);
     }
 }

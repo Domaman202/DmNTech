@@ -25,7 +25,7 @@ public class TestGuiBlockEntity extends MachineBlockEntityTicker {
     @Override
     @Nullable
     public ScreenHandler createMenu(int syncId, PlayerInventory playerInventory, PlayerEntity player) {
-        return new TestGuiBlockScreenHandler(syncId, this, playerInventory, properties);
+        return new TestGuiBlockScreenHandler(syncId, this, playerInventory, properties, pos);
     }
 }
 

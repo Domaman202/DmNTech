@@ -64,12 +64,13 @@ public class MachineBlockEntity extends SimpleConfigurableLCBlockEntity <Configu
     @Override
     public void writeScreenOpeningData(ServerPlayerEntity player, PacketByteBuf buf) {
         buf.writeInt(this.inventory.size());
+        buf.writeBlockPos(pos);
     }
 
     @Override
     @Nullable
     public ScreenHandler createMenu(int syncId, PlayerInventory playerInventory, PlayerEntity player) {
-        return new SimpleMachineScreenHandler(syncId, playerInventory, properties);
+        return new SimpleMachineScreenHandler(syncId, playerInventory, properties, pos);
     }
 
     @Override
