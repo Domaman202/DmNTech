@@ -139,6 +139,8 @@ public abstract class MachineBlock extends HorizontalFacingBlock implements Bloc
     public static final Identifier MACHINE_DATA_PACKET_ID = new Identifier("dmncore", "machine_data_packet");
 
     public void receivePacketS(MinecraftServer server, ServerPlayerEntity player, ServerPlayNetworkHandler handler, PacketByteBuf buf, PacketSender responseSender, BlockPos pos) {
+        System.out.println(pos);
+        System.out.println(player.world.getBlockEntity(pos));
         setActive(buf.readBoolean(), player.world, pos);
     }
 

@@ -1,15 +1,17 @@
 package ru.DmN.tech.common.block;
 
+import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.Material;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
+import net.minecraft.network.PacketByteBuf;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.network.ServerPlayNetworkHandler;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
-import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkSectionPos;
 import net.minecraft.world.World;
@@ -33,7 +35,7 @@ public class RMPBBlock extends MachineBlockTicker <RMPBBlockEntity> {
     /// CONSTRUCTORS
 
     public RMPBBlock() {
-        super(AbstractBlock.Settings.of(Material.TNT).breakInstantly().sounds(BlockSoundGroup.GRASS), new Item.Settings().group(DTech.DmNTechAllGroup));
+        super(AbstractBlock.Settings.of(Material.TNT).breakInstantly().sounds(BlockSoundGroup.STONE), new Item.Settings().group(DTech.DmNTechAllGroup));
     }
 
     /// TICK
@@ -52,11 +54,11 @@ public class RMPBBlock extends MachineBlockTicker <RMPBBlockEntity> {
 
     /// ACTIONS
 
-    @Override
-    public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
+    public ActionResult tryExplosion(World world, BlockPos pos, BlockState state) {
         if (world.isClient || !((RMPBBlockEntity) world.getBlockEntity(pos)).storage.isFull())
             return ActionResult.SUCCESS;
 
+        setActive(true, world, pos);
         setHardness(state, -1F);
 
         ChunkSection[] sections = world.getChunk(ChunkSectionPos.getSectionCoord(pos.getX()), ChunkSectionPos.getSectionCoord(pos.getZ())).getSectionArray();
@@ -71,6 +73,7 @@ public class RMPBBlock extends MachineBlockTicker <RMPBBlockEntity> {
                     }
 
         setHardness(state, state.getBlock().getDefaultState().getHardness(world, pos));
+        setActive(false, world, pos);
 
         return ActionResult.SUCCESS;
     }
@@ -94,6 +97,13 @@ public class RMPBBlock extends MachineBlockTicker <RMPBBlockEntity> {
         }
 
         return Blocks.AIR.getDefaultState();
+    }
+
+    /// NETWORK
+
+    public void receivePacketS(MinecraftServer server, ServerPlayerEntity player, ServerPlayNetworkHandler handler, PacketByteBuf buf, PacketSender responseSender, BlockPos pos) {
+        World world = player.getServerWorld();
+        tryExplosion(world, pos, world.getBlockState(pos));
     }
 
     /// TODO: MOVE TO UTILS

@@ -12,10 +12,10 @@ import ru.DmN.tech.common.block.entity.RMPBBlockEntity;
 
 public class DTech implements ModInitializer {
     public static final ItemGroup DmNTechAllGroup = FabricItemGroupBuilder.create(new Identifier("dmntech", "group_all")).icon(() -> new ItemStack(RMPBBlock.INSTANCE)).build();
-    public static BlockEntityType<RMPBBlockEntity> RMP_BOMB_BLOCK_ENTITY_TYPE;
+    public static BlockEntityType<RMPBBlockEntity> RMPB_BLOCK_ENTITY_TYPE;
 
     @Override
     public void onInitialize() {
-        RMP_BOMB_BLOCK_ENTITY_TYPE = GlobalRegistry.register(RMPBBlock.INSTANCE, RMPBBlockEntity::new, new Identifier("dmntech", "rmpb"));
+        RMPB_BLOCK_ENTITY_TYPE = GlobalRegistry.register(RMPBBlock.INSTANCE, RMPBBlockEntity::new, new Identifier("dmntech", "rmpb"));
     }
 }
