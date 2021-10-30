@@ -1,7 +1,6 @@
 package ru.DmN.tech.test;
 
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.screenhandler.v1.ScreenHandlerRegistry;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.util.Identifier;
@@ -18,6 +17,6 @@ public class TestMain implements ModInitializer {
     @Override
     public void onInitialize() {
         TEST_GUI_BLOCK_ENTITY = GlobalRegistry.register(TestGuiBlock.INSTANCE, TestGuiBlockEntity::new, TEST_GUI_ID);
-        TEST_GUI_SCREEN_HANDLER = ScreenHandlerRegistry.registerExtended(TEST_GUI_ID, TestGuiBlockScreenHandler::new);
-   }
+        TEST_GUI_SCREEN_HANDLER = GlobalRegistry.register(TEST_GUI_ID, TestGuiBlockScreenHandler::new);
+    }
 }
