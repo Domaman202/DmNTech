@@ -14,7 +14,7 @@ import ru.DmN.tech.test.gui.TestGuiBlockScreenHandler;
 
 public class TestGuiBlockEntity extends MachineBlockEntityTicker {
     public TestGuiBlockEntity(BlockPos pos, BlockState state) {
-        super(TestMain.TEST_GUI_BLOCK_ENTITY, pos, state, new SimpleConfigurableInventory(5));
+        super(TestMain.TEST_GUI_BLOCK_ENTITY, pos, state, new SimpleConfigurableInventory(4));
     }
 
     @Override
@@ -28,11 +28,3 @@ public class TestGuiBlockEntity extends MachineBlockEntityTicker {
         return new TestGuiBlockScreenHandler(syncId, this, playerInventory, properties, pos);
     }
 }
-
-/*
- I -> P -> O
-     ||
-     A1
-     ||
-     A0
- */

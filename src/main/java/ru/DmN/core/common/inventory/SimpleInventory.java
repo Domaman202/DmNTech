@@ -152,10 +152,10 @@ public class SimpleInventory extends net.minecraft.inventory.SimpleInventory imp
     public void readNbtList(NbtList nbtList) {
         if (nbtList != null) {
             for (int i = 0; i < nbtList.size(); ++i) {
-                ItemStack itemStack = ItemStack.fromNbt(nbtList.getCompound(i));
-                if (!itemStack.isEmpty()) {
-                    this.addStack(itemStack);
-                }
+                NbtCompound nbt = nbtList.getCompound(i);
+                ItemStack itemStack = ItemStack.fromNbt(nbt);
+                if (!itemStack.isEmpty())
+                    this.setStack(nbt.getInt("slot"), itemStack);
             }
         }
     }
@@ -166,7 +166,9 @@ public class SimpleInventory extends net.minecraft.inventory.SimpleInventory imp
         for(int i = 0; i < this.size(); ++i) {
             ItemStack itemStack = this.getStack(i);
             if (!itemStack.isEmpty()) {
-                nbtList.add(itemStack.writeNbt(new NbtCompound()));
+                NbtCompound nbt = itemStack.writeNbt(new NbtCompound());
+                nbt.putInt("slot", i);
+                nbtList.add(nbt);
             }
         }
 

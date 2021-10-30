@@ -22,12 +22,18 @@ public class TestGuiBlockScreenHandler extends MachineScreenHandler {
     }
 
     private void addSlots() {
-        int i = 20;
+        int i = 30;
         int j = 15;
         this.addSlot(inventory, 0, 15, i);
         this.addSlot(inventory, 1, j += 16, i);
-        this.addSlot(inventory, 2, j += 16, i);
-        this.addSlot(inventory, 3, j += 16, i);
-        this.addSlot(inventory, 4, j += 16, i);
+        this.addSlot(inventory, 2, j -= 16, i += 24);
+        this.addSlot(inventory, 3, j + 32, i);
     }
 }
+
+/*
+    X => X
+        ||
+        V
+     I => O
+ */
