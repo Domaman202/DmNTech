@@ -11,7 +11,6 @@ import ru.DmN.core.common.block.MachineBlock;
 import ru.DmN.core.common.block.entity.MachineBlockEntity;
 
 public class GlobalRegistry {
-    // Settings
     public static final Item.Settings DEFAULT_ITEM_SETTINGS = new Item.Settings();
 
     public static void register(Block block, Identifier id) {

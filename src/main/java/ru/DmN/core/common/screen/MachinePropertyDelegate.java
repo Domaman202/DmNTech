@@ -1,8 +1,6 @@
 package ru.DmN.core.common.screen;
 
 import net.minecraft.screen.PropertyDelegate;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
 import ru.DmN.core.common.block.MachineBlock;
 import ru.DmN.core.common.block.entity.MachineBlockEntity;
 
@@ -23,7 +21,7 @@ public class MachinePropertyDelegate implements PropertyDelegate {
                 long maxEnergy = entity.storage.getMaxEnergy();
                 return maxEnergy > Integer.MAX_VALUE ? Integer.MAX_VALUE : (int) maxEnergy;
             case 2:
-                return entity.getWorld().getBlockState(entity.getPos()).get(MachineBlock.ACTIVE) ? 1 : 0;
+                return MachineBlock.isActive(entity.getWorld(), entity.getPos()) ? 1 : 0;
         }
         return 0;
     }
@@ -33,11 +31,7 @@ public class MachinePropertyDelegate implements PropertyDelegate {
         switch (index) {
             case 0 -> entity.storage.setEnergy(value);
             case 1 -> entity.storage.setMaxEnergy(value);
-            case 2 -> {
-                World world = entity.getWorld();
-                BlockPos pos = entity.getPos();
-                world.setBlockState(pos, world.getBlockState(pos).with(MachineBlock.ACTIVE, value == 1));
-            }
+            case 2 -> MachineBlock.setActive(value == 1, entity.getWorld(), entity.getPos());
         }
     }
 

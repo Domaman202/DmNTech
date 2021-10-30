@@ -42,6 +42,7 @@ public abstract class MachineBlock extends HorizontalFacingBlock implements Bloc
     public MachineBlock(Settings settings, Item.Settings settings_, Void unused) {
         super(settings);
         this.item = new Lazy<>(new MachineBlockItem(this, settings_));
+        this.setDefaultState(this.getDefaultState().with(ACTIVE, false));
     }
 
     public MachineBlock(Settings settings, Item.Settings settings_) {
@@ -56,6 +57,7 @@ public abstract class MachineBlock extends HorizontalFacingBlock implements Bloc
     public MachineBlock(Settings settings, Lazy<MachineBlockItem> item) {
         super(settings.hardness(1).requiresTool());
         this.item = item;
+        this.setDefaultState(this.getDefaultState().with(ACTIVE, false));
     }
 
     /// ACTIONS
@@ -111,23 +113,19 @@ public abstract class MachineBlock extends HorizontalFacingBlock implements Bloc
 
     @Override
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-        builder.add(ACTIVE);
+        builder.add(FACING, ACTIVE);
     }
 
-    public void setFacing(Direction facing, World world, BlockPos pos) {
+    public static void setFacing(Direction facing, World world, BlockPos pos) {
         world.setBlockState(pos, world.getBlockState(pos).with(FACING, facing));
     }
 
-    public Direction getFacing(BlockState state) {
-        return state.get(FACING);
+    public static void setActive(Boolean active, World world, BlockPos pos) {
+        world.setBlockState(pos, world.getBlockState(pos).with(ACTIVE, active));
     }
 
-    public void setActive(Boolean active, World world, BlockPos pos) {
-        world.setBlockState(pos, world.getBlockState(pos).with(ACTIVE, active).with(FACING, world.getBlockState(pos).get(FACING)), 3);
-    }
-
-    public boolean isActive(BlockState state) {
-        return state.get(ACTIVE);
+    public static boolean isActive(World world, BlockPos pos) {
+        return world.getBlockState(pos).get(ACTIVE);
     }
 
     /// BLOCK ENTITY
@@ -141,8 +139,7 @@ public abstract class MachineBlock extends HorizontalFacingBlock implements Bloc
     public static final Identifier MACHINE_DATA_PACKET_ID = new Identifier("dmncore", "machine_data_packet");
 
     public void receivePacketS(MinecraftServer server, ServerPlayerEntity player, ServerPlayNetworkHandler handler, PacketByteBuf buf, PacketSender responseSender, BlockPos pos) {
-        World world = player.world;
-        world.setBlockState(pos, world.getBlockState(pos).with(MachineBlock.ACTIVE, buf.readBoolean()));
+        setActive(buf.readBoolean(), player.world, pos);
     }
 
     @Environment(EnvType.CLIENT)
