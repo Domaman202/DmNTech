@@ -5,27 +5,26 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.text.Text;
-import org.apache.commons.lang3.tuple.MutableTriple;
-import org.apache.commons.lang3.tuple.Triple;
-import ru.DmN.core.client.gui.IGuiComponent;
-import ru.DmN.core.client.gui.MRComponent;
-import ru.DmN.core.client.gui.OffsetsNamedGuiCompound;
+import ru.DmN.core.client.gui.IComponent;
+import ru.DmN.core.client.gui.MethodReference;
+import ru.DmN.core.client.gui.compound.CompoundElement;
+import ru.DmN.core.client.gui.compound.NamedCompound;
 
 public abstract class AdvancedScreen <T extends ScreenHandler> extends HandledScreen <T> {
-    public final OffsetsNamedGuiCompound components = new OffsetsNamedGuiCompound();
+    public final NamedCompound components = new NamedCompound();
     public int w = 0;
     public int h = 0;
 
     public AdvancedScreen(T handler, PlayerInventory inventory, Text title) {
         super(handler, inventory, title);
-        this.addComponent("defaultRender", new MRComponent(this::defaultRender), 0, 0);
+        this.addComponent("defaultRender", new MethodReference(this::defaultRender), 0, 0);
     }
 
-    public void addComponent(String name, IGuiComponent component, int x, int y) {
-        components.components.put(name, new MutableTriple<>(component, x, y));
+    public void addComponent(String name, IComponent component, int x, int y) {
+        components.components.add(new CompoundElement(component, x, y, name));
     }
 
-    public Triple<IGuiComponent, Integer, Integer> getCompound(String name) {
+    public CompoundElement getCompound(String name) {
         return components.getCompound(name);
     }
 

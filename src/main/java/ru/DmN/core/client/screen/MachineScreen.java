@@ -9,8 +9,8 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
-import ru.DmN.core.client.gui.DEComponent;
-import ru.DmN.core.client.gui.MABComponent;
+import ru.DmN.core.client.gui.EnergyStorage;
+import ru.DmN.core.client.gui.MachineActivationButton;
 import ru.DmN.core.common.screen.MachineScreenHandler;
 
 @Environment(EnvType.CLIENT)
@@ -24,8 +24,8 @@ public class MachineScreen <T extends MachineScreenHandler> extends AdvancedScre
         //
         PropertyDelegate properties = handler.properties;
         //
-        this.addComponent("energy", new DEComponent(properties), 18, 20);
-        this.addComponent("active", new MABComponent(10, 10, properties, inventory.player.world, handler.pos), 5, 19);
+        this.addComponent("energy", new EnergyStorage(properties), 18, 20);
+        this.addComponent("active", new MachineActivationButton(10, 10, properties, inventory.player.world, handler.pos), 5, 19);
     }
 
     @Override

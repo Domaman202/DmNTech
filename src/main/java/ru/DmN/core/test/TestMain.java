@@ -47,16 +47,15 @@ public class TestMain implements ModInitializer {
         GlobalRegistry.register(TestCableBlock.INSTANCE, new Item.Settings().group(DTestGroup), new Identifier("dmntest", "test_cable"));
         TEST_CABLE_BLOCK_ENTITY_TYPE = Registry.register(Registry.BLOCK_ENTITY_TYPE, new Identifier("dmntest", "test_cable"), FabricBlockEntityTypeBuilder.create(TestCableBlockEntity::new, TestCableBlock.INSTANCE).build());
         //
-        CommandRegistrationCallback.EVENT.register((dispatcher, dedicated) -> {
-            dispatcher.register(literal("dmn").then(literal("test")
-                    .then(literal("set_count").then(argument("count", IntegerArgumentType.integer()).executes(context -> {
-                        context.getSource().getPlayer().getMainHandStack().setCount(context.getArgument("count", Integer.class));
-                        return 1;
-                    })))
-                    .then(literal("set_damage").then(argument("damage", IntegerArgumentType.integer()).executes(context -> {
-                        context.getSource().getPlayer().getMainHandStack().setDamage(context.getArgument("damage", Integer.class));
-                        return 1;
-                    })))));
-        });
+        CommandRegistrationCallback.EVENT.register((dispatcher, dedicated) -> dispatcher.register(literal("dmn").then(literal("test")
+                .then(literal("set_count").then(argument("count", IntegerArgumentType.integer()).executes(context -> {
+                    context.getSource().getPlayer().getMainHandStack().setCount(context.getArgument("count", Integer.class));
+                    return 1;
+                })))
+                .then(literal("set_damage").then(argument("damage", IntegerArgumentType.integer()).executes(context -> {
+                    context.getSource().getPlayer().getMainHandStack().setDamage(context.getArgument("damage", Integer.class));
+                    return 1;
+                })))
+        )));
     }
 }

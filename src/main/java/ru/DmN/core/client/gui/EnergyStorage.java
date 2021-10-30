@@ -6,11 +6,10 @@ import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.text.TranslatableText;
 import ru.DmN.core.common.utils.ColorUtils;
 
-/// Default Energy
-public class DEComponent implements IGuiComponent {
+public class EnergyStorage implements IComponent {
     public final PropertyDelegate properties;
 
-    public DEComponent(PropertyDelegate properties) {
+    public EnergyStorage(PropertyDelegate properties) {
         this.properties = properties;
     }
 

@@ -10,13 +10,12 @@ import ru.DmN.core.common.block.MachineBlock;
 
 import java.awt.*;
 
-/// Machine Activation Button
-public class MABComponent extends CBComponent {
+public class MachineActivationButton extends ColoredButton {
     public final PropertyDelegate properties;
     public final BlockPos pos;
     public final World world;
 
-    public MABComponent(int sizeW, int sizeH, PropertyDelegate properties, World world, BlockPos pos) {
+    public MachineActivationButton(int sizeW, int sizeH, PropertyDelegate properties, World world, BlockPos pos) {
         super(sizeW, sizeH);
         this.properties = properties;
         this.world = world;

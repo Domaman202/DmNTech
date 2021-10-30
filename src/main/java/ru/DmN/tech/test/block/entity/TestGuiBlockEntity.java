@@ -9,10 +9,11 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import ru.DmN.core.common.block.entity.MachineBlockEntityTicker;
 import ru.DmN.core.common.inventory.SimpleConfigurableInventory;
+import ru.DmN.tech.common.block.entity.MachineCasingBlockEntity;
 import ru.DmN.tech.test.TestMain;
 import ru.DmN.tech.test.gui.TestGuiBlockScreenHandler;
 
-public class TestGuiBlockEntity extends MachineBlockEntityTicker {
+public class TestGuiBlockEntity extends MachineCasingBlockEntity {
     public TestGuiBlockEntity(BlockPos pos, BlockState state) {
         super(TestMain.TEST_GUI_BLOCK_ENTITY, pos, state, new SimpleConfigurableInventory(4));
     }

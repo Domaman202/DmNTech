@@ -3,12 +3,11 @@ package ru.DmN.core.client.gui;
 import net.minecraft.client.gui.DrawableHelper;
 import net.minecraft.client.util.math.MatrixStack;
 
-/// Color Button
-public abstract class CBComponent implements ClickableGuiComponent {
+public abstract class ColoredButton implements Clickable {
     public int startW, startH;
     public int sizeW, sizeH;
 
-    public CBComponent(int sizeW, int sizeH) {
+    public ColoredButton(int sizeW, int sizeH) {
         this.sizeW = sizeW;
         this.sizeH = sizeH;
     }
