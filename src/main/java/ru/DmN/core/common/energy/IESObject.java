@@ -266,7 +266,7 @@ public interface IESObject <T> extends IESProvider<T> {
 
         if (i < 0) {
             if (-i > max)
-                i = -(i - (i - max));
+                i = -(i - (i - max)) + max;
         } else if (i > max)
             i = i - (max - i);
         else if (i > storage.getMaxEnergy(side1))
@@ -291,7 +291,7 @@ public interface IESObject <T> extends IESProvider<T> {
 
         if (i < 0) {
             if (-i > max)
-                i = -(i - (i - max));
+                i = -(i - (i - max)) + max;
         } else if (i > max)
             i = i - (max - i);
         else if (i > storage.getMaxEnergy())
@@ -319,7 +319,7 @@ public interface IESObject <T> extends IESProvider<T> {
 
         if (i < 0) {
             if (-i > max)
-                i = -(i - (i - max));
+                i = -(i - (i - max)) + max;
         } else if (i > max)
             i = i - (max - i);
         else if (i > storage.getMaxEnergy(side1))
