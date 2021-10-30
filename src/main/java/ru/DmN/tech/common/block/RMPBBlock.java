@@ -2,15 +2,12 @@ package ru.DmN.tech.common.block;
 
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
 import net.minecraft.block.Material;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.item.Item;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.ChunkSectionPos;
 import net.minecraft.world.World;
-import net.minecraft.world.chunk.ChunkSection;
 import net.minecraft.world.chunk.WorldChunk;
 import net.minecraft.world.explosion.Explosion;
 import org.jetbrains.annotations.Nullable;
@@ -56,21 +53,38 @@ public class RMPBBlock extends MachineBlockTicker <RMPBBlockEntity> {
         if (world.isClient || !isActive(world, pos))
             return;
 
-        RMPBBlockEntity entity = ((RMPBBlockEntity) getBlockEntity(world, pos));
-        IESObject<?> storage = entity.storage;
-
         setHardness(state, -1F);
         setActive(true, world, pos);
 
-        for (int i = 0; i < 16; i++)
-            for (int j = 0; j < 16; j++)
-                for (int k = 0; k < 256; k++)
-                    if (fastGetBlockState(world.getChunk(ChunkSectionPos.getSectionCoord(pos.getX()), ChunkSectionPos.getSectionCoord(pos.getZ())).getSectionArray(), i, k, j).getBlock().getName().toString().contains("redstone")) {
-                        storage.setEnergy(storage.getEnergy() - 4096);
-                        Explosion explosion = new Explosion(world, null, null, null, pos.getX() + i, k, pos.getZ() + j, 10, true, Explosion.DestructionType.BREAK);
+        RMPBBlockEntity entity = ((RMPBBlockEntity) getBlockEntity(world, pos));
+        IESObject<?> storage = entity.storage;
+
+        BlockPos selectedPos = pos.down(pos.getY());
+
+        for (int i = -16; i < 16; i++)
+            for (int j = -16; j < 16; j++)
+                for (int k = 0; k < 256; k++) {
+                    BlockPos ePos = selectedPos.add(i, k, j);
+                    BlockState s = world.getBlockState(ePos);
+                    if (s.getBlock().getName().toString().contains("redstone")) {
+                        float power = storage.getEnergy() / (storage.getMaxEnergy() / 16f);
+                        storage.setEnergy((long) (storage.getEnergy() - 4096 * power * s.getHardness(world, ePos)));
+                        if (storage.getEnergy() >= 0)
+                            return;
+                        Explosion explosion = new Explosion(world,
+                                null,
+                                null,
+                                null,
+                                selectedPos.getX(),
+                                k,
+                                selectedPos.getZ(),
+                                power,
+                                true,
+                                Explosion.DestructionType.BREAK);
                         explosion.collectBlocksAndDamageEntities();
                         explosion.affectWorld(true);
                     }
+                }
 
         setActive(false, world, pos);
         setHardness(state, state.getBlock().getDefaultState().getHardness(world, pos));
@@ -82,19 +96,6 @@ public class RMPBBlock extends MachineBlockTicker <RMPBBlockEntity> {
     @Nullable
     public MachineBlockEntity createBlockEntity(BlockPos pos, BlockState state) {
         return new RMPBBlockEntity(pos, state);
-    }
-
-    /// BLOCK STATE
-
-    public static BlockState fastGetBlockState(ChunkSection[] sections, int i, int j, int k) {
-        int l = (j >> 4);
-        if (l >= 0 && l < sections.length) {
-            ChunkSection chunkSection = sections[l];
-            if (!(chunkSection == null || chunkSection.isEmpty()))
-                return chunkSection.getBlockState(i & 15, j & 15, k & 15);
-        }
-
-        return Blocks.AIR.getDefaultState();
     }
 
     /// TODO: MOVE TO UTILS

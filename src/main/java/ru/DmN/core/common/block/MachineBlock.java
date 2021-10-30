@@ -114,7 +114,10 @@ public abstract class MachineBlock extends HorizontalFacingBlock implements Bloc
     }
 
     public static void setActive(Boolean active, World world, BlockPos pos) {
-        world.setBlockState(pos, world.getBlockState(pos).with(ACTIVE, active));
+        BlockState state = world.getBlockState(pos);
+        if (state.isAir())
+            return;
+        world.setBlockState(pos, state.with(ACTIVE, active));
     }
 
     public static boolean isActive(World world, BlockPos pos) {
