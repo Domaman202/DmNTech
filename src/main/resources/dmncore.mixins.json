@@ -3,12 +3,12 @@
   "minVersion": "0.8",
   "package": "ru.DmN.core.mixin",
   "compatibilityLevel": "JAVA_16",
-  "client": [
-    "client.MixinArmorFeatureRenderer"
-  ],
   "injectors": {
     "defaultRequire": 1
   },
+  "client": [
+    "client.MixinArmorFeatureRenderer"
+  ],
   "mixins": [
     "MixinScreenHandler"
   ]

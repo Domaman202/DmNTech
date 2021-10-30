@@ -105,33 +105,39 @@ public class MachineBlockEntity extends SimpleConfigurableLCBlockEntity <Configu
     }
 
     @Override
-    public NbtCompound writeNbt(NbtCompound nbt) {
+    public NbtCompound writeNbt(@NotNull NbtCompound nbt) {
         return super.writeNbt(writeMyNbt(nbt));
     }
 
     public NbtCompound writeMyNbt(@NotNull NbtCompound nbt) {
-        NbtCompound dmnData = new NbtCompound();
-        dmnData.putLong("energy", this.storage.getEnergy());
-        dmnData.putLong("max_energy", this.storage.getMaxEnergy());
-        dmnData.putBoolean("active", this.world.getBlockState(pos).get(MachineBlock.ACTIVE));
-        dmnData.put("inv", this.inventory.toNbtList());
-        nbt.put("dmndata", dmnData);
+        nbt.put("dmndata", writeDmNData(new NbtCompound()));
+        return nbt;
+    }
+
+    public NbtCompound writeDmNData(@NotNull NbtCompound nbt) {
+        nbt.putLong("energy", this.storage.getEnergy());
+        nbt.putLong("max_energy", this.storage.getMaxEnergy());
+        nbt.putBoolean("active", this.world.getBlockState(pos).get(MachineBlock.ACTIVE));
+        nbt.put("inv", this.inventory.toNbtList());
         return nbt;
     }
 
     @Override
-    public void readNbt(NbtCompound nbt) {
+    public void readNbt(@NotNull NbtCompound nbt) {
         super.readNbt(nbt);
         readMyNbt(nbt);
     }
 
-    public void readMyNbt(NbtCompound nbt) {
-        NbtCompound dmnData = nbt.getCompound("dmndata");
-        this.storage.setEnergy(dmnData.getLong("energy"));
-        this.storage.setMaxEnergy(dmnData.getLong("max_energy"));
-        this.inventory.readNbtList((NbtList) dmnData.get("inv"));
+    public void readMyNbt(@NotNull NbtCompound nbt) {
+        readDmNData(nbt.getCompound("dmndata"));
+    }
+
+    public void readDmNData(@NotNull NbtCompound nbt) {
+        this.storage.setEnergy(nbt.getLong("energy"));
+        this.storage.setMaxEnergy(nbt.getLong("max_energy"));
+        this.inventory.readNbtList((NbtList) nbt.get("inv"));
         if (this.world != null)
-            this.world.setBlockState(this.pos, this.world.getBlockState(this.pos).with(MachineBlock.ACTIVE, dmnData.getBoolean("active")));
+            this.world.setBlockState(this.pos, this.world.getBlockState(this.pos).with(MachineBlock.ACTIVE, nbt.getBoolean("active")));
     }
 
     /// GET OVERRIDE

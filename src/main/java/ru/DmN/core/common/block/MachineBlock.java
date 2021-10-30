@@ -64,31 +64,24 @@ public abstract class MachineBlock extends HorizontalFacingBlock implements Bloc
 
     @Override
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
-        // Change Active
-        if (player.isSneaking())
-            world.setBlockState(pos, state.with(ACTIVE, !state.get(ACTIVE)));
         // Screen Open
-        else ((MachineBlockEntity) world.getBlockEntity(pos)).openScreen(player);
+        ((MachineBlockEntity) world.getBlockEntity(pos)).openScreen(player);
         //
         return ActionResult.SUCCESS;
     }
 
     @Override
     public void onPlaced(World world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack itemStack) {
+        // Creating Block Entity
+        BlockEntity entity = world.getBlockEntity(pos);
+        if (entity != null)
+            world.removeBlockEntity(pos);
+        entity = createBlockEntity(pos, state);
+        world.addBlockEntity(entity);
         // Setting Data
-        if (itemStack.hasNbt() && itemStack.getNbt().contains("dmntech_data")) {
+        if (itemStack.hasNbt() && itemStack.getNbt().contains("dmndata")) {
             // Getting DmNData
             NbtCompound nbt = itemStack.getNbt().getCompound("dmndata");
-            // Getting Block Entity
-            BlockEntity entity = world.getBlockEntity(pos);
-            if (entity == null) {
-                entity = createBlockEntity(pos, state);
-                world.addBlockEntity(entity);
-            } else if (!(entity instanceof MachineBlockEntity)) {
-                world.removeBlockEntity(pos);
-                entity = createBlockEntity(pos, state);
-                world.addBlockEntity(entity);
-            }
             // Setting BlockEntity Energy Data
             if (entity != null)
                 ((MachineBlockEntity) entity).storage.setEnergy(nbt.getLong("energy"));
@@ -125,7 +118,10 @@ public abstract class MachineBlock extends HorizontalFacingBlock implements Bloc
     }
 
     public static boolean isActive(World world, BlockPos pos) {
-        return world.getBlockState(pos).get(ACTIVE);
+        BlockState state = world.getBlockState(pos);
+        if (state.isAir())
+            return false;
+        return state.get(ACTIVE);
     }
 
     /// BLOCK ENTITY
@@ -139,8 +135,6 @@ public abstract class MachineBlock extends HorizontalFacingBlock implements Bloc
     public static final Identifier MACHINE_DATA_PACKET_ID = new Identifier("dmncore", "machine_data_packet");
 
     public void receivePacketS(MinecraftServer server, ServerPlayerEntity player, ServerPlayNetworkHandler handler, PacketByteBuf buf, PacketSender responseSender, BlockPos pos) {
-        System.out.println(pos);
-        System.out.println(player.world.getBlockEntity(pos));
         setActive(buf.readBoolean(), player.world, pos);
     }
 

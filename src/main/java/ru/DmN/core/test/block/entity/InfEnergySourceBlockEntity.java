@@ -18,12 +18,6 @@ public class InfEnergySourceBlockEntity extends MachineBlockEntity {
         this.storage = new InfEnergyStorage();
     }
 
-    @Override
-    @Nullable
-    public ScreenHandler createMenu(int syncId, PlayerInventory playerInventory, PlayerEntity player) {
-        return null;
-    }
-
     @SuppressWarnings("rawtypes")
     public class InfEnergyStorage implements IESObject {
         public InfEnergyStorage() {

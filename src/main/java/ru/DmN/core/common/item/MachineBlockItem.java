@@ -36,15 +36,10 @@ public class MachineBlockItem extends BlockItem implements IESProvider<ItemStack
         if (!world.getBlockState(pos).isAir() && world.getBlockState(pos).getFluidState().isEmpty())
             return ActionResult.FAIL;
         // Place
-        BlockEntity entity = world.getBlockEntity(context.getBlockPos());
-        if (!(entity instanceof MachineBlockEntity)) {
-            MachineBlock block = (MachineBlock) ((BlockItem) stack.getItem()).getBlock();
-            BlockState state = block.getDefaultState();
-            world.setBlockState(pos, state);
-            entity = block.createBlockEntity(pos, state);
-            world.addBlockEntity(entity);
-        }
-        ((MachineBlockEntity) entity).onPlace(context);
+        MachineBlock block = (MachineBlock) ((BlockItem) stack.getItem()).getBlock();
+        BlockState state = block.getDefaultState();
+        world.setBlockState(pos, state);
+        block.onPlaced(world, pos, state, context.getPlayer(), stack);
         // Remove Stack
         PlayerEntity player = context.getPlayer();
         if (!player.getAbilities().creativeMode)

@@ -17,7 +17,8 @@ public class InfEnergySourceBlock extends MachineBlock {
     }
 
     @Override
-    public @Nullable MachineBlockEntity createBlockEntity(BlockPos pos, BlockState state) {
+    @Nullable
+    public MachineBlockEntity createBlockEntity(BlockPos pos, BlockState state) {
         return new InfEnergySourceBlockEntity(pos, state);
     }
 }

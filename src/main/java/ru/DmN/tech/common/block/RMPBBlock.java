@@ -1,21 +1,17 @@
 package ru.DmN.tech.common.block;
 
-import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.Material;
+import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.item.Item;
-import net.minecraft.network.PacketByteBuf;
-import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.network.ServerPlayNetworkHandler;
-import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.BlockSoundGroup;
-import net.minecraft.util.ActionResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkSectionPos;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.ChunkSection;
+import net.minecraft.world.chunk.WorldChunk;
 import net.minecraft.world.explosion.Explosion;
 import org.jetbrains.annotations.Nullable;
 import ru.DmN.core.common.block.MachineBlockTicker;
@@ -50,32 +46,34 @@ public class RMPBBlock extends MachineBlockTicker <RMPBBlockEntity> {
         trySuckEnergyOfCable(world, pos.south(), storage);
         trySuckEnergyOfCable(world, pos.east(), storage);
         trySuckEnergyOfCable(world, pos.west(), storage);
+
+        tryExplosion(world, pos, state);
     }
 
     /// ACTIONS
 
-    public ActionResult tryExplosion(World world, BlockPos pos, BlockState state) {
-        if (world.isClient || !((RMPBBlockEntity) world.getBlockEntity(pos)).storage.isFull())
-            return ActionResult.SUCCESS;
+    public void tryExplosion(World world, BlockPos pos, BlockState state) {
+        if (world.isClient || !isActive(world, pos))
+            return;
 
-        setActive(true, world, pos);
+        RMPBBlockEntity entity = ((RMPBBlockEntity) getBlockEntity(world, pos));
+        IESObject<?> storage = entity.storage;
+
         setHardness(state, -1F);
-
-        ChunkSection[] sections = world.getChunk(ChunkSectionPos.getSectionCoord(pos.getX()), ChunkSectionPos.getSectionCoord(pos.getZ())).getSectionArray();
+        setActive(true, world, pos);
 
         for (int i = 0; i < 16; i++)
             for (int j = 0; j < 16; j++)
                 for (int k = 0; k < 256; k++)
-                    if (fastGetBlockState(sections, i, k, j).getBlock().toString().contains("redstone")) {
+                    if (fastGetBlockState(world.getChunk(ChunkSectionPos.getSectionCoord(pos.getX()), ChunkSectionPos.getSectionCoord(pos.getZ())).getSectionArray(), i, k, j).getBlock().getName().toString().contains("redstone")) {
+                        storage.setEnergy(storage.getEnergy() - 4096);
                         Explosion explosion = new Explosion(world, null, null, null, pos.getX() + i, k, pos.getZ() + j, 10, true, Explosion.DestructionType.BREAK);
                         explosion.collectBlocksAndDamageEntities();
                         explosion.affectWorld(true);
                     }
 
-        setHardness(state, state.getBlock().getDefaultState().getHardness(world, pos));
         setActive(false, world, pos);
-
-        return ActionResult.SUCCESS;
+        setHardness(state, state.getBlock().getDefaultState().getHardness(world, pos));
     }
 
     /// BLOCK ENTITY
@@ -99,13 +97,6 @@ public class RMPBBlock extends MachineBlockTicker <RMPBBlockEntity> {
         return Blocks.AIR.getDefaultState();
     }
 
-    /// NETWORK
-
-    public void receivePacketS(MinecraftServer server, ServerPlayerEntity player, ServerPlayNetworkHandler handler, PacketByteBuf buf, PacketSender responseSender, BlockPos pos) {
-        World world = player.getServerWorld();
-        tryExplosion(world, pos, world.getBlockState(pos));
-    }
-
     /// TODO: MOVE TO UTILS
 
     public static Unsafe unsafe;
@@ -123,7 +114,14 @@ public class RMPBBlock extends MachineBlockTicker <RMPBBlockEntity> {
     }
 
     public static long HARDNESS_OFFSET;
+
     public void setHardness(BlockState state, float value) {
         unsafe.putFloat(state, HARDNESS_OFFSET, value);
+    }
+
+    /// TODO: MOVE TO UTILS
+
+    public static BlockEntity getBlockEntity(World world, BlockPos pos) {
+        return world.getWorldChunk(pos).getBlockEntity(pos, WorldChunk.CreationType.IMMEDIATE);
     }
 }
