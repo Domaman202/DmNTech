@@ -3,6 +3,7 @@ package ru.DmN.core.common.block.entity;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -30,8 +31,23 @@ public abstract class SimpleConfigurableLCBlockEntity <T extends ConfigurableInv
     }
 
     @Override
+    public void readNbt(NbtCompound nbt) {
+        super.readNbt(nbt);
+        if (nbt.contains("dmndata"))
+            readNbtList((NbtList) nbt.getCompound("dmndata").get("inv"));
+    }
+
+    @Override
     public void readNbtList(NbtList nbtList) {
         inventory.readNbtList(nbtList);
+    }
+
+    @Override
+    public NbtCompound writeNbt(NbtCompound nbt) {
+        NbtCompound dmnData = new NbtCompound();
+        dmnData.put("inv", toNbtList());
+        nbt.put("dmndata", dmnData);
+        return super.writeNbt(nbt);
     }
 
     @Override

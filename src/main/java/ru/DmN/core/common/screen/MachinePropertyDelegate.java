@@ -13,17 +13,12 @@ public class MachinePropertyDelegate implements PropertyDelegate {
 
     @Override
     public int get(int index) {
-        switch (index) {
-            case 0:
-                long energy = entity.storage.getEnergy();
-                return energy > Integer.MAX_VALUE ? Integer.MAX_VALUE : (int) energy;
-            case 1:
-                long maxEnergy = entity.storage.getMaxEnergy();
-                return maxEnergy > Integer.MAX_VALUE ? Integer.MAX_VALUE : (int) maxEnergy;
-            case 2:
-                return MachineBlock.isActive(entity.getWorld(), entity.getPos()) ? 1 : 0;
-        }
-        return 0;
+        return switch (index) {
+            case 0 -> entity.storage.getEnergy() > Integer.MAX_VALUE ? Integer.MAX_VALUE : (int) entity.storage.getEnergy();
+            case 1 -> entity.storage.getMaxEnergy() > Integer.MAX_VALUE ? Integer.MAX_VALUE : (int) entity.storage.getMaxEnergy();
+            case 2 -> MachineBlock.isActive(entity.getWorld(), entity.getPos()) ? 1 : 0;
+            default -> 0;
+        };
     }
 
     @Override

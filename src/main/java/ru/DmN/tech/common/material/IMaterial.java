@@ -1,22 +1,33 @@
 package ru.DmN.tech.common.material;
 
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.Identifier;
-
 public interface IMaterial {
-    Identifier getId();
+    /// FUEL
 
-    boolean isMetal(ItemStack stack);
+    boolean isFuel();
 
-    boolean isToolMaterial(ItemStack stack);
+    int burnTime();
 
-    boolean isFuel(ItemStack stack);
+    double burnCoefficient();
 
-    int burnTime(ItemStack stack);
+    /// MELT
 
-    int craftTime(ItemStack stack);
+    boolean isMelt();
 
-    int duration(ItemStack stack);
+    int meltTime();
 
-    int temperature(ItemStack stack);
+    int meltTemperature();
+
+    /// COIL
+
+    boolean isCoil();
+
+    int energyCoefficient();
+
+    int maxTemperature();
+
+    /// TOOL
+
+    boolean isToolMaterial();
+
+    int durability();
 }

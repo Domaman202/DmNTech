@@ -13,7 +13,6 @@ import net.minecraft.util.math.BlockPos;
 import org.jetbrains.annotations.Nullable;
 import ru.DmN.core.common.inventory.ConfigurableInventory;
 import ru.DmN.core.common.inventory.SimpleConfigurableInventory;
-import ru.DmN.core.common.screen.DynamicPropertyDelegate;
 
 public abstract class MachineScreenHandler extends ScreenHandler {
     public ConfigurableInventory inventory;

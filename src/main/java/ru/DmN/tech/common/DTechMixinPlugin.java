@@ -3,16 +3,11 @@ package ru.DmN.tech.common;
 import org.objectweb.asm.tree.ClassNode;
 import org.spongepowered.asm.mixin.extensibility.IMixinConfigPlugin;
 import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
-import ru.DmN.tech.common.registry.MaterialRegistry;
 
 import java.util.List;
 import java.util.Set;
 
 public class DTechMixinPlugin implements IMixinConfigPlugin {
-    static {
-        MaterialRegistry.__init();
-    }
-
     @Override
     public void onLoad(String mixinPackage) {
 
@@ -25,7 +20,7 @@ public class DTechMixinPlugin implements IMixinConfigPlugin {
 
     @Override
     public boolean shouldApplyMixin(String targetClassName, String mixinClassName) {
-        return false;
+        return true;
     }
 
     @Override
