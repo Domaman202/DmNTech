@@ -77,14 +77,16 @@ public class DmNFurnace extends AbstractFurnaceBlock {
                 if (!stack.isEmpty()) {
                     entity.burn = (entity.lastBurnMaterial = ((IMaterialProvider) stack.getItem()).getMaterial()).burnTime();
                     stack.decrement(1);
-                }
+                    // Setting block state
+                    world.setBlockState(pos, state.with(LIT, true), 3);
+                } else
+                    // Setting block state
+                    world.setBlockState(pos, state.with(LIT, false), 3);
             } else {
                 // Else heat machine and decrement burn time
                 entity.burn--;
                 if (entity.heat < 1600)
                     entity.heat += entity.lastBurnMaterial.burnCoefficient();
-                // Setting block state
-                world.setBlockState(pos, state.with(LIT, true), 3);
             }
 
             // Checking heat for recipe
