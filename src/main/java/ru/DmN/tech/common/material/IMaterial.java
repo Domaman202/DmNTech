@@ -3,31 +3,53 @@ package ru.DmN.tech.common.material;
 public interface IMaterial {
     /// FUEL
 
-    boolean isFuel();
+    default boolean isFuel() {
+        return false;
+    }
 
-    int burnTime();
+    default int burnTime() {
+        return 0;
+    }
 
-    double burnCoefficient();
+    default double burnCoefficient() {
+        return 0d;
+    }
 
     /// MELT
 
-    boolean isMelt();
+    default boolean isMelt() {
+        return false;
+    }
 
-    int meltTime();
+    default int meltTime() {
+        return 0;
+    }
 
-    int meltTemperature();
+    default int meltTemperature() {
+        return 0;
+    }
 
     /// COIL
 
-    boolean isCoil();
+    default boolean isCoil() {
+        return false;
+    }
 
-    int energyCoefficient();
+    default int energyCoefficient() {
+        return 0;
+    }
 
-    int maxTemperature();
+    default int maxTemperature() {
+        return 0;
+    }
 
     /// TOOL
 
-    boolean isToolMaterial();
+    default boolean isToolMaterial() {
+        return false;
+    }
 
-    int durability();
+    default int durability() {
+        return 0;
+    }
 }

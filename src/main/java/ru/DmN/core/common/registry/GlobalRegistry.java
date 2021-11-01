@@ -19,6 +19,10 @@ import ru.DmN.core.common.screen.SimpleMachineScreenHandler;
 public class GlobalRegistry {
     public static final Item.Settings DEFAULT_ITEM_SETTINGS = new Item.Settings();
 
+    public static void register(Item item, Identifier id) {
+        Registry.register(Registry.ITEM, id, item);
+    }
+
     public static void register(Block block, Identifier id) {
         Registry.register(Registry.ITEM, id, new BlockItem(Registry.register(Registry.BLOCK, id, block), DEFAULT_ITEM_SETTINGS));
     }

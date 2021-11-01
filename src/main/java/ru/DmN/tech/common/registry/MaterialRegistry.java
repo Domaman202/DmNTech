@@ -44,8 +44,8 @@ public final class MaterialRegistry {
         return x;
     }
 
-    public static SimpleMetalTool registerMetalTool(Identifier id, int meltTime, int meltTemperature, int durability) {
-        SimpleMetalTool x = new SimpleMetalTool(meltTime, meltTemperature, durability);
+    public static SimpleMelting registerMelting(Identifier id, int meltTime, int meltTemperature) {
+        SimpleMelting x = new SimpleMelting(meltTime, meltTemperature);
         materials.put(id, x);
         return x;
     }
@@ -56,20 +56,35 @@ public final class MaterialRegistry {
             //
             register(new Identifier("minecraft", "air"), EmptyMaterial.INSTANCE);
             //
-            setMaterial(registerFuel(new Identifier("minecraft", "coal"), 8, 1, 1600),
+            setMaterial(registerFuel(new Identifier("minecraft", "coal"), 12, 1, 1600),
                     Items.COAL,
                     Items.CHARCOAL
             );
             //
-            setMaterial(registerFuel(new Identifier("minecraft", "coal_block"), 100, 1, 1650),
+            setMaterial(registerFuel(new Identifier("minecraft", "coal_block"), 120, 1, 1650),
                     Items.COAL_BLOCK
             );
             //
-            setMaterial(registerFuel(new Identifier("minecraft", "stick"), 1, 0.5, 300),
-                    Items.STICK
+            setMaterial(registerFuel(new Identifier("minecraft", "stick"), 1, 0.5, 150),
+                    Items.STICK,
+                    Items.ACACIA_SAPLING,
+                    Items.SPRUCE_SAPLING,
+                    Items.BIRCH_SAPLING,
+                    Items.DARK_OAK_SAPLING,
+                    Items.JUNGLE_SAPLING,
+                    Items.OAK_SAPLING,
+                    Items.ACACIA_LEAVES,
+                    Items.AZALEA_LEAVES,
+                    Items.BIRCH_LEAVES,
+                    Items.DARK_OAK_LEAVES,
+                    Items.JUNGLE_LEAVES,
+                    Items.OAK_LEAVES,
+                    Items.SPRUCE_LEAVES,
+                    Items.AZALEA_LEAVES_FLOWERS,
+                    Items.DEAD_BUSH
             );
             //
-            setMaterial(registerFuel(new Identifier("minecraft", "planks"), 1, 1.5, 400),
+            setMaterial(registerFuel(new Identifier("minecraft", "planks"), 4, 1.5, 400),
                     Items.ACACIA_PLANKS,
                     Items.BIRCH_PLANKS,
                     Items.CRIMSON_PLANKS,
@@ -79,16 +94,45 @@ public final class MaterialRegistry {
                     Items.SPRUCE_PLANKS,
                     Items.WARPED_PLANKS
             );
-            //
+            // TODO
             registerMetalTool(new Identifier("minecraft", "tin"), 1, 232);
+            // TODO
             registerMetalTool(new Identifier("minecraft", "bronze"), 1, 950);
-            registerMetalTool(new Identifier("minecraft", "copper"), 1, 1085);
+            //
+            setMaterial(registerMetalTool(new Identifier("minecraft", "copper"), 1, 1085),
+                    Items.COPPER_INGOT,
+                    Items.COPPER_ORE,
+                    Items.DEEPSLATE_COPPER_ORE,
+                    Items.RAW_COPPER
+            );
             //
             setMaterial(registerMetalTool(new Identifier("minecraft", "iron"), 1, 1538),
                     Items.IRON_INGOT,
                     Items.IRON_ORE,
                     Items.DEEPSLATE_IRON_ORE,
                     Items.RAW_IRON
+            );
+            //
+            setMaterial(registerMetalTool(new Identifier("minecraft", "gold"), 1, 1064),
+                    Items.GOLD_INGOT,
+                    Items.GOLD_ORE,
+                    Items.DEEPSLATE_GOLD_ORE,
+                    Items.RAW_GOLD
+            );
+            //
+            setMaterial(registerMelting(new Identifier("minecraft", "low_roast"), 4, 70),
+                    Items.COD,
+                    Items.SALMON,
+                    Items.POTATO,
+                    Items.RABBIT,
+                    Items.KELP
+            );
+            //
+            setMaterial(registerMelting(new Identifier("minecraft", "medium_roast"), 20, 120),
+                    Items.PORKCHOP,
+                    Items.BEEF,
+                    Items.CHICKEN,
+                    Items.MUTTON
             );
             //
             init = false;

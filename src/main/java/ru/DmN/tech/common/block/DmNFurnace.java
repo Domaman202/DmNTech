@@ -85,7 +85,7 @@ public class DmNFurnace extends AbstractFurnaceBlock {
             } else {
                 // Else heat machine and decrement burn time
                 entity.burn--;
-                if (entity.heat < 1600)
+                if (entity.heat < 1600 && entity.heat < entity.lastBurnMaterial.maxTemperature())
                     entity.heat += entity.lastBurnMaterial.burnCoefficient();
             }
 

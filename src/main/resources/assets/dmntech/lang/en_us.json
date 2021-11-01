@@ -1,0 +1,8 @@
+{
+  "itemGroup.dmntech.group_all": "DmNTech",
+  "block.dmntech.dmnfurnace": "DmNFurnace",
+  "block.dmntech.rmpb": "RMPB",
+  "item.dmntech.coil.cupronickel": "Cupronickel coil",
+  "item.dmntech.coil.nichrome": "Nichrome coil",
+  "item.dmntech.coil.cantal": "Cantal coil"
+}
