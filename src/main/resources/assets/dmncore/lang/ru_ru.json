@@ -1,6 +1,7 @@
 {
   "text.dmncore.energy": "Энергия -> %d / %d",
-  "itemGroup.dmncore.items": "DmNCore",
+  "itemGroup.dmncore.all": "DmNCore",
   "item.dmncore.wrench": "Гаечный ключ",
-  "item.dmncore.voltmeter": "Вольтметр"
+  "item.dmncore.voltmeter": "Вольтметр",
+  "block.dmncore.combinator": "Комбинатор"
 }

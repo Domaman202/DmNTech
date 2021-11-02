@@ -39,7 +39,7 @@ public class DTech implements ModInitializer {
         //
         DMN_FURNACE_SCREEN_HANDLER_TYPE = GlobalRegistry.register(new Identifier(MOD_ID, "dmnfurnace"), DmNFurnaceScreenHandler::new);
         //
-        GlobalRegistry.register(CoilConsumerModule.INSTANCE, CoilConsumerModule.ID);
+        GlobalRegistry.register(CoilConsumerModule.INSTANCE, new Identifier(MOD_ID, "modules/coil_consumer"));
         //
         GlobalRegistry.register(Coil.CUPRONICKEL, new Identifier(MOD_ID, "coil/cupronickel"));
         GlobalRegistry.register(Coil.NICHROME, new Identifier(MOD_ID, "coil/nichrome"));

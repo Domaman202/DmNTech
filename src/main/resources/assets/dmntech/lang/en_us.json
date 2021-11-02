@@ -4,5 +4,7 @@
   "block.dmntech.rmpb": "RMPB",
   "item.dmntech.coil.cupronickel": "Cupronickel coil",
   "item.dmntech.coil.nichrome": "Nichrome coil",
-  "item.dmntech.coil.cantal": "Cantal coil"
+  "item.dmntech.coil.cantal": "Cantal coil",
+  "item.dmntech.modules.coil_consumer": "Coil consumer",
+  "text.dmntech.modules.coil_consumer": "Coil consumer [ %d ]"
 }

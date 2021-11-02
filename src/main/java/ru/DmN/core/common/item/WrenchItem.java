@@ -15,7 +15,7 @@ public class WrenchItem extends Item {
     public static final WrenchItem INSTANCE = new WrenchItem();
 
     public WrenchItem() {
-        super(new FabricItemSettings().maxCount(1).group(DCore.DCoreItemGroup));
+        super(new FabricItemSettings().maxCount(1).group(DCore.DCoreGroup));
     }
 
     @Override

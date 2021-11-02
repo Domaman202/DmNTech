@@ -12,9 +12,6 @@ import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import ru.DmN.core.common.block.MachineBlock;
-import ru.DmN.core.common.block.entity.MachineBlockEntity;
-import ru.DmN.core.common.screen.MachineScreenHandler;
-import ru.DmN.core.common.screen.SimpleMachineScreenHandler;
 
 public class GlobalRegistry {
     public static final Item.Settings DEFAULT_ITEM_SETTINGS = new Item.Settings();

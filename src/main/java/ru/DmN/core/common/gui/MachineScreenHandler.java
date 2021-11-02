@@ -1,4 +1,4 @@
-package ru.DmN.core.common.screen;
+package ru.DmN.core.common.gui;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -13,6 +13,7 @@ import net.minecraft.util.math.BlockPos;
 import org.jetbrains.annotations.Nullable;
 import ru.DmN.core.common.inventory.ConfigurableInventory;
 import ru.DmN.core.common.inventory.SimpleConfigurableInventory;
+import ru.DmN.core.common.screen.DynamicPropertyDelegate;
 
 public abstract class MachineScreenHandler extends ScreenHandler {
     public ConfigurableInventory inventory;

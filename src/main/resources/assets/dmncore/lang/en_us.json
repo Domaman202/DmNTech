@@ -1,6 +1,7 @@
 {
   "text.dmncore.energy": "Energy -> %d / %d",
-  "itemGroup.dmncore.items": "DmNCore",
+  "itemGroup.dmncore.all": "DmNCore",
   "item.dmncore.wrench": "Wrench",
-  "item.dmncore.voltmeter": "Voltmeter"
+  "item.dmncore.voltmeter": "Voltmeter",
+  "block.dmncore.combinator": "Combinator"
 }

@@ -7,7 +7,7 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.text.Text;
 import ru.DmN.core.client.gui.EnergyStorage;
 import ru.DmN.core.client.gui.MachineActivationButton;
-import ru.DmN.core.common.screen.MachineScreenHandler;
+import ru.DmN.core.common.gui.MachineScreenHandler;
 
 @Environment(EnvType.CLIENT)
 public class MachineScreen <T extends MachineScreenHandler> extends AdvancedScreen <T> {

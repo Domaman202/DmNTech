@@ -1,4 +1,4 @@
-package ru.DmN.core.common.screen;
+package ru.DmN.core.common.gui;
 
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.network.PacketByteBuf;

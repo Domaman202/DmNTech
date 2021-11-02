@@ -17,7 +17,7 @@ public class VoltmeterItem extends Item {
     public static final VoltmeterItem INSTANCE = new VoltmeterItem();
 
     public VoltmeterItem() {
-        super(new FabricItemSettings().maxCount(1).group(DCore.DCoreItemGroup));
+        super(new FabricItemSettings().maxCount(1).group(DCore.DCoreGroup));
     }
 
     @Override

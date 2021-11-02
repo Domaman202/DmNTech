@@ -7,7 +7,7 @@ import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.util.math.BlockPos;
 import ru.DmN.core.common.inventory.ConfigurableInventory;
-import ru.DmN.core.common.screen.MachineScreenHandler;
+import ru.DmN.core.common.gui.MachineScreenHandler;
 
 import static ru.DmN.tech.common.DTech.DMN_FURNACE_SCREEN_HANDLER_TYPE;
 
