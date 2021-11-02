@@ -1,24 +1,20 @@
 package ru.DmN.tech.mixin;
 
-import net.minecraft.block.*;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.item.ItemStack;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.entity.AbstractFurnaceBlockEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import ru.DmN.tech.common.material.IMaterialProvider;
 
-@Mixin(FurnaceBlock.class)
-public class MixinFurnaceBlock extends Block {
-    private MixinFurnaceBlock(Settings settings) {
-        super(settings);
+@Mixin(AbstractFurnaceBlockEntity.class)
+public class MixinFurnaceBlock {
+    @Inject(method = "tick", at = @At(value = "INVOKE", target = "Lnet/minecraft/block/entity/AbstractFurnaceBlockEntity;getMaxCountPerStack()I"), cancellable = true)
+    private static void tick(World world, BlockPos pos, BlockState state, AbstractFurnaceBlockEntity blockEntity, CallbackInfo ci) {
+        if (((IMaterialProvider) blockEntity.getStack(1).getItem()).getMaterial() != null)
+            ci.cancel();
     }
-
-//    @Override TODO: BETA!
-//    public void onPlaced(World world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack itemStack) {
-//        if (this.getClass().getSuperclass().equals(AbstractFurnaceBlock.class)) {
-//            world.setBlockState(pos, Blocks.AIR.getDefaultState());
-//            Block.dropStack(world, pos, new ItemStack(itemStack.getItem()));
-//        } else super.onPlaced(world,pos,state,placer,itemStack);
-//    }
 }

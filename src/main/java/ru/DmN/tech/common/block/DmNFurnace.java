@@ -59,19 +59,17 @@ public class DmNFurnace extends AbstractFurnaceBlock {
         // Getting entity
         DmNFurnaceBlockEntity entity = (DmNFurnaceBlockEntity) t;
         // Getting recipe
-        Optional<SmeltingRecipe> recipe_ = world.getRecipeManager().getFirstMatch(RecipeType.SMELTING, entity, world);
-        if (recipe_.isEmpty()) {
+        SmeltingRecipe recipe = world.getRecipeManager().getFirstMatch(RecipeType.SMELTING, entity, world).orElse(null);
+        if (recipe == null) {
             // If recipe not got resetting entity data
             entity.progress = 0;
             entity.recipeNeededTemperature = 0;
             // Setting block state
             world.setBlockState(pos, state.with(LIT, false), 3);
         } else {
-            // Else getting normal recipe
-            SmeltingRecipe recipe = recipe_.get();
-
+            // Else
             // Checking burn time
-            if (entity.burn == 0) {
+            if (entity.burn == 0 || entity.lastBurnMaterial == null) {
                 // Burn fuel if burn time expired
                 ItemStack stack = entity.getStack(2);
                 if (!stack.isEmpty()) {

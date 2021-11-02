@@ -1,4 +1,4 @@
-package ru.DmN.tech.common.item.component.heater;
+package ru.DmN.tech.common.item.component;
 
 import net.minecraft.item.Item;
 import ru.DmN.tech.common.DTech;

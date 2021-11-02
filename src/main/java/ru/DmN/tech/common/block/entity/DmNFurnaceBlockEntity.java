@@ -89,7 +89,6 @@ public class DmNFurnaceBlockEntity extends SimpleConfigurableLCBlockEntity<Confi
 
     /// NBT
 
-
     @Override
     public NbtCompound writeNbt(NbtCompound nbt) {
         NbtCompound dmnData = super.writeNbt(nbt).getCompound("dmndata");
