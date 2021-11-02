@@ -15,6 +15,6 @@ public class TextComponent implements IComponent {
 
     @Override
     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta, int w, int h) {
-        MinecraftClient.getInstance().textRenderer.drawWithShadow(matrices, text, w, h, color);
+        MinecraftClient.getInstance().textRenderer.drawWithShadow(matrices, this.text, w, h, this.color);
     }
 }

@@ -13,10 +13,10 @@ import net.minecraft.util.math.BlockPos;
 import ru.DmN.core.common.block.CombinatorBlock;
 import ru.DmN.core.common.block.MachineBlock;
 import ru.DmN.core.common.gui.CombinatorScreenHandler;
+import ru.DmN.core.common.gui.SimpleMachineScreenHandler;
 import ru.DmN.core.common.item.VoltmeterItem;
 import ru.DmN.core.common.item.WrenchItem;
 import ru.DmN.core.common.registry.GlobalRegistry;
-import ru.DmN.core.common.gui.SimpleMachineScreenHandler;
 
 import static ru.DmN.core.common.block.MachineBlock.MACHINE_DATA_PACKET_ID;
 
@@ -27,6 +27,8 @@ public class DCore implements ModInitializer {
     //
     public static ScreenHandlerType<SimpleMachineScreenHandler> SIMPLE_MACHINE_SCREEN_HANDLER;
     public static ScreenHandlerType<CombinatorScreenHandler> COMBINATOR_SCREEN_HANDLER;
+    //
+    public static Identifier COMBINE_CLICK_ID = new Identifier(MOD_ID, "combine_click");
 
     @Override
     public void onInitialize() {
@@ -43,6 +45,12 @@ public class DCore implements ModInitializer {
             ServerPlayNetworking.registerGlobalReceiver(MACHINE_DATA_PACKET_ID, (server, player, handler, buf, responseSender) -> {
                 BlockPos pos = buf.readBlockPos();
                 ((MachineBlock) player.getServerWorld().getBlockState(pos).getBlock()).receivePacketS(server, player, handler, buf, responseSender, pos);
+            });
+            //
+            ServerPlayNetworking.registerGlobalReceiver(COMBINE_CLICK_ID, (server, player, handler, buf, responseSender) -> {
+                if (buf.readBoolean())
+                    ((CombinatorScreenHandler) player.currentScreenHandler).combine();
+                else ((CombinatorScreenHandler) player.currentScreenHandler).unCombine();
             });
         } catch (Throwable error) {
             throw new Error(error);
