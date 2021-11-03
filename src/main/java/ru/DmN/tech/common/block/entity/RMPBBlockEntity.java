@@ -61,7 +61,7 @@ public class RMPBBlockEntity extends MachineBlockEntity {
                         yield 0;
                     yield Math.round((float) coilMaterial.maxTemperature() * (storage.getEnergy()) / (storage.getMaxEnergy() * 128));
                 }
-                case 4 -> (int) (storage.getEnergy() - (storage.getMaxEnergy() / (this.get(3) / 4 + 1)));
+                case 4 -> (int) (storage.getEnergy() * this.get(3)) / 127;
                 default -> 0;
             };
         }

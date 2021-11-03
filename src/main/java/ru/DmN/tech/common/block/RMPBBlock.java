@@ -66,18 +66,16 @@ public class RMPBBlock extends MachineBlockTicker <RMPBBlockEntity> {
                 for (int k = 0; k < 256; k++) {
                     BlockPos ePos = selectedPos.add(i, k, j);
                     BlockState s = world.getBlockState(ePos);
-                    if (s.getBlock().getName().toString().contains("redstone")) {
+                    if (!(s.getBlock() instanceof RMPBBlock) && s.getBlock().getName().toString().contains("redstone")) {
                         float power = entity.properties.get(3);
-                        storage.setEnergy((long) (storage.getEnergy() - (storage.getMaxEnergy() / (power / 4 + 1))));
-                        if (storage.getEnergy() >= 0)
-                            return;
-                        Explosion explosion = new Explosion(world, // TODO: ПОФИКСИТЬ СЕЛФХАРМ БЛОКА
+                        storage.setEnergy(storage.getEnergy() - entity.properties.get(4));
+                        Explosion explosion = new Explosion(world,
                                 null,
                                 null,
                                 null,
-                                selectedPos.getX(),
+                                ePos.getX(),
                                 k,
-                                selectedPos.getZ(),
+                                ePos.getZ(),
                                 power,
                                 true,
                                 Explosion.DestructionType.BREAK);
