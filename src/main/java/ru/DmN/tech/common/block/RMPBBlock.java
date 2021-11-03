@@ -69,16 +69,14 @@ public class RMPBBlock extends MachineBlockTicker <RMPBBlockEntity> {
                     if (!(s.getBlock() instanceof RMPBBlock) && s.getBlock().getName().toString().contains("redstone")) {
                         float power = entity.properties.get(3);
                         storage.setEnergy(storage.getEnergy() - entity.properties.get(4));
-                        Explosion explosion = new Explosion(world,
-                                null,
-                                null,
-                                null,
-                                ePos.getX(),
-                                k,
-                                ePos.getZ(),
-                                power,
-                                true,
-                                Explosion.DestructionType.BREAK);
+                        //
+                        if (power >= 19) {
+                            Explosion explosion = new Explosion(world, null, null, null, pos.getX(), pos.getY(), pos.getZ(), power, true, Explosion.DestructionType.NONE);
+                            explosion.collectBlocksAndDamageEntities();
+                            explosion.affectWorld(true);
+                        }
+                        //
+                        Explosion explosion = new Explosion(world, null, null, null, ePos.getX(), k, ePos.getZ(), power, true, Explosion.DestructionType.BREAK);
                         explosion.collectBlocksAndDamageEntities();
                         explosion.affectWorld(true);
                     }

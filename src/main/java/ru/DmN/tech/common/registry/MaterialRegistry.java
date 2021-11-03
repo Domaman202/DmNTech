@@ -101,21 +101,21 @@ public final class MaterialRegistry {
             // TODO
             registerMetalTool(new Identifier(MOD_ID, "bronze"), 1, 950);
             //
-            setMaterial(registerMetalTool(new Identifier(MOD_ID, "copper"), 1, 1085),
+            setMaterial(registerMetalTool(new Identifier(MOD_ID, "copper"), 10, 1085),
                     Items.COPPER_INGOT,
                     Items.COPPER_ORE,
                     Items.DEEPSLATE_COPPER_ORE,
                     Items.RAW_COPPER
             );
             //
-            setMaterial(registerMetalTool(new Identifier(MOD_ID, "iron"), 1, 1538),
+            setMaterial(registerMetalTool(new Identifier(MOD_ID, "iron"), 12, 1538),
                     Items.IRON_INGOT,
                     Items.IRON_ORE,
                     Items.DEEPSLATE_IRON_ORE,
                     Items.RAW_IRON
             );
             //
-            setMaterial(registerMetalTool(new Identifier(MOD_ID, "gold"), 1, 1064),
+            setMaterial(registerMetalTool(new Identifier(MOD_ID, "gold"), 6, 1064),
                     Items.GOLD_INGOT,
                     Items.GOLD_ORE,
                     Items.DEEPSLATE_GOLD_ORE,

@@ -56,6 +56,7 @@ public class CombinatorScreenHandler extends ScreenHandler {
             inventory.setStack(1, ItemStack.EMPTY);
         // Combining
         dmnData.putString("combinei", Registry.ITEM.getId(additional.getItem()).toString());
+        dmnData.putInt("combinec", additional.getCount());
         dmnData.put("combine", additional.getOrCreateNbt());
     }
 
@@ -70,6 +71,7 @@ public class CombinatorScreenHandler extends ScreenHandler {
         NbtCompound dmnData = nbt.getCompound("dmndata");
         // Creating combined item
         ItemStack result = new ItemStack(Registry.ITEM.get(new Identifier(dmnData.getString("combinei"))));
+        result.setCount(dmnData.getInt("combinec"));
         result.setNbt(dmnData.getCompound("combine"));
         // Check inventory and set stack
         if (drop)
@@ -77,6 +79,7 @@ public class CombinatorScreenHandler extends ScreenHandler {
         inventory.setStack(1, result);
         // Clearing DmNData
         dmnData.remove("combinei");
+        dmnData.remove("combinec");
         dmnData.remove("combine");
     }
 

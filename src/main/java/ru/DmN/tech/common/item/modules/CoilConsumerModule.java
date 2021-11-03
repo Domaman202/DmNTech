@@ -1,6 +1,8 @@
 package ru.DmN.tech.common.item.modules;
 
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
@@ -26,10 +28,14 @@ public class CoilConsumerModule extends Module implements ICombinable {
     public Text getName(ItemStack stack) {
         if (stack.hasNbt()) {
             NbtCompound nbt = stack.getNbt();
-            if (nbt.contains("dmndata"))
-                return new TranslatableText("text.dmntech.modules.coil_consumer", Registry.ITEM.get(new Identifier(nbt.getCompound("dmndata").getString("combinei"))).getName());
+            if (nbt.contains("dmndata")) {
+                Item item = Registry.ITEM.get(new Identifier(nbt.getCompound("dmndata").getString("combinei")));
+                if (item == Items.AIR)
+                    return this.getName();
+                return new TranslatableText("text.dmntech.modules.coil_consumer", item.getName());
+            }
         }
-        return getName();
+        return this.getName();
     }
 
     /// ICOMBINABLE IMPL

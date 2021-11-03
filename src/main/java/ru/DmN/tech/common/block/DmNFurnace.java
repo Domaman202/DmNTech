@@ -4,9 +4,11 @@ import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.AbstractFurnaceBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.FurnaceBlock;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.block.entity.FurnaceBlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -53,11 +55,12 @@ public class DmNFurnace extends AbstractFurnaceBlock {
     }
 
     public static <T extends BlockEntity> void tick(World world, BlockPos pos, BlockState state, T t) {
+        // Check client
         if (world.isClient)
             return;
-
         // Getting entity
         DmNFurnaceBlockEntity entity = (DmNFurnaceBlockEntity) t;
+
         // Getting recipe
         SmeltingRecipe recipe = world.getRecipeManager().getFirstMatch(RecipeType.SMELTING, entity, world).orElse(null);
         if (recipe == null) {
@@ -67,7 +70,6 @@ public class DmNFurnace extends AbstractFurnaceBlock {
             // Setting block state
             world.setBlockState(pos, state.with(LIT, false), 3);
         } else {
-            // Else
             // Checking burn time
             if (entity.burn == 0 || entity.lastBurnMaterial == null) {
                 // Burn fuel if burn time expired
@@ -80,9 +82,13 @@ public class DmNFurnace extends AbstractFurnaceBlock {
                 } else
                     // Setting block state
                     world.setBlockState(pos, state.with(LIT, false), 3);
-            } else {
-                // Else heat machine and decrement burn time
+            }
+
+            // Burn tick
+            if (entity.burn > 0) {
+                // Decrement burn time
                 entity.burn--;
+                // Check and increment heat
                 if (entity.heat < 1600 && entity.heat < entity.lastBurnMaterial.maxTemperature())
                     entity.heat += entity.lastBurnMaterial.burnCoefficient();
             }
@@ -113,10 +119,12 @@ public class DmNFurnace extends AbstractFurnaceBlock {
                         return;
                     entity.getStack(0).decrement(1);
                     entity.progress = 0;
-                    // Resetting heat and progress
-                    entity.heat -= input.meltTemperature();
                 }
             }
+
+            // Heat Tick
+            if (entity.heat > 0)
+                entity.heat -= 1;
 
             // Update chunk for save
             world.getWorldChunk(pos).markDirty();
