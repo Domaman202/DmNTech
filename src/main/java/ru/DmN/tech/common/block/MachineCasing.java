@@ -17,6 +17,7 @@ import java.util.function.Supplier;
 
 public abstract class MachineCasing <T extends MachineBlockEntityTicker> extends MachineBlockTicker <T> {
     public final ArrayList<IMachineData<Integer>> integers = new ArrayList<>();
+    public final ArrayList<IMachineData<Double>> doubles = new ArrayList<>();
     public final Map<String, IMachineData<?>> specific = new HashMap<>();
 
     public final ArrayList<IMachineData<?>> inputs = new ArrayList<>();
