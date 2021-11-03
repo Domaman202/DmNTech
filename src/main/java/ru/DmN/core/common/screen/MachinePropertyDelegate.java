@@ -4,10 +4,10 @@ import net.minecraft.screen.PropertyDelegate;
 import ru.DmN.core.common.block.MachineBlock;
 import ru.DmN.core.common.block.entity.MachineBlockEntity;
 
-public class MachinePropertyDelegate implements PropertyDelegate {
-    public final MachineBlockEntity entity;
+public class MachinePropertyDelegate <T extends MachineBlockEntity> implements PropertyDelegate {
+    public final T entity;
 
-    public MachinePropertyDelegate(MachineBlockEntity entity) {
+    public MachinePropertyDelegate(T entity) {
         this.entity = entity;
     }
 

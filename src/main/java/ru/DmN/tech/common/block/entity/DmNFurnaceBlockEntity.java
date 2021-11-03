@@ -24,7 +24,7 @@ import ru.DmN.tech.common.gui.DmNFurnaceScreenHandler;
 import ru.DmN.tech.common.material.IMaterial;
 import ru.DmN.tech.common.registry.MaterialRegistry;
 
-public class DmNFurnaceBlockEntity extends SimpleConfigurableLCBlockEntity<ConfigurableInventory> implements SidedInventory, RecipeInputProvider, ExtendedScreenHandlerFactory {
+public class DmNFurnaceBlockEntity extends SimpleConfigurableLCBlockEntity <ConfigurableInventory> implements SidedInventory, RecipeInputProvider, ExtendedScreenHandlerFactory {
     public IMaterial lastBurnMaterial;
     public int progress = 0;
     public int burn = 0;

@@ -71,7 +71,7 @@ public abstract class MachineBlock extends HorizontalFacingBlock implements Bloc
     }
 
     @Override
-    public void onPlaced(World world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack itemStack) {
+    public void onPlaced(World world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
         // Creating Block Entity
         BlockEntity entity = world.getBlockEntity(pos);
         if (entity != null)
@@ -79,12 +79,12 @@ public abstract class MachineBlock extends HorizontalFacingBlock implements Bloc
         entity = createBlockEntity(pos, state);
         world.addBlockEntity(entity);
         // Setting Data
-        if (itemStack.hasNbt() && itemStack.getNbt().contains("dmndata")) {
+        if (stack.hasNbt() && stack.getNbt().contains("dmndata")) {
             // Getting DmNData
-            NbtCompound nbt = itemStack.getNbt().getCompound("dmndata");
+            NbtCompound nbt = stack.getNbt().getCompound("dmndata");
             // Setting BlockEntity Energy Data
             if (entity != null)
-                ((MachineBlockEntity) entity).storage.setEnergy(nbt.getLong("energy"));
+                ((MachineBlockEntity) entity).onPlace(world, pos, state, placer, stack);
             // Setting Active State
             world.setBlockState(pos, state.with(ACTIVE, nbt.getBoolean("active")));
         }
@@ -115,16 +115,13 @@ public abstract class MachineBlock extends HorizontalFacingBlock implements Bloc
 
     public static void setActive(Boolean active, World world, BlockPos pos) {
         BlockState state = world.getBlockState(pos);
-        if (state.isAir())
-            return;
-        world.setBlockState(pos, state.with(ACTIVE, active));
+        if (state.getBlock() instanceof MachineBlock)
+            world.setBlockState(pos, state.with(ACTIVE, active));
     }
 
     public static boolean isActive(World world, BlockPos pos) {
         BlockState state = world.getBlockState(pos);
-        if (state.isAir())
-            return false;
-        return state.get(ACTIVE);
+        return state.getBlock() instanceof MachineBlock ? state.get(ACTIVE) : false;
     }
 
     /// BLOCK ENTITY

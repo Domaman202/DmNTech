@@ -133,17 +133,16 @@ public abstract class CableBlock extends ConnectingBlock implements BlockEntityP
     }
 
     public static void equalizeEnergyWithMachines(World world, BlockPos pos, IESObject<?> storage) {
-        if (shouldConnectMachine(world, pos.down()))
-            storage.equalize(((IESProvider<?>) world.getBlockEntity(pos.down())).getEnergyStorage(null));
-        if (shouldConnectMachine(world, pos.up()))
-            storage.equalize(((IESProvider<?>) world.getBlockEntity(pos.up())).getEnergyStorage(null));
-        if (shouldConnectMachine(world, pos.north()))
-            storage.equalize(((IESProvider<?>) world.getBlockEntity(pos.north())).getEnergyStorage(null));
-        if (shouldConnectMachine(world, pos.south()))
-            storage.equalize(((IESProvider<?>) world.getBlockEntity(pos.south())).getEnergyStorage(null));
-        if (shouldConnectMachine(world, pos.east()))
-            storage.equalize(((IESProvider<?>) world.getBlockEntity(pos.east())).getEnergyStorage(null));
-        if (shouldConnectMachine(world, pos.west()))
-            storage.equalize(((IESProvider<?>) world.getBlockEntity(pos.west())).getEnergyStorage(null));
+        equalize(world, pos.down(), storage);
+        equalize(world, pos.up(), storage);
+        equalize(world, pos.north(), storage);
+        equalize(world, pos.south(), storage);
+        equalize(world, pos.east(), storage);
+        equalize(world, pos.west(), storage);
+    }
+
+    public static void equalize(World world, BlockPos pos, IESObject<?> storage) {
+        if (shouldConnectMachine(world, pos))
+            storage.equalize(((IESProvider<?>) world.getBlockEntity(pos)).getEnergyStorage(null));
     }
 }

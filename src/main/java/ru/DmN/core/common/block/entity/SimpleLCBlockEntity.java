@@ -13,7 +13,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import org.jetbrains.annotations.Nullable;
 
-public abstract class SimpleLCBlockEntity<T extends Inventory> extends LockableContainerBlockEntity implements SidedInventory {
+public abstract class SimpleLCBlockEntity <T extends Inventory> extends LockableContainerBlockEntity implements SidedInventory {
     public T inventory;
 
     public SimpleLCBlockEntity(BlockEntityType<?> blockEntityType, BlockPos blockPos, BlockState blockState, T inventory) {

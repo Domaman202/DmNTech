@@ -4,6 +4,7 @@ import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.InventoryProvider;
 import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.SidedInventory;
@@ -13,11 +14,13 @@ import net.minecraft.item.ItemUsageContext;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtList;
 import net.minecraft.network.PacketByteBuf;
+import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -51,20 +54,15 @@ public class MachineBlockEntity extends SimpleConfigurableLCBlockEntity <Configu
     public MachineBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state, ConfigurableInventory inventory, long energy, long maxEnergy) {
         super(type, pos, state, inventory);
         this.storage = new SimpleEnergyStorage<>(energy, maxEnergy);
+        this.properties = new MachinePropertyDelegate<>( this);
     }
 
     /// SCREEN
 
-    public MachinePropertyDelegate properties = new MachinePropertyDelegate(this);
+    public PropertyDelegate properties;
 
     public void openScreen(PlayerEntity player) {
         player.openHandledScreen((MachineBlockEntity) world.getBlockEntity(pos));
-    }
-
-    @Override
-    public void writeScreenOpeningData(ServerPlayerEntity player, PacketByteBuf buf) {
-        buf.writeInt(this.inventory.size());
-        buf.writeBlockPos(pos);
     }
 
     @Override
@@ -83,10 +81,15 @@ public class MachineBlockEntity extends SimpleConfigurableLCBlockEntity <Configu
         return this.getDisplayName();
     }
 
+    @Override
+    public void writeScreenOpeningData(ServerPlayerEntity player, PacketByteBuf buf) {
+        buf.writeInt(this.inventory.size());
+        buf.writeBlockPos(pos);
+    }
+
     /// ACTIONS
 
-    public void onPlace(ItemPlacementContext ctx) {
-        ItemStack stack = ctx.getStack();
+    public void onPlace(World world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
         if (stack.hasNbt() && stack.getNbt().contains("dmndata"))
             readMyNbt(stack.getNbt());
     }
@@ -106,7 +109,7 @@ public class MachineBlockEntity extends SimpleConfigurableLCBlockEntity <Configu
 
     @Override
     public NbtCompound writeNbt(@NotNull NbtCompound nbt) {
-        return super.writeNbt(writeMyNbt(nbt));
+        return writeMyNbt(super.writeNbt(nbt));
     }
 
     public NbtCompound writeMyNbt(@NotNull NbtCompound nbt) {

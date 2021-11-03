@@ -50,7 +50,7 @@ public class DCore implements ModInitializer {
             ServerPlayNetworking.registerGlobalReceiver(COMBINE_CLICK_ID, (server, player, handler, buf, responseSender) -> {
                 if (buf.readBoolean())
                     ((CombinatorScreenHandler) player.currentScreenHandler).combine();
-                else ((CombinatorScreenHandler) player.currentScreenHandler).unCombine();
+                else ((CombinatorScreenHandler) player.currentScreenHandler).unCombine(true);
             });
         } catch (Throwable error) {
             throw new Error(error);

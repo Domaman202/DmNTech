@@ -234,17 +234,22 @@ public interface IESObject <T> extends IESProvider<T> {
      */
     default long equalize(IESObject<?> storage) {
         long max = this.getMaxEnergy();
-        long i = (this.getEnergy() - storage.getEnergy()) / 2;
+        double j = (this.getEnergy() - storage.getEnergy()) / 2d;
+        long i;
+        if (j < 0)
+            i = (long) Math.floor(j);
+        else
+            i = (long) Math.ceil(j);
 
         if (i < 0) {
             if (-i > max)
-                i = -(i - (i - max)) + max;
+                i = -(i - (i - max)) + max / 2;
         } else if (i > max)
             i = i - (max - i);
         else if (i > storage.getMaxEnergy())
             i += storage.getMaxEnergy() - i;
 
-        if (i == 0 || i < 0 && this.getEnergy() == max)
+        if (i <= 0 && this.getEnergy() == max)
             return 0;
 
         i += this.extractEnergy(i);
@@ -272,7 +277,7 @@ public interface IESObject <T> extends IESProvider<T> {
         else if (i > storage.getMaxEnergy(side1))
             i += storage.getMaxEnergy(side1) - i;
 
-        if (i == 0 || i < 0 && this.getEnergy(side0) == max)
+        if (i <= 0 && this.getEnergy(side0) == max)
             return 0;
 
         i += this.extractEnergy(i, side0);

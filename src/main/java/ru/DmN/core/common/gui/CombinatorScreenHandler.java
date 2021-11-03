@@ -11,15 +11,21 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
+import net.minecraft.world.World;
 import ru.DmN.core.common.DCore;
 import ru.DmN.core.common.item.ICombinable;
 
 public class CombinatorScreenHandler extends ScreenHandler {
     public final Inventory inventory = new SimpleInventory(2);
+    public final BlockPos pos;
+    public final World world;
 
     public CombinatorScreenHandler(int syncId, PlayerInventory inventory) {
         super(DCore.COMBINATOR_SCREEN_HANDLER, syncId);
+        this.pos = inventory.player.getBlockPos();
+        this.world = inventory.player.world;
 
         this.addSlot(new Slot(this.inventory, 0, 15, 30));
         this.addSlot(new Slot(this.inventory, 1, 31, 30));
@@ -44,7 +50,7 @@ public class CombinatorScreenHandler extends ScreenHandler {
         NbtCompound dmnData = stack.getOrCreateSubNbt("dmndata");
         if (dmnData.contains("combinei"))
             // unCombine and resetting additional slot
-            unCombine();
+            unCombine(false);
         else
             // resetting additional slot
             inventory.setStack(1, ItemStack.EMPTY);
@@ -53,7 +59,7 @@ public class CombinatorScreenHandler extends ScreenHandler {
         dmnData.put("combine", additional.getOrCreateNbt());
     }
 
-    public void unCombine() {
+    public void unCombine(boolean drop) {
         // Getting item
         ItemStack stack = inventory.getStack(0);
         // Checking item
@@ -65,6 +71,9 @@ public class CombinatorScreenHandler extends ScreenHandler {
         // Creating combined item
         ItemStack result = new ItemStack(Registry.ITEM.get(new Identifier(dmnData.getString("combinei"))));
         result.setNbt(dmnData.getCompound("combine"));
+        // Check inventory and set stack
+        if (drop)
+            Block.dropStack(world, pos, inventory.getStack(1));
         inventory.setStack(1, result);
         // Clearing DmNData
         dmnData.remove("combinei");
