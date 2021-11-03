@@ -1,0 +1,11 @@
+{
+  "parent": "block/cube_all",
+  "textures": {
+    "up": "dmncore:block/combinator/top",
+    "down": "dmncore:block/combinator/top",
+    "north": "dmncore:block/combinator/side",
+    "south": "dmncore:block/combinator/side",
+    "east": "dmncore:block/combinator/side",
+    "west": "dmncore:block/combinator/side"
+  }
+}
