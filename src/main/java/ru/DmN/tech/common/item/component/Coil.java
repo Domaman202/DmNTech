@@ -1,12 +1,14 @@
 package ru.DmN.tech.common.item.component;
 
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import org.jetbrains.annotations.NotNull;
 import ru.DmN.core.common.item.ICombinable;
 import ru.DmN.tech.common.DTech;
 import ru.DmN.tech.common.material.IMaterial;
 import ru.DmN.tech.common.material.IMaterialProvider;
 
-public class Coil extends Item implements IMaterial, IMaterialProvider, ICombinable {
+public class Coil extends Item implements IMaterial, IMaterialProvider<ItemStack>, ICombinable {
     public static final Item.Settings DEFAULT_COIL_SETTINGS = new Settings().group(DTech.DmNTechAllGroup);
     public static final Coil CUPRONICKEL = new Coil(DEFAULT_COIL_SETTINGS, 8, 800);
     public static final Coil NICHROME = new Coil(DEFAULT_COIL_SETTINGS, 4, 1200);
@@ -26,7 +28,7 @@ public class Coil extends Item implements IMaterial, IMaterialProvider, ICombina
     /// MATERIAL IMPL
 
     @Override
-    public IMaterial getMaterial() {
+    public @NotNull IMaterial getMaterial() {
         return this;
     }
 

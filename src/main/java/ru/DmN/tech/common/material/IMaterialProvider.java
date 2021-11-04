@@ -1,7 +1,17 @@
 package ru.DmN.tech.common.material;
 
-public interface IMaterialProvider {
-    IMaterial getMaterial();
+import org.jetbrains.annotations.NotNull;
 
-    void setMaterial(IMaterial material);
+public interface IMaterialProvider <T> {
+    default @NotNull IMaterial getMaterial(T object) {
+        return getMaterial();
+    }
+
+    default @NotNull IMaterial getMaterial() {
+        return EmptyMaterial.INSTANCE;
+    }
+
+
+    default void setMaterial(@NotNull IMaterial material) {
+    }
 }
