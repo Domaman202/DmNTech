@@ -4,7 +4,6 @@ import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Material;
 import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.item.Item;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -14,13 +13,13 @@ import org.jetbrains.annotations.Nullable;
 import ru.DmN.core.common.block.MachineBlockTicker;
 import ru.DmN.core.common.block.entity.MachineBlockEntity;
 import ru.DmN.core.common.energy.IESObject;
-import ru.DmN.tech.common.DTech;
 import ru.DmN.tech.common.block.entity.RMPBBlockEntity;
 import sun.misc.Unsafe;
 
 import java.lang.reflect.Field;
 
 import static ru.DmN.core.common.block.cable.CableBlock.trySuckEnergyOfCable;
+import static ru.DmN.tech.common.DTech.DEFAULT_ITEM_SETTINGS;
 
 public class RMPBBlock extends MachineBlockTicker <RMPBBlockEntity> {
     public static final RMPBBlock INSTANCE = new RMPBBlock();
@@ -28,7 +27,7 @@ public class RMPBBlock extends MachineBlockTicker <RMPBBlockEntity> {
     /// CONSTRUCTORS
 
     public RMPBBlock() {
-        super(AbstractBlock.Settings.of(Material.TNT).breakInstantly().sounds(BlockSoundGroup.STONE), new Item.Settings().group(DTech.DmNTechAllGroup));
+        super(AbstractBlock.Settings.of(Material.TNT).breakInstantly().sounds(BlockSoundGroup.STONE), DEFAULT_ITEM_SETTINGS);
     }
 
     /// TICK

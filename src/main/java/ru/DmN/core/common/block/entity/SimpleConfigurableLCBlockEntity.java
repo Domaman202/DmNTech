@@ -10,6 +10,8 @@ import net.minecraft.util.math.Direction;
 import org.jetbrains.annotations.Nullable;
 import ru.DmN.core.common.inventory.ConfigurableInventory;
 
+import static ru.DmN.core.common.DCore.DMN_DATA;
+
 public abstract class SimpleConfigurableLCBlockEntity <T extends ConfigurableInventory> extends SimpleLCBlockEntity<T> implements ConfigurableInventory {
     public SimpleConfigurableLCBlockEntity(BlockEntityType<?> blockEntityType, BlockPos blockPos, BlockState blockState, T inventory) {
         super(blockEntityType, blockPos, blockState, inventory);
@@ -33,8 +35,8 @@ public abstract class SimpleConfigurableLCBlockEntity <T extends ConfigurableInv
     @Override
     public void readNbt(NbtCompound nbt) {
         super.readNbt(nbt);
-        if (nbt.contains("dmndata"))
-            readNbtList((NbtList) nbt.getCompound("dmndata").get("inv"));
+        if (nbt.contains(DMN_DATA))
+            readNbtList((NbtList) nbt.getCompound(DMN_DATA).get("inv"));
     }
 
     @Override
@@ -46,7 +48,7 @@ public abstract class SimpleConfigurableLCBlockEntity <T extends ConfigurableInv
     public NbtCompound writeNbt(NbtCompound nbt) {
         NbtCompound dmnData = new NbtCompound();
         dmnData.put("inv", toNbtList());
-        nbt.put("dmndata", dmnData);
+        nbt.put(DMN_DATA, dmnData);
         return super.writeNbt(nbt);
     }
 

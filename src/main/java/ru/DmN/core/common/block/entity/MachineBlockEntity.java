@@ -33,6 +33,8 @@ import ru.DmN.core.common.energy.SimpleEnergyStorage;
 import ru.DmN.core.common.inventory.SimpleConfigurableInventory;
 import ru.DmN.core.common.screen.MachinePropertyDelegate;
 
+import static ru.DmN.core.common.DCore.DMN_DATA;
+
 @SuppressWarnings("rawtypes")
 public class MachineBlockEntity extends SimpleConfigurableLCBlockEntity <ConfigurableInventory> implements IESProvider, InventoryProvider, ExtendedScreenHandlerFactory {
     public IESObject<?> storage;
@@ -90,7 +92,7 @@ public class MachineBlockEntity extends SimpleConfigurableLCBlockEntity <Configu
     /// ACTIONS
 
     public void onPlace(World world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
-        if (stack.hasNbt() && stack.getNbt().contains("dmndata"))
+        if (stack.hasNbt() && stack.getNbt().contains(DMN_DATA))
             readMyNbt(stack.getNbt());
     }
 
@@ -113,7 +115,7 @@ public class MachineBlockEntity extends SimpleConfigurableLCBlockEntity <Configu
     }
 
     public NbtCompound writeMyNbt(@NotNull NbtCompound nbt) {
-        nbt.put("dmndata", writeDmNData(new NbtCompound()));
+        nbt.put(DMN_DATA, writeDmNData(new NbtCompound()));
         return nbt;
     }
 
@@ -132,7 +134,7 @@ public class MachineBlockEntity extends SimpleConfigurableLCBlockEntity <Configu
     }
 
     public void readMyNbt(@NotNull NbtCompound nbt) {
-        readDmNData(nbt.getCompound("dmndata"));
+        readDmNData(nbt.getCompound(DMN_DATA));
     }
 
     public void readDmNData(@NotNull NbtCompound nbt) {

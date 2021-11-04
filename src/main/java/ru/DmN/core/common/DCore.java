@@ -22,6 +22,7 @@ import static ru.DmN.core.common.block.MachineBlock.MACHINE_DATA_PACKET_ID;
 
 public class DCore implements ModInitializer {
     public static final String MOD_ID = "dmncore";
+    public static final String DMN_DATA = "dmndata";
     //
     public static final ItemGroup DCoreGroup = FabricItemGroupBuilder.create(new Identifier("dmncore", "all")).icon(() -> new ItemStack(WrenchItem.INSTANCE)).build();
     //

@@ -1,6 +1,7 @@
 package ru.DmN.core.common.inventory;
 
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtList;
@@ -9,6 +10,7 @@ import net.minecraft.util.math.Direction;
 import org.jetbrains.annotations.Nullable;
 import ru.DmN.core.common.utils.UnsafeUtils;
 
+import javax.naming.OperationNotSupportedException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -21,6 +23,60 @@ public class SimpleInventory extends net.minecraft.inventory.SimpleInventory imp
 
     public SimpleInventory(ItemStack... items) {
         super(items);
+    }
+
+    @Override
+    public Inventory cute(int... slots) {
+        return new Inventory() {
+            @Override
+            public int size() {
+                return slots.length;
+            }
+
+            @Override
+            public boolean isEmpty() {
+                for (int slot : slots)
+                    if (!SimpleInventory.this.getStack(slot).isEmpty())
+                        return false;
+                return true;
+            }
+
+            @Override
+            public ItemStack getStack(int slot) {
+                return SimpleInventory.this.getStack(slots[slot]);
+            }
+
+            @Override
+            public ItemStack removeStack(int slot, int amount) {
+                return SimpleInventory.this.removeStack(slots[slot], amount);
+            }
+
+            @Override
+            public ItemStack removeStack(int slot) {
+                return SimpleInventory.this.removeStack(slots[slot]);
+            }
+
+            @Override
+            public void setStack(int slot, ItemStack stack) {
+                SimpleInventory.this.setStack(slots[slot], stack);
+            }
+
+            @Override
+            public void markDirty() {
+                SimpleInventory.this.markDirty();
+            }
+
+            @Override
+            public boolean canPlayerUse(PlayerEntity player) {
+                return SimpleInventory.this.canPlayerUse(player);
+            }
+
+            @Override
+            public void clear() {
+                for (int slot : slots)
+                    SimpleInventory.this.removeStack(slots[slot]);
+            }
+        };
     }
 
     @Override

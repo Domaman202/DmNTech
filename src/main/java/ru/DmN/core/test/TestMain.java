@@ -9,6 +9,7 @@ import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
+import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import ru.DmN.core.common.registry.GlobalRegistry;
@@ -19,6 +20,7 @@ import ru.DmN.core.test.block.TestMachineBlock;
 import ru.DmN.core.test.block.entity.InfEnergySourceBlockEntity;
 import ru.DmN.core.test.block.entity.TestCableBlockEntity;
 import ru.DmN.core.test.block.entity.TestMachineBlockEntity;
+import ru.DmN.core.test.gui.InfEnergySourceScreenHandler;
 import ru.DmN.core.test.item.TestEnergyWandD;
 import ru.DmN.core.test.item.TestEnergyWandI;
 
@@ -30,11 +32,14 @@ public class TestMain implements ModInitializer {
     public static BlockEntityType<TestMachineBlockEntity> TEST_MACHINE_BLOCK_ENTITY_TYPE;
     public static BlockEntityType<TestCableBlockEntity> TEST_CABLE_BLOCK_ENTITY_TYPE;
     public static BlockEntityType<InfEnergySourceBlockEntity> TEST_INF_ENERGY_BLOCK_ENTITY_TYPE;
+    public static ScreenHandlerType<InfEnergySourceScreenHandler> INF_ENERGY_SOURCE_SCREEN_HANDLER_TYPE;
 
     @Override
     public void onInitialize() {
         TEST_MACHINE_BLOCK_ENTITY_TYPE = GlobalRegistry.register(TestMachineBlock.INSTANCE, TestMachineBlockEntity::new, new Identifier("dmntest", "test_machine_block"));
+        //
         TEST_INF_ENERGY_BLOCK_ENTITY_TYPE = GlobalRegistry.register(InfEnergySourceBlock.INSTANCE, InfEnergySourceBlockEntity::new, new Identifier("dmntest", "inf_energy_source"));
+        INF_ENERGY_SOURCE_SCREEN_HANDLER_TYPE = GlobalRegistry.register(new Identifier("dmntest", "inf_energy_source"), InfEnergySourceScreenHandler::new);
         //
         Registry.register(Registry.ITEM, new Identifier("dmntest", "test_energy_wandi"), new TestEnergyWandI());
         Registry.register(Registry.ITEM, new Identifier("dmntest", "test_energy_wandd"), new TestEnergyWandD());

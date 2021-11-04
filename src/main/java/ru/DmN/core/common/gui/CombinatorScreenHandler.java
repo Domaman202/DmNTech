@@ -17,6 +17,8 @@ import net.minecraft.world.World;
 import ru.DmN.core.common.DCore;
 import ru.DmN.core.common.item.ICombinable;
 
+import static ru.DmN.core.common.DCore.DMN_DATA;
+
 public class CombinatorScreenHandler extends ScreenHandler {
     public final Inventory inventory = new SimpleInventory(2);
     public final BlockPos pos;
@@ -68,7 +70,7 @@ public class CombinatorScreenHandler extends ScreenHandler {
         if (stack.isEmpty() || !stack.hasNbt() || !((nbt = stack.getNbt()).contains("dmndata")))
             return;
         // Getting DmNData
-        NbtCompound dmnData = nbt.getCompound("dmndata");
+        NbtCompound dmnData = nbt.getCompound(DMN_DATA);
         // Creating combined item
         ItemStack result = new ItemStack(Registry.ITEM.get(new Identifier(dmnData.getString("combinei"))));
         result.setCount(dmnData.getInt("combinec"));

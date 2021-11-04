@@ -99,9 +99,9 @@ public class DmNFurnace extends AbstractFurnaceBlock {
             if (entity.heat >= meltTemperature) {
                 // If the heat has reached the desired level
                 // Increment progress
-                entity.progress++;
+                entity.progress += entity.heat / meltTemperature;
                 // Checking progress
-                if (entity.progress == input.meltTime()) {
+                if (entity.progress >= input.meltTime()) {
                     // If the progress has reached the desired level
                     // Trying crafting needed recipe
                     Item result = recipe.getOutput().getItem();

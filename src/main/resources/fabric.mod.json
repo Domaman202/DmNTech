@@ -27,6 +27,7 @@
     ],
     "client": [
       "ru.DmN.core.client.DCoreClient",
+      "ru.DmN.core.test.TestClientMain",
       "ru.DmN.tech.client.DTechClient",
       "ru.DmN.tech.test.TestClientMain"
     ]

@@ -17,17 +17,23 @@ import ru.DmN.tech.common.block.entity.DmNFurnaceBlockEntity;
 import ru.DmN.tech.common.block.entity.RMPBBlockEntity;
 import ru.DmN.tech.common.gui.DmNFurnaceScreenHandler;
 import ru.DmN.tech.common.gui.RMPBScreenHandler;
+import ru.DmN.tech.common.item.battery.SimpleBattery;
 import ru.DmN.tech.common.item.component.Coil;
 import ru.DmN.tech.common.item.modules.CoilConsumerModule;
+import ru.DmN.tech.common.item.modules.FurnaceModule;
 import ru.DmN.tech.common.registry.MaterialRegistry;
 
 public class DTech implements ModInitializer {
     // ID's
     public static final String MOD_ID = "dmntech";
-    public static Identifier ID_RMPB = new Identifier(MOD_ID, "rmpb");
-    public static Identifier ID_DMNFURNACE = new Identifier(MOD_ID, "dmnfurnace");
+    public static final Identifier ID_RMPB = new Identifier(MOD_ID, "rmpb");
+    public static final Identifier ID_DMNFURNACE = new Identifier(MOD_ID, "dmnfurnace");
+    public static final Identifier ID_LV_BATTERY = new Identifier(MOD_ID, "battery/lv_battery");
+    public static final Identifier ID_MV_BATTERY = new Identifier(MOD_ID, "battery/mv_battery");
+    public static final Identifier ID_ENERGY_CRYSTAL = new Identifier(MOD_ID, "battery/energy_crystal");
     //
     public static final ItemGroup DmNTechAllGroup = FabricItemGroupBuilder.create(new Identifier(MOD_ID, "group_all")).icon(() -> new ItemStack(RMPBBlock.INSTANCE)).build();
+    public static final Item.Settings DEFAULT_ITEM_SETTINGS = new Item.Settings().group(DTech.DmNTechAllGroup);
     //
     public static BlockEntityType<RMPBBlockEntity> RMPB_BLOCK_ENTITY_TYPE;
     public static BlockEntityType<DmNFurnaceBlockEntity> DMN_FURNACE_BLOCK_ENTITY_TYPE;
@@ -40,15 +46,20 @@ public class DTech implements ModInitializer {
         RMPB_BLOCK_ENTITY_TYPE = GlobalRegistry.register(RMPBBlock.INSTANCE, RMPBBlockEntity::new, ID_RMPB);
         RMPB_SCREEN_HANDLER_TYPE = GlobalRegistry.register(ID_RMPB, RMPBScreenHandler::new);
         //
-        GlobalRegistry.register(DmNFurnace.INSTANCE, new Item.Settings().group(DmNTechAllGroup), ID_DMNFURNACE);
+        GlobalRegistry.register(DmNFurnace.INSTANCE, DEFAULT_ITEM_SETTINGS, ID_DMNFURNACE);
         DMN_FURNACE_BLOCK_ENTITY_TYPE = Registry.register(Registry.BLOCK_ENTITY_TYPE, ID_DMNFURNACE, FabricBlockEntityTypeBuilder.create(DmNFurnaceBlockEntity::new, DmNFurnace.INSTANCE).build());
         DMN_FURNACE_SCREEN_HANDLER_TYPE = GlobalRegistry.register(ID_DMNFURNACE, DmNFurnaceScreenHandler::new);
         //
         GlobalRegistry.register(CoilConsumerModule.INSTANCE, new Identifier(MOD_ID, "modules/coil_consumer"));
+        GlobalRegistry.register(FurnaceModule.INSTANCE, new Identifier(MOD_ID, "modules/furnace"));
         //
         GlobalRegistry.register(Coil.CUPRONICKEL, new Identifier(MOD_ID, "coil/cupronickel"));
         GlobalRegistry.register(Coil.NICHROME, new Identifier(MOD_ID, "coil/nichrome"));
         GlobalRegistry.register(Coil.CANTAL, new Identifier(MOD_ID, "coil/cantal"));
+        //
+        GlobalRegistry.register(SimpleBattery.LV_BATTERY, ID_LV_BATTERY);
+        GlobalRegistry.register(SimpleBattery.MV_BATTERY, ID_MV_BATTERY);
+        GlobalRegistry.register(SimpleBattery.ENERGY_CRYSTAL, ID_ENERGY_CRYSTAL);
     }
 
     static {

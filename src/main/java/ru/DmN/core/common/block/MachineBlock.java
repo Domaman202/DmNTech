@@ -33,6 +33,8 @@ import ru.DmN.core.common.utils.Lazy;
 
 import java.util.function.Supplier;
 
+import static ru.DmN.core.common.DCore.DMN_DATA;
+
 public abstract class MachineBlock extends HorizontalFacingBlock implements BlockEntityProvider, InventoryProvider {
     public static final BooleanProperty ACTIVE = BooleanProperty.of("active");
     public Lazy<MachineBlockItem> item;
@@ -79,9 +81,9 @@ public abstract class MachineBlock extends HorizontalFacingBlock implements Bloc
         entity = createBlockEntity(pos, state);
         world.addBlockEntity(entity);
         // Setting Data
-        if (stack.hasNbt() && stack.getNbt().contains("dmndata")) {
+        if (stack.hasNbt() && stack.getNbt().contains(DMN_DATA)) {
             // Getting DmNData
-            NbtCompound nbt = stack.getNbt().getCompound("dmndata");
+            NbtCompound nbt = stack.getNbt().getCompound(DMN_DATA);
             // Setting BlockEntity Energy Data
             if (entity != null)
                 ((MachineBlockEntity) entity).onPlace(world, pos, state, placer, stack);

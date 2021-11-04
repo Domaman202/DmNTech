@@ -9,13 +9,20 @@ import org.jetbrains.annotations.Nullable;
 import ru.DmN.core.common.block.MachineBlock;
 import ru.DmN.core.common.block.entity.MachineBlockEntity;
 import ru.DmN.core.common.energy.IESObject;
+import ru.DmN.core.common.inventory.SimpleConfigurableInventory;
 import ru.DmN.core.test.TestMain;
 import ru.DmN.core.test.block.InfEnergySourceBlock;
+import ru.DmN.core.test.gui.InfEnergySourceScreenHandler;
 
 public class InfEnergySourceBlockEntity extends MachineBlockEntity {
     public InfEnergySourceBlockEntity(BlockPos pos, BlockState state) {
-        super(TestMain.TEST_INF_ENERGY_BLOCK_ENTITY_TYPE, pos, state);
+        super(TestMain.TEST_INF_ENERGY_BLOCK_ENTITY_TYPE, pos, state, new SimpleConfigurableInventory(2));
         this.storage = new InfEnergyStorage();
+    }
+
+    @Override
+    public @Nullable ScreenHandler createMenu(int syncId, PlayerInventory playerInventory, PlayerEntity player) {
+        return new InfEnergySourceScreenHandler(syncId, playerInventory, inventory, properties, pos);
     }
 
     @SuppressWarnings("rawtypes")

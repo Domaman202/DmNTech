@@ -3,6 +3,8 @@ package ru.DmN.core.common.energy;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 
+import static ru.DmN.core.common.DCore.DMN_DATA;
+
 public class ItemStackEnergyStorage extends NBTEnergyStorage <ItemStack> {
     public ItemStackEnergyStorage(NbtCompound nbt) {
         super(nbt);
@@ -12,31 +14,31 @@ public class ItemStackEnergyStorage extends NBTEnergyStorage <ItemStack> {
     public void setEnergy(ItemStack obj, long value) {
         if (!obj.hasNbt())
             obj.setNbt(new NbtCompound());
-        if (!obj.getNbt().contains("dmndata"))
-            obj.getNbt().put("dmndata", new NbtCompound());
-        obj.getNbt().getCompound("dmndata").putLong("energy", value);
+        if (!obj.getNbt().contains(DMN_DATA))
+            obj.getNbt().put(DMN_DATA, new NbtCompound());
+        obj.getNbt().getCompound(DMN_DATA).putLong("energy", value);
     }
 
     @Override
     public void setMaxEnergy(ItemStack obj, long value) {
         if (!obj.hasNbt())
             obj.setNbt(new NbtCompound());
-        if (!obj.getNbt().contains("dmndata"))
-            obj.getNbt().put("dmndata", new NbtCompound());
-        obj.getNbt().getCompound("dmndata").putLong("max_energy", value);
+        if (!obj.getNbt().contains(DMN_DATA))
+            obj.getNbt().put(DMN_DATA, new NbtCompound());
+        obj.getNbt().getCompound(DMN_DATA).putLong("max_energy", value);
     }
 
     @Override
     public long getEnergy(ItemStack obj) {
-        if (obj.hasNbt() && obj.getNbt().contains("dmndata"))
-            return obj.getNbt().getCompound("dmndata").getLong("energy");
+        if (obj.hasNbt() && obj.getNbt().contains(DMN_DATA))
+            return obj.getNbt().getCompound(DMN_DATA).getLong("energy");
         return 0;
     }
 
     @Override
     public long getMaxEnergy(ItemStack obj) {
-        if (obj.hasNbt() && obj.getNbt().contains("dmndata"))
-            return obj.getNbt().getCompound("dmndata").getLong("max_energy");
+        if (obj.hasNbt() && obj.getNbt().contains(DMN_DATA))
+            return obj.getNbt().getCompound(DMN_DATA).getLong("max_energy");
         return 0;
     }
 

@@ -23,6 +23,8 @@ import ru.DmN.tech.common.material.EmptyMaterial;
 import ru.DmN.tech.common.material.IMaterial;
 import ru.DmN.tech.common.material.IMaterialProvider;
 
+import static ru.DmN.core.common.DCore.DMN_DATA;
+
 public class RMPBBlockEntity extends MachineBlockEntity {
     public ItemStack coil = ItemStack.EMPTY;
     public IMaterial coilMaterial = EmptyMaterial.INSTANCE;
@@ -88,7 +90,7 @@ public class RMPBBlockEntity extends MachineBlockEntity {
         if (coilConsumer.isEmpty() || !coilConsumer.hasNbt() || !((nbt = coilConsumer.getNbt()).contains("dmndata")))
             return ItemStack.EMPTY;
         // Getting DmNData
-        NbtCompound dmnData = nbt.getCompound("dmndata");
+        NbtCompound dmnData = nbt.getCompound(DMN_DATA);
         // Creating combined item
         ItemStack result = new ItemStack(Registry.ITEM.get(new Identifier(dmnData.getString("combinei"))));
         result.setNbt(dmnData.getCompound("combine"));

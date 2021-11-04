@@ -1,8 +1,8 @@
 package ru.DmN.core.common.inventory;
 
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.SidedInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NbtList;
 import net.minecraft.util.math.Direction;
 import org.jetbrains.annotations.Nullable;
 
@@ -65,5 +65,20 @@ public class EmptyInventory implements SidedInventory {
     @Override
     public void clear() {
 
+    }
+
+    @Override
+    public ConfigurableInventory toConfigurableInventory() {
+        return new SimpleConfigurableInventory();
+    }
+
+    @Override
+    public void readNbtList(NbtList nbtList) {
+
+    }
+
+    @Override
+    public NbtList toNbtList() {
+        return new NbtList();
     }
 }

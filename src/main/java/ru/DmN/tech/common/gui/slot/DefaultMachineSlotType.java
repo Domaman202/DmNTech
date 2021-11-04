@@ -1,8 +1,11 @@
 package ru.DmN.tech.common.gui.slot;
 
 public enum DefaultMachineSlotType implements IMachineSlotType {
-    ENERGY_PROVIDER("energy_provider"),
-    HEATER("heater");
+    SOURCE("source"),
+    ASSEMBLY("assembly"),
+    INPUT("in"),
+    OUTPUT("out"),
+    INPUT_OUTPUT("in_out");
 
     public final String name;
 

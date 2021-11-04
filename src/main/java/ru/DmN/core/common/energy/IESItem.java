@@ -21,4 +21,35 @@ public interface IESItem extends IESObject<ItemStack> {
         }
         return false;
     }
+
+    ////
+
+
+    @Override
+    default void setEnergy(long value) {
+    }
+
+    @Override
+    default long getEnergy() {
+        return 0;
+    }
+
+    @Override
+    default long getMaxEnergy() {
+        return 0;
+    }
+
+    @Override
+    default void setMaxEnergy(long maxEnergy) {
+    }
+
+    @Override
+    default long insertEnergy(long value) {
+        return value;
+    }
+
+    @Override
+    default long extractEnergy(long value) {
+        return -value;
+    }
 }

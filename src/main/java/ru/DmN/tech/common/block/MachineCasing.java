@@ -2,27 +2,21 @@ package ru.DmN.tech.common.block;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import ru.DmN.core.common.block.MachineBlock;
 import ru.DmN.core.common.block.MachineBlockTicker;
-import ru.DmN.core.common.block.entity.MachineBlockEntityTicker;
+import ru.DmN.core.common.inventory.ConfigurableInventory;
 import ru.DmN.core.common.item.MachineBlockItem;
 import ru.DmN.core.common.utils.Lazy;
 import ru.DmN.tech.common.block.entity.MachineCasingBlockEntity;
+import ru.DmN.tech.common.item.modules.MachineModule;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.function.Supplier;
 
-public abstract class MachineCasing <T extends MachineBlockEntityTicker> extends MachineBlockTicker <T> {
-    public final ArrayList<IMachineData<Integer>> integers = new ArrayList<>();
-    public final ArrayList<IMachineData<Double>> doubles = new ArrayList<>();
-    public final Map<String, IMachineData<?>> specific = new HashMap<>();
-
-    public final ArrayList<IMachineData<?>> inputs = new ArrayList<>();
-    public final ArrayList<IMachineData<?>> outputs = new ArrayList<>();
-
+public abstract class MachineCasing <T extends MachineCasingBlockEntity> extends MachineBlockTicker <T> {
     /// CONSTRUCTORS
 
     public MachineCasing(Settings settings, Item.Settings settings_, Void unused) {
@@ -44,28 +38,116 @@ public abstract class MachineCasing <T extends MachineBlockEntityTicker> extends
     /// TICK
 
     @Override
-    public void tick(World world, BlockPos pos, BlockState state, T blockEntity) {
-        blockEntity.tick(world, pos, state, blockEntity);
+    public void tick(World world, BlockPos pos, BlockState state, T entity) {
+        if (MachineBlock.isActive(world, pos) && !world.isClient) {
+            ConfigurableInventory inventory = entity.inventory;
+            for (int i = 0; i < inventory.size(); i++) {
+                ItemStack stack;
+                Item item;
+                if ((item = (stack = inventory.getStack(i)).getItem()) instanceof MachineModule)
+                    ((MachineModule) item).tick(entity, stack, i);
+            }
+        }
     }
 
     /// Machine Data
 
+    public static class IntMachineData extends SimpleMachineData <Integer> {
+        public IntMachineData(Integer value, MachineDataType type) {
+            super(value, type);
+        }
+
+        @Override
+        public void writeNbt(NbtCompound nbt, String id) {
+            nbt.putInt(id, value);
+        }
+
+        @Override
+        public void readNbt(NbtCompound nbt, String id) {
+            value = nbt.getInt(id);
+        }
+    }
+
+    public static abstract class SimpleMachineData <T> implements IMachineData <T> {
+        public T value;
+        public final MachineDataType type;
+
+        public SimpleMachineData(T value, MachineDataType type) {
+            this.value = value;
+            this.type = type;
+        }
+
+        @Override
+        public void set(T data) {
+            this.value = data;
+        }
+
+        @Override
+        public T get() {
+            return this.value;
+        }
+
+        @Override
+        public MachineDataType getType() {
+            return this.type;
+        }
+    }
+
+    public static class EmptyMachineData implements IMachineData<Integer> {
+        public static final EmptyMachineData INSTANCE = new EmptyMachineData();
+
+        @Override
+        public void writeNbt(NbtCompound nbt, String id) {
+            nbt.putInt(id, 0);
+        }
+
+        @Override
+        public void readNbt(NbtCompound nbt, String id) {
+
+        }
+
+        @Override
+        public void set(Integer data) {
+
+        }
+
+        @Override
+        public Integer get() {
+            return 0;
+        }
+
+        @Override
+        public MachineDataType getType() {
+            return MachineDataType.INTERNAL;
+        }
+    }
+
     public interface IMachineData<T> {
+        /**
+         * Writes data to nbt
+         * @param nbt nbt
+         */
+        void writeNbt(NbtCompound nbt, String id);
+
+        /**
+         * Reads data from nbt
+         * @param nbt nbt
+         */
+        void readNbt(NbtCompound nbt, String id);
+
         /**
          * Setting data to machine
          *
-         * @param entity machine
-         * @param data   data
+         * @param data data
          */
-        void set(MachineCasingBlockEntity entity, T data);
+        void set(T data);
 
         /**
          * Getting data of machine
          *
-         * @param entity machine
          * @return data
          */
-        T get(MachineCasingBlockEntity entity);
+        T get();
 
         /**
          * Getting type of this data
@@ -80,6 +162,6 @@ public abstract class MachineCasing <T extends MachineBlockEntityTicker> extends
         INTERNAL,
         INPUT,
         OUTPUT,
-        INPUT_OUTPUT,
+        INPUT_OUTPUT
     }
 }

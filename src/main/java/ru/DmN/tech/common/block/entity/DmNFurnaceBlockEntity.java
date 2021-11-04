@@ -24,6 +24,8 @@ import ru.DmN.tech.common.gui.DmNFurnaceScreenHandler;
 import ru.DmN.tech.common.material.IMaterial;
 import ru.DmN.tech.common.registry.MaterialRegistry;
 
+import static ru.DmN.core.common.DCore.DMN_DATA;
+
 public class DmNFurnaceBlockEntity extends SimpleConfigurableLCBlockEntity <ConfigurableInventory> implements SidedInventory, RecipeInputProvider, ExtendedScreenHandlerFactory {
     public IMaterial lastBurnMaterial;
     public int progress = 0;
@@ -91,7 +93,7 @@ public class DmNFurnaceBlockEntity extends SimpleConfigurableLCBlockEntity <Conf
 
     @Override
     public NbtCompound writeNbt(NbtCompound nbt) {
-        NbtCompound dmnData = super.writeNbt(nbt).getCompound("dmndata");
+        NbtCompound dmnData = super.writeNbt(nbt).getCompound(DMN_DATA);
         if (lastBurnMaterial != null)
             dmnData.putString("lbm", MaterialRegistry.of(lastBurnMaterial).toString());
         dmnData.putInt("progress", progress);
@@ -103,7 +105,7 @@ public class DmNFurnaceBlockEntity extends SimpleConfigurableLCBlockEntity <Conf
     @Override
     public void readNbt(NbtCompound nbt) {
         super.readNbt(nbt);
-        NbtCompound dmnData = nbt.getCompound("dmndata");
+        NbtCompound dmnData = nbt.getCompound(DMN_DATA);
         lastBurnMaterial = MaterialRegistry.of(new Identifier(dmnData.getString("lbm")));
         progress = dmnData.getInt("progress");
         burn = dmnData.getInt("burn");

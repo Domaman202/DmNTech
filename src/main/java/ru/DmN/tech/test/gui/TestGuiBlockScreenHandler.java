@@ -11,13 +11,11 @@ import ru.DmN.tech.test.TestMain;
 public class TestGuiBlockScreenHandler extends MachineScreenHandler {
     public TestGuiBlockScreenHandler(int syncId, PlayerInventory playerInventory, PacketByteBuf buf) {
         super(TestMain.TEST_GUI_SCREEN_HANDLER, syncId, playerInventory, buf);
-
         addSlots();
     }
 
     public TestGuiBlockScreenHandler(int syncId, ConfigurableInventory inventory, PlayerInventory playerInventory, PropertyDelegate properties, BlockPos pos) {
         super(TestMain.TEST_GUI_SCREEN_HANDLER, syncId, playerInventory, inventory, properties, pos);
-
         addSlots();
     }
 
@@ -26,14 +24,8 @@ public class TestGuiBlockScreenHandler extends MachineScreenHandler {
         int j = 15;
         this.addSlot(inventory, 0, 15, i);
         this.addSlot(inventory, 1, j += 16, i);
-        this.addSlot(inventory, 2, j -= 16, i += 24);
-        this.addSlot(inventory, 3, j + 32, i);
+        this.addSlot(inventory, 2, j, i += 16);
+        this.addSlot(inventory, 3, j -= 16, i += 8);
+        this.addSlot(inventory, 4, j + 32, i);
     }
 }
-
-/*
-    X => X
-        ||
-        V
-     I => O
- */

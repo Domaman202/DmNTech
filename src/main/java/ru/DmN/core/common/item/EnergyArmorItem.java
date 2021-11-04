@@ -10,15 +10,21 @@ import ru.DmN.core.common.energy.IESProvider;
 import ru.DmN.core.common.energy.IESObject;
 import ru.DmN.core.common.energy.ItemStackEnergyStorage;
 
+import static ru.DmN.core.common.DCore.DMN_DATA;
+
 public class EnergyArmorItem extends ArmorItem implements IESProvider<ItemStack> {
+    /// CONSTRUCTORS
+
     public EnergyArmorItem(ArmorMaterial material, EquipmentSlot slot, Settings settings) {
         super(material, slot, settings);
     }
 
+    /// COLOR BAR
+
     @Override
     public int getItemBarColor(ItemStack stack) {
         if (stack.hasNbt()) {
-            NbtCompound dmnData = stack.getNbt().getCompound("dmndata");
+            NbtCompound dmnData = stack.getSubNbt(DMN_DATA);
             float f = Math.max(0.0F, ((float) dmnData.getLong("energy") - (float) stack.getDamage()) / (float) dmnData.getLong("max_energy"));
             return MathHelper.hsvToRgb(f / 3.0F, 1.0F, 1.0F);
         }
@@ -28,7 +34,7 @@ public class EnergyArmorItem extends ArmorItem implements IESProvider<ItemStack>
     @Override
     public int getItemBarStep(ItemStack stack) {
         if (stack.hasNbt()) {
-            NbtCompound dmnData = stack.getNbt().getCompound("dmndata");
+            NbtCompound dmnData = stack.getSubNbt("dmndata");
             return 13 - Math.round(13.0F - (float) dmnData.getLong("energy") * 13.0F / (float) dmnData.getLong("max_energy"));
         }
         return 0;
@@ -39,8 +45,10 @@ public class EnergyArmorItem extends ArmorItem implements IESProvider<ItemStack>
         return true;
     }
 
+    /// IESProvider
+
     @Override
     public IESObject<ItemStack> getEnergyStorage(ItemStack stack) {
-        return new ItemStackEnergyStorage(stack.getNbt());
+        return new ItemStackEnergyStorage(stack.getOrCreateSubNbt(DMN_DATA));
     }
 }

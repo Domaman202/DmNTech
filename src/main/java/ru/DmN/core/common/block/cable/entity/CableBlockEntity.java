@@ -10,6 +10,8 @@ import ru.DmN.core.common.energy.IESObject;
 import ru.DmN.core.common.energy.IESProvider;
 import ru.DmN.core.common.energy.SimpleEnergyStorage;
 
+import static ru.DmN.core.common.DCore.DMN_DATA;
+
 @SuppressWarnings("rawtypes")
 public class CableBlockEntity extends BlockEntity implements IESProvider {
     public IESObject<?> storage;
@@ -68,7 +70,7 @@ public class CableBlockEntity extends BlockEntity implements IESProvider {
         NbtCompound dmnData = new NbtCompound();
         dmnData.putLong("energy", storage.getEnergy());
         dmnData.putLong("max_energy", storage.getMaxEnergy());
-        nbt.put("dmndata", dmnData);
+        nbt.put(DMN_DATA, dmnData);
         return nbt;
     }
 
@@ -79,7 +81,7 @@ public class CableBlockEntity extends BlockEntity implements IESProvider {
     }
 
     public void readMyNbt(NbtCompound nbt) {
-        NbtCompound dmnData = nbt.getCompound("dmndata");
+        NbtCompound dmnData = nbt.getCompound(DMN_DATA);
         storage.setEnergy(dmnData.getLong("energy"));
         storage.setMaxEnergy(dmnData.getLong("max_energy"));
     }

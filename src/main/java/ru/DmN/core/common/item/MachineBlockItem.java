@@ -19,6 +19,8 @@ import ru.DmN.core.common.energy.IESObject;
 import ru.DmN.core.common.energy.ItemStackEnergyStorage;
 import ru.DmN.core.common.utils.ColorUtils;
 
+import static ru.DmN.core.common.DCore.DMN_DATA;
+
 public class MachineBlockItem extends BlockItem implements IESProvider<ItemStack> {
     public MachineBlockItem(Block block, Settings settings) {
         super(block, settings);
@@ -60,7 +62,7 @@ public class MachineBlockItem extends BlockItem implements IESProvider<ItemStack
     @Override
     public int getItemBarColor(ItemStack stack) {
         if (stack.hasNbt()) {
-            NbtCompound dmnData = stack.getNbt().getCompound("dmndata");
+            NbtCompound dmnData = stack.getNbt().getCompound(DMN_DATA);
             return ColorUtils.calcColorWithEnergy(dmnData.getLong("energy"), dmnData.getLong("max_energy"));
         }
         return 0;
@@ -69,7 +71,7 @@ public class MachineBlockItem extends BlockItem implements IESProvider<ItemStack
     @Override
     public int getItemBarStep(ItemStack stack) {
         if (stack.hasNbt()) {
-            NbtCompound dmnData = stack.getNbt().getCompound("dmndata");
+            NbtCompound dmnData = stack.getNbt().getCompound(DMN_DATA);
             return ColorUtils.calcStepWithEnergy(dmnData.getLong("energy"), dmnData.getLong("max_energy"));
         }
         return 0;

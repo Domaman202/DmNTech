@@ -9,8 +9,10 @@ import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import org.jetbrains.annotations.NotNull;
+import ru.DmN.core.common.energy.IESObject;
 import ru.DmN.core.common.item.ICombinable;
-import ru.DmN.tech.common.DTech;
+import ru.DmN.tech.common.block.MachineCasing;
+import ru.DmN.tech.common.block.entity.MachineCasingBlockEntity;
 import ru.DmN.tech.common.block.entity.RMPBBlockEntity;
 import ru.DmN.tech.common.gui.slot.DefaultMachineSlotType;
 import ru.DmN.tech.common.item.component.Coil;
@@ -18,23 +20,59 @@ import ru.DmN.tech.common.material.EmptyMaterial;
 import ru.DmN.tech.common.material.IMaterial;
 import ru.DmN.tech.common.material.IMaterialProvider;
 
-public class CoilConsumerModule extends Module implements ICombinable {
+import static ru.DmN.core.common.DCore.DMN_DATA;
+import static ru.DmN.tech.common.DTech.DEFAULT_ITEM_SETTINGS;
+
+public class CoilConsumerModule extends MachineModule implements ICombinable {
     public static final CoilConsumerModule INSTANCE = new CoilConsumerModule();
 
     /// CONSTRUCTORS
 
     public CoilConsumerModule() {
-        super(new Settings().group(DTech.DmNTechAllGroup), DefaultMachineSlotType.HEATER);
+        super(DEFAULT_ITEM_SETTINGS, DefaultMachineSlotType.ASSEMBLY);
     }
 
     ///
 
     @Override
+    public void updateProperties(MachineCasingBlockEntity entity, ItemStack stack, int slot) {
+        var internal = entity.internal;
+
+        for (int x = internal.size() - slot; x <= slot; x++)
+            internal.add(MachineCasing.EmptyMachineData.INSTANCE);
+
+        if (internal.get(slot) == MachineCasing.EmptyMachineData.INSTANCE)
+            internal.set(slot, new MachineCasing.IntMachineData(0, MachineCasing.MachineDataType.INTERNAL));
+    }
+
+
+    /// TICK
+
+    @Override
+    public void tick(MachineCasingBlockEntity entity, ItemStack stack, int slot) {
+        IESObject<?> storage = entity.storage;
+        var temperatureD = (MachineCasing.IMachineData<Integer>) entity.internal.get(slot);
+
+        Integer temperature;
+        if ((temperature = temperatureD.get()) == null)
+            temperature = 0;
+
+        IMaterial material;
+        int energyCoefficient;
+        if (temperature < (material = this.getMaterial(stack)).maxTemperature() && storage.getEnergy() >= (energyCoefficient = material.energyCoefficient())) {
+            temperatureD.set(temperature + (10 * energyCoefficient));
+            storage.extractEnergy(energyCoefficient);
+        }
+    }
+
+    /// GUI
+
+    @Override
     public Text getName(ItemStack stack) {
         if (stack.hasNbt()) {
             NbtCompound nbt = stack.getNbt();
-            if (nbt.contains("dmndata")) {
-                Item item = Registry.ITEM.get(new Identifier(nbt.getCompound("dmndata").getString("combinei")));
+            if (nbt.contains(DMN_DATA)) {
+                Item item = Registry.ITEM.get(new Identifier(nbt.getCompound(DMN_DATA).getString("combinei")));
                 if (item == Items.AIR)
                     return this.getName();
                 return new TranslatableText("text.dmntech.modules.coil_consumer", item.getName());

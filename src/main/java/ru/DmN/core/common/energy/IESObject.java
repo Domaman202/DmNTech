@@ -22,7 +22,9 @@ public interface IESObject <T> extends IESProvider<T> {
      * Setting energy
      * @param value energy count
      */
-    void setEnergy(T obj, long value);
+    default void setEnergy(T obj, long value) {
+        setEnergy(value);
+    }
 
     /**
      * Setting energy with side
@@ -52,7 +54,9 @@ public interface IESObject <T> extends IESProvider<T> {
      * Getting energy
      * @return stored energy
      */
-    long getEnergy(T obj);
+    default long getEnergy(T obj) {
+        return getEnergy();
+    }
 
     /**
      * Getting energy to side
@@ -82,7 +86,9 @@ public interface IESObject <T> extends IESProvider<T> {
      * Getting max energy
      * @return max energy store
      */
-    long getMaxEnergy(T obj);
+    default long getMaxEnergy(T obj) {
+        return getMaxEnergy();
+    }
 
     /**
      * Getting max energy with side
@@ -112,7 +118,9 @@ public interface IESObject <T> extends IESProvider<T> {
      * Setting max energy
      * @param maxEnergy max energy
      */
-    void setMaxEnergy(T obj, long maxEnergy);
+    default void setMaxEnergy(T obj, long maxEnergy) {
+        setMaxEnergy(maxEnergy);
+    }
 
     /**
      * Setting max energy to side
@@ -162,7 +170,16 @@ public interface IESObject <T> extends IESProvider<T> {
      * @param value energy count
      * @return the amount of energy that has not been placed
      */
-    long insertEnergy(long value);
+    default long insertEnergy(long value) {
+        long energy = getEnergy();
+        long i = getMaxEnergy() - energy;
+        if (value > i) {
+            setEnergy(energy + i);
+            return value - i;
+        }
+        setEnergy(energy + value);
+        return 0;
+    }
 
     /**
      * Inserting energy to side
@@ -180,7 +197,16 @@ public interface IESObject <T> extends IESProvider<T> {
      * @param value energy count
      * @return the amount of energy that has not been placed
      */
-    long insertEnergy(T obj, long value);
+    default long insertEnergy(T obj, long value) {
+        long energy = getEnergy(obj);
+        long i = getMaxEnergy(obj) - energy;
+        if (value > i) {
+            setEnergy(obj, energy + i);
+            return value - i;
+        }
+        setEnergy(obj, energy + value);
+        return 0;
+    }
 
     /**
      * Inserting energy to side
@@ -197,7 +223,21 @@ public interface IESObject <T> extends IESProvider<T> {
      * @param value energy count
      * @return the amount of energy failed to be extracted
      */
-    long extractEnergy(long value);
+    default long extractEnergy(long value) {
+        if (value < 0)
+            return insertEnergy(-value);
+
+        long energy = getEnergy();
+
+        if (value > energy) {
+            long x = -(energy - value);
+            setEnergy(energy - (value - x));
+            return x;
+        }
+
+        setEnergy(energy - value);
+        return 0;
+    }
 
     /**
      * Extracting energy with side
@@ -215,7 +255,21 @@ public interface IESObject <T> extends IESProvider<T> {
      * @param value energy count
      * @return the amount of energy failed to be extracted
      */
-    long extractEnergy(T obj, long value);
+    default long extractEnergy(T obj, long value) {
+        if (value < 0)
+            return insertEnergy(-value);
+
+        long energy = getEnergy(obj);
+
+        if (value > energy) {
+            long x = -(energy - value);
+            setEnergy(energy - (value - x));
+            return x;
+        }
+
+        setEnergy(energy - value);
+        return 0;
+    }
 
     /**
      * Extracting energy with side

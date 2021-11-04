@@ -2,10 +2,8 @@ package ru.DmN.core.common.energy;
 
 import net.minecraft.nbt.NbtCompound;
 
-import javax.naming.OperationNotSupportedException;
-
 public class NBTEnergyStorage <T> implements IESObject <T> {
-    NbtCompound nbt;
+    public final NbtCompound nbt;
 
     public NBTEnergyStorage(NbtCompound nbt) {
         this.nbt = nbt;
@@ -17,18 +15,8 @@ public class NBTEnergyStorage <T> implements IESObject <T> {
     }
 
     @Override
-    public void setEnergy(T obj, long value) {
-        throw new RuntimeException(new OperationNotSupportedException());
-    }
-
-    @Override
     public long getEnergy() {
         return nbt.getLong("energy");
-    }
-
-    @Override
-    public long getEnergy(T obj) {
-        throw new RuntimeException(new OperationNotSupportedException());
     }
 
     @Override
@@ -37,18 +25,8 @@ public class NBTEnergyStorage <T> implements IESObject <T> {
     }
 
     @Override
-    public void setMaxEnergy(T obj, long maxEnergy) {
-        throw new RuntimeException(new OperationNotSupportedException());
-    }
-
-    @Override
     public long getMaxEnergy() {
         return nbt.getLong("max_energy");
-    }
-
-    @Override
-    public long getMaxEnergy(T obj) {
-        throw new RuntimeException(new OperationNotSupportedException());
     }
 
     @Override
@@ -61,11 +39,6 @@ public class NBTEnergyStorage <T> implements IESObject <T> {
         }
         nbt.putLong("energy", energy + value);
         return 0;
-    }
-
-    @Override
-    public long insertEnergy(T obj, long value) {
-        throw new RuntimeException(new OperationNotSupportedException());
     }
 
     @Override
@@ -83,10 +56,5 @@ public class NBTEnergyStorage <T> implements IESObject <T> {
 
         nbt.putLong("energy", energy - value);
         return 0;
-    }
-
-    @Override
-    public long extractEnergy(T obj, long value) {
-        throw new RuntimeException(new OperationNotSupportedException());
     }
 }
