@@ -11,14 +11,14 @@ public class Compound implements Clickable {
 
     @Override
     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta, int w, int h) {
-        for (IComponent component : components)
+        for (IComponent component : new SmartIterator<>(components))
             component.render(matrices, mouseX, mouseY, delta, w, h);
     }
 
     @Override
     public boolean mouseClicked(double mouseX, double mouseY, int button) {
         boolean x = false;
-        for (IComponent component : components)
+        for (IComponent component : new SmartIterator<>(components))
             if (component instanceof Clickable) {
                 if (x)
                     break;

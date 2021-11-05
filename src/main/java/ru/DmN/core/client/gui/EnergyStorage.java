@@ -15,8 +15,8 @@ public class EnergyStorage implements IComponent {
 
     @Override
     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta, int w, int h) {
-        int lastEnergy = properties.get(0);
-        int maxEnergy = properties.get(1);
+        int lastEnergy = properties.get(1);
+        int maxEnergy = properties.get(2);
 
         MinecraftClient.getInstance().textRenderer.drawWithShadow(matrices, new TranslatableText("text.dmncore.energy", lastEnergy, maxEnergy), w, h, ColorUtils.calcColorWithEnergy(lastEnergy, maxEnergy));
     }

@@ -31,6 +31,10 @@ public abstract class AdvancedScreen <T extends ScreenHandler> extends HandledSc
         components.components.add(new CompoundElement(component, x, y, name));
     }
 
+    public void removeComponent(String name) {
+        components.components.removeIf(e -> e.name.equals(name));
+    }
+
     public CompoundElement getCompound(String name) {
         return components.getCompound(name);
     }

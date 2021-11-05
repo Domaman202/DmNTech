@@ -24,7 +24,7 @@ public class MachineActivationButton extends ColoredButton {
 
     @Override
     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta, int w, int h) {
-        super.render(matrices, mouseX, mouseY, delta, w, h, properties.get(2) == 1 ? Color.GREEN.getRGB() : Color.RED.getRGB());
+        super.render(matrices, mouseX, mouseY, delta, w, h, properties.get(3) == 1 ? Color.GREEN.getRGB() : Color.RED.getRGB());
     }
 
     @Override
@@ -32,7 +32,7 @@ public class MachineActivationButton extends ColoredButton {
         if (super.mouseClicked(mouseX, mouseY, button)) {
             PacketByteBuf buf = PacketByteBufs.create();
             buf.writeBlockPos(pos);
-            buf.writeBoolean(properties.get(2) != 1);
+            buf.writeBoolean(properties.get(3) != 1);
             ((MachineBlock) world.getBlockState(pos).getBlock()).sendPacketC(buf);
             return true;
         }

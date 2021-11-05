@@ -76,7 +76,7 @@ public abstract class MachineCasingBlockEntity extends MachineBlockEntity {
                 ((MachineModule) item).updateProperties(this, stack, i);
         }
 
-        for (int i = 0; i < nbt.getInt("mdata"); i++)
+        for (int i = 0; i < nbt.getInt("mdata") && i != internal.size(); i++)
             internal.get(i).readNbt(nbt, String.valueOf(i));
     }
 
@@ -98,14 +98,15 @@ public abstract class MachineCasingBlockEntity extends MachineBlockEntity {
         @Override
         public int get(int index) {
             return switch (index) {
-                case 0 -> storage.getEnergy() > Integer.MAX_VALUE ? Integer.MAX_VALUE : (int) storage.getEnergy();
-                case 1 -> storage.getMaxEnergy() > Integer.MAX_VALUE ? Integer.MAX_VALUE : (int) storage.getMaxEnergy();
-                case 2 -> MachineBlock.isActive(getWorld(), getPos()) ? 1 : 0;
+                case 0 -> 4;
+                case 1 -> storage.getEnergy() > Integer.MAX_VALUE ? Integer.MAX_VALUE : (int) storage.getEnergy();
+                case 2 -> storage.getMaxEnergy() > Integer.MAX_VALUE ? Integer.MAX_VALUE : (int) storage.getMaxEnergy();
+                case 3 -> MachineBlock.isActive(getWorld(), getPos()) ? 1 : 0;
                 default -> {
-                    int i = internal.size() + 2;
+                    int i = internal.size() + this.get(0);
                     int j = io.size();
                     if (index < i) {
-                        var o = internal.get(index - 2);
+                        var o = internal.get(index - this.get(0));
                         if (o == null)
                             yield 0;
                         var x = (Integer) o.get();
@@ -122,15 +123,15 @@ public abstract class MachineCasingBlockEntity extends MachineBlockEntity {
         @Override
         public void set(int index, int value) {
             switch (index) {
-                case 0 -> storage.setEnergy(value);
-                case 1 -> storage.setMaxEnergy(value);
-                case 2 -> MachineBlock.setActive(value == 1, getWorld(), getPos());
+                case 1 -> storage.setEnergy(value);
+                case 2 -> storage.setMaxEnergy(value);
+                case 3 -> MachineBlock.setActive(value == 1, getWorld(), getPos());
             }
         }
 
         @Override
         public int size() {
-            return 3 + internal.size() + io.size();
+            return this.get(0) + internal.size() + io.size();
         }
     }
 }

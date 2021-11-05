@@ -6,7 +6,6 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.SidedInventory;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.PacketByteBuf;
-import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.RecipeInputProvider;
 import net.minecraft.recipe.RecipeMatcher;
 import net.minecraft.screen.PropertyDelegate;
@@ -43,10 +42,11 @@ public class DmNFurnaceBlockEntity extends SimpleConfigurableLCBlockEntity <Conf
         @Override
         public int get(int index) {
             return switch (index) {
-                case 0 -> progress;
-                case 1 -> burn;
-                case 2 -> heat;
-                case 3 -> recipeNeededTemperature;
+                case 0 -> 5;
+                case 1 -> progress;
+                case 2 -> burn;
+                case 3 -> heat;
+                case 4 -> recipeNeededTemperature;
                 default -> 0;
             };
         }
@@ -54,15 +54,15 @@ public class DmNFurnaceBlockEntity extends SimpleConfigurableLCBlockEntity <Conf
         @Override
         public void set(int index, int value) {
             switch (index) {
-                case 0 -> progress = value;
-                case 1 -> burn = value;
-                case 2 -> heat = value;
+                case 1 -> progress = value;
+                case 2 -> burn = value;
+                case 3 -> heat = value;
             }
         }
 
         @Override
         public int size() {
-            return 4;
+            return 5;
         }
     };
 

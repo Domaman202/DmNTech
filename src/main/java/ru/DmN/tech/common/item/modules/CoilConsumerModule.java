@@ -4,6 +4,8 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.screen.PropertyDelegate;
+import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Identifier;
@@ -20,6 +22,10 @@ import ru.DmN.tech.common.material.EmptyMaterial;
 import ru.DmN.tech.common.material.IMaterial;
 import ru.DmN.tech.common.material.IMaterialProvider;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.function.Supplier;
+
 import static ru.DmN.core.common.DCore.DMN_DATA;
 import static ru.DmN.tech.common.DTech.DEFAULT_ITEM_SETTINGS;
 
@@ -32,7 +38,7 @@ public class CoilConsumerModule extends MachineModule implements ICombinable {
         super(DEFAULT_ITEM_SETTINGS, DefaultMachineSlotType.ASSEMBLY);
     }
 
-    ///
+    /// MACHINE
 
     @Override
     public void updateProperties(MachineCasingBlockEntity entity, ItemStack stack, int slot) {
@@ -44,9 +50,6 @@ public class CoilConsumerModule extends MachineModule implements ICombinable {
         if (internal.get(slot) == MachineCasing.EmptyMachineData.INSTANCE)
             internal.set(slot, new MachineCasing.IntMachineData(0, MachineCasing.MachineDataType.INTERNAL));
     }
-
-
-    /// TICK
 
     @Override
     public void tick(MachineCasingBlockEntity entity, ItemStack stack, int slot) {
@@ -79,6 +82,11 @@ public class CoilConsumerModule extends MachineModule implements ICombinable {
             }
         }
         return this.getName();
+    }
+
+    @Override
+    public @NotNull Map<Integer, Supplier<Text>> getPropertyText(int slot, ItemStack stack, PropertyDelegate properties) {
+        return MachineModule.createSinglePropertyText("Heat -> ", slot, properties);
     }
 
     /// ICOMBINABLE IMPL

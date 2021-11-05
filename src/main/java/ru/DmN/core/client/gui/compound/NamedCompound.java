@@ -10,14 +10,14 @@ public class NamedCompound implements Clickable {
 
     @Override
     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta, int w, int h) {
-        for (CompoundElement component : components)
-            component.component.render(matrices, mouseX, mouseY, delta, w + component.xOffset, h + component.yOffset);
+        for (CompoundElement e : new SmartIterator<>(components))
+            e.component.render(matrices, mouseX, mouseY, delta, w + e.xOffset, h + e.yOffset);
     }
 
     @Override
     public boolean mouseClicked(double mouseX, double mouseY, int button) {
         boolean x = false;
-        for (CompoundElement component : components)
+        for (CompoundElement component : new SmartIterator<>(components))
             if (component.component instanceof Clickable) {
                 if (x)
                     break;

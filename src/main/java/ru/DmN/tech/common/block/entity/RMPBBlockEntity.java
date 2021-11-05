@@ -55,15 +55,16 @@ public class RMPBBlockEntity extends MachineBlockEntity {
         @Override
         public int get(int index) {
             return switch (index) {
-                case 0 -> storage.getEnergy() > Integer.MAX_VALUE ? Integer.MAX_VALUE : (int) storage.getEnergy();
-                case 1 -> storage.getMaxEnergy() > Integer.MAX_VALUE ? Integer.MAX_VALUE : (int) storage.getMaxEnergy();
-                case 2 -> MachineBlock.isActive(getWorld(), getPos()) ? 1 : 0;
-                case 3 -> {
+                case 0 -> 6;
+                case 1 -> storage.getEnergy() > Integer.MAX_VALUE ? Integer.MAX_VALUE : (int) storage.getEnergy();
+                case 2 -> storage.getMaxEnergy() > Integer.MAX_VALUE ? Integer.MAX_VALUE : (int) storage.getMaxEnergy();
+                case 3 -> MachineBlock.isActive(getWorld(), getPos()) ? 1 : 0;
+                case 4 -> {
                     if ((coil = tryDecompressCoil(inventory.getStack(0))) == ItemStack.EMPTY || (coilMaterial = ((IMaterialProvider) coil.getItem()).getMaterial()) == null)
                         yield 0;
                     yield Math.round((float) coilMaterial.maxTemperature() * (storage.getEnergy()) / (storage.getMaxEnergy() * 128));
                 }
-                case 4 -> (int) (storage.getEnergy() * this.get(3)) / 127;
+                case 5 -> (int) (storage.getEnergy() * this.get(4)) / 127;
                 default -> 0;
             };
         }
@@ -78,7 +79,7 @@ public class RMPBBlockEntity extends MachineBlockEntity {
 
         @Override
         public int size() {
-            return 5;
+            return 6;
         }
     }
 

@@ -66,7 +66,7 @@ public class RMPBBlock extends MachineBlockTicker <RMPBBlockEntity> {
                     BlockPos ePos = selectedPos.add(i, k, j);
                     BlockState s = world.getBlockState(ePos);
                     if (!(s.getBlock() instanceof RMPBBlock) && s.getBlock().getName().toString().contains("redstone")) {
-                        float power = entity.properties.get(3);
+                        float power = entity.properties.get(4);
                         storage.setEnergy(storage.getEnergy() - entity.properties.get(4));
                         //
                         if (power >= 19) {

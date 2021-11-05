@@ -5,21 +5,31 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.RecipeType;
 import net.minecraft.recipe.SmeltingRecipe;
+import net.minecraft.screen.PropertyDelegate;
+import net.minecraft.text.Text;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.NotNull;
 import ru.DmN.tech.common.block.MachineCasing;
 import ru.DmN.tech.common.block.entity.MachineCasingBlockEntity;
 import ru.DmN.tech.common.gui.slot.DefaultMachineSlotType;
 import ru.DmN.tech.common.material.IMaterial;
 import ru.DmN.tech.common.material.IMaterialProvider;
 
+import java.util.Map;
+import java.util.function.Supplier;
+
 import static ru.DmN.tech.common.DTech.DEFAULT_ITEM_SETTINGS;
 
 public class FurnaceModule extends MachineModule {
     public static final FurnaceModule INSTANCE = new FurnaceModule();
 
+    /// CONSTRUCTS
+
     public FurnaceModule() {
         super(DEFAULT_ITEM_SETTINGS, DefaultMachineSlotType.ASSEMBLY);
     }
+
+    /// MACHINE
 
     @Override
     public void updateProperties(MachineCasingBlockEntity entity, ItemStack stack, int slot) {
@@ -50,7 +60,7 @@ public class FurnaceModule extends MachineModule {
         var progress = (MachineCasing.IMachineData<Integer>) entity.internal.get(slot);
         //
         if (heat.get() >= material.meltTemperature()) {
-            if (progress.get() == material.meltTime()) {
+            if (progress.get() >= material.meltTime()) {
                 // Trying crafting needed recipe
                 Item result = recipe.getOutput().getItem();
                 ItemStack output = inventory.getStack(1);
@@ -71,5 +81,12 @@ public class FurnaceModule extends MachineModule {
                 heat.set(0);
             } else progress.set(progress.get() + (heat.get() / material.meltTemperature()));
         }
+    }
+
+    /// GUI
+
+    @Override
+    public @NotNull Map<Integer, Supplier<Text>> getPropertyText(int slot, ItemStack stack, PropertyDelegate properties) {
+        return MachineModule.createSinglePropertyText("Progress -> ", slot, properties);
     }
 }
