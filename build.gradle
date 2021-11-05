@@ -1,6 +1,10 @@
 plugins {
-	id 'fabric-loom' version '0.9-SNAPSHOT'
+	id 'fabric-loom' version '0.10-SNAPSHOT'
 	id 'maven-publish'
+	id 'java-library'
+
+//	// !OPTIONAL!
+//	id "org.jetbrains.kotlin.jvm" version "1.5.31"
 }
 
 sourceCompatibility = JavaVersion.VERSION_16
@@ -22,6 +26,14 @@ dependencies {
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
 	implementation group: 'org.javassist', name: 'javassist', version: '3.28.0-GA'
+
+//	// !OPTIONAL!
+//	modRuntime files('optional/architectury-2.6.35.jar', 'optional/fabric-language-kotlin-1.6.5+kotlin.1.5.31.jar', 'optional/modmenu-2.0.14.jar', 'optional/observable-0.1.2-1.17-fabric.jar')
+//	implementation group: 'org.jetbrains.kotlin', name: 'kotlin-stdlib', version: "1.5.31"
+//	implementation group: 'org.jetbrains.kotlin', name: 'kotlin-stdlib-jdk8', version: "1.5.31"
+//	implementation group: 'org.jetbrains.kotlin', name: 'kotlin-reflect', version: '1.5.31'
+//	implementation group: 'org.jetbrains.kotlinx', name: 'kotlinx-serialization-core-jvm', version: '1.3.0'
+//	implementation group: 'org.jetbrains.kotlinx', name: 'kotlinx-serialization-protobuf', version: '1.2.2'
 }
 
 processResources {
