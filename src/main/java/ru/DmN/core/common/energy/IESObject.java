@@ -104,7 +104,8 @@ public interface IESObject <T> extends IESProvider <T> {
      * Setting max energy
      * @param value max energy
      */
-    void setMaxEnergy(long value);
+    default void setMaxEnergy(long value) {
+    }
 
     /**
      * Setting max energy to side

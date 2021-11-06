@@ -9,6 +9,8 @@ import ru.DmN.tech.external.TR.block.entity.TREConverterEntity;
 import ru.DmN.tech.external.TR.loockup.DmNEBA;
 import team.reborn.energy.api.EnergyStorage;
 
+import static ru.DmN.tech.mixin.DTechMixinPlugin.checkTRELoad;
+
 public class TRMain {
     public static BlockEntityType<TREConverterEntity> TRECONVERTER_BLOCK_ENTITY_TYPE;
 
@@ -19,13 +21,5 @@ public class TRMain {
             //
             EnergyStorage.SIDED.registerFallback(DmNEBA.INSTANCE);
         }
-    }
-
-    public static boolean checkTRELoad() {
-        return checkTRLoad() || FabricLoader.getInstance().isModLoaded("team_reborn_energy");
-    }
-
-    public static boolean checkTRLoad() {
-        return FabricLoader.getInstance().isModLoaded("techreborn");
     }
 }

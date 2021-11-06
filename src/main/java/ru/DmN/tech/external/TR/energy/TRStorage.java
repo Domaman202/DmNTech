@@ -1,59 +1,63 @@
 package ru.DmN.tech.external.TR.energy;
 
-import net.fabricmc.fabric.api.transfer.v1.transaction.TransactionContext;
-import net.fabricmc.fabric.api.transfer.v1.transaction.base.SnapshotParticipant;
+import net.minecraft.item.ItemStack;
 import ru.DmN.core.common.energy.IESObject;
 import team.reborn.energy.api.EnergyStorage;
+import team.reborn.energy.api.base.SimpleBatteryItem;
 
-public class TRStorage <T> implements EnergyStorage {
-    public final IESObject<T> storage;
-    public final SnapshotParticipant<Long> snapshotParticipant = new SnapshotParticipant<>() {
-        @Override
-        protected Long createSnapshot() {
-            return storage.getEnergy();
-        }
+public class TRStorage implements IESObject {
+    public final EnergyStorage storage;
+    public final ItemStack stack;
 
-        @Override
-        protected void readSnapshot(Long snapshot) {
-            storage.setEnergy(snapshot);
-        }
-    };
-
-    public TRStorage(IESObject<T> storage) {
+    public TRStorage(EnergyStorage storage, ItemStack stack) {
         this.storage = storage;
+        this.stack = stack;
     }
 
     @Override
-    public long insert(long maxAmount, TransactionContext transaction) {
-        long inserted = Math.min(maxAmount, this.storage.getMaxEnergy());
+    public void setEnergy(long value) {
+        SimpleBatteryItem.setStoredEnergyUnchecked(stack, value);
+    }
 
-        if (inserted > 0) {
-            this.snapshotParticipant.updateSnapshots(transaction);
-            return inserted - this.storage.insertEnergy(inserted);
+    @Override
+    public long getEnergy() {
+        return this.storage.getAmount();
+    }
+
+    @Override
+    public long getMaxEnergy() {
+        return this.storage.getCapacity();
+    }
+
+    @Override
+    public long insertEnergy(long value) {
+        long i = storage.getCapacity() - storage.getAmount();
+        if (value > i) {
+            SimpleBatteryItem.setStoredEnergyUnchecked(stack, storage.getAmount() + i);
+            return value - i;
         }
 
+        SimpleBatteryItem.setStoredEnergyUnchecked(stack, storage.getAmount() + value);
         return 0;
     }
 
     @Override
-    public long extract(long maxAmount, TransactionContext transaction) {
-        long extracted = Math.min(this.storage.getMaxEnergy(), Math.min(maxAmount, this.storage.getEnergy()));
+    public long extractEnergy(long value) {
+        if (value < 0)
+            return insertEnergy(-value);
 
-        if (extracted > 0) {
-            this.snapshotParticipant.updateSnapshots(transaction);
-            return extracted - this.storage.extractEnergy(extracted);
+        if (value > storage.getAmount()) {
+            long x = -(storage.getAmount() - value);
+            SimpleBatteryItem.setStoredEnergyUnchecked(stack,storage.getAmount() - (value - x));
+            return x;
         }
 
+        SimpleBatteryItem.setStoredEnergyUnchecked(stack,storage.getAmount() - value);
         return 0;
     }
 
     @Override
-    public long getAmount() {
-        return storage.getEnergy();
-    }
-
-    @Override
-    public long getCapacity() {
-        return storage.getMaxEnergy();
+    protected void finalize() throws Throwable {
+        super.finalize();
     }
 }

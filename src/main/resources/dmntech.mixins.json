@@ -6,9 +6,10 @@
   "injectors": {
     "defaultRequire": 1
   },
-  "plugin": "ru.DmN.tech.common.DTechMixinPlugin",
+  "plugin": "ru.DmN.tech.mixin.DTechMixinPlugin",
   "mixins": [
     "MixinFurnaceBlock",
-    "MixinItem"
+    "MixinItem",
+    "MixinSimpleBatteryItem"
   ]
 }

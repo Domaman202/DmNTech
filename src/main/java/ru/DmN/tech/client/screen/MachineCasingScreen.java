@@ -18,10 +18,10 @@ public class MachineCasingScreen <T extends MachineCasingScreenHandler> extends 
         this.getCompound("energy").xOffset = 34;
         this.getCompound("active").xOffset = 22;
         //
-        this.addComponent("vu", new MethodCaller(this::x), 0, 0);
+        this.addComponent("vu", new MethodCaller(this::vu), 0, 0);
     }
 
-    public void x() { // TODO: RENAME
+    public void vu() {
         int i = 0;
         for (int j = 0; j < handler.inventory.size(); j++) {
             Item item;
@@ -36,7 +36,6 @@ public class MachineCasingScreen <T extends MachineCasingScreenHandler> extends 
             }
         }
 
-        if (i > 1)
-            this.removeComponent("vu");
+        this.removeComponent("vu");
     }
 }
