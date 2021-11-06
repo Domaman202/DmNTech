@@ -8,6 +8,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.SidedInventory;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
@@ -56,7 +57,7 @@ public class MachineBlockEntity extends SimpleConfigurableLCBlockEntity <Configu
     public MachineBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state, ConfigurableInventory inventory, long energy, long maxEnergy) {
         super(type, pos, state, inventory);
         this.storage = new SimpleEnergyStorage<>(energy, maxEnergy);
-        this.properties = new MachinePropertyDelegate<>( this);
+        this.properties = new MachinePropertyDelegate<>(this);
     }
 
     /// SCREEN
@@ -64,7 +65,7 @@ public class MachineBlockEntity extends SimpleConfigurableLCBlockEntity <Configu
     public PropertyDelegate properties;
 
     public void openScreen(PlayerEntity player) {
-        player.openHandledScreen((MachineBlockEntity) world.getBlockEntity(pos));
+        player.openHandledScreen(this);
     }
 
     @Override
@@ -75,7 +76,7 @@ public class MachineBlockEntity extends SimpleConfigurableLCBlockEntity <Configu
 
     @Override
     public Text getDisplayName() {
-        return new LiteralText("Unnamed Machine");
+        return this.getCachedState().getBlock().getName();
     }
 
     @Override
@@ -148,7 +149,7 @@ public class MachineBlockEntity extends SimpleConfigurableLCBlockEntity <Configu
     /// GET OVERRIDE
 
     @Override
-    public IESObject getEnergyStorage(Object obj) {
+    public @NotNull IESObject getEnergyStorage(Object obj) {
         return storage;
     }
 
@@ -159,29 +160,35 @@ public class MachineBlockEntity extends SimpleConfigurableLCBlockEntity <Configu
 
     /// SPEC ENERGY STORAGE
 
-    public class SpecEnergyStorage <T> implements IESObject <T> {
+    public class SpecEnergyStorage<T> implements IESObject<T> {
         @Override
-        public void setEnergy(long value) {
-            inventory.getStack(0).getOrCreateSubNbt(DMN_DATA).putLong("energy", value);
+        public long getEnergy() {
+            Item item;
+            ItemStack stack;
+            return (item = (stack = inventory.getStack(0)).getItem()) instanceof IESProvider ? ((IESProvider<ItemStack>) item).getEnergyStorage(stack).getEnergy() : 0;
         }
 
         @Override
-        public long getEnergy() {
+        public void setEnergy(long value) {
+            Item item;
             ItemStack stack;
-            NbtCompound nbt;
-            return (stack = inventory.getStack(0)).hasNbt() && (nbt = stack.getNbt()).contains(DMN_DATA) ? nbt.getCompound(DMN_DATA).getLong("energy") : 0;
+            if ((item = (stack = inventory.getStack(0)).getItem()) instanceof IESProvider)
+                ((IESProvider<ItemStack>) item).getEnergyStorage(stack).setEnergy(value);
         }
 
         @Override
         public long getMaxEnergy() {
+            Item item;
             ItemStack stack;
-            NbtCompound nbt;
-            return (stack = inventory.getStack(0)).hasNbt() && (nbt = stack.getNbt()).contains(DMN_DATA) ? nbt.getCompound(DMN_DATA).getLong("max_energy") : 0;
+            return (item = (stack = inventory.getStack(0)).getItem()) instanceof IESProvider ? ((IESProvider<ItemStack>) item).getEnergyStorage(stack).getMaxEnergy() : 0;
         }
 
         @Override
-        public void setMaxEnergy(long maxEnergy) {
-            inventory.getStack(0).getOrCreateSubNbt(DMN_DATA).putLong("max_energy", maxEnergy);
+        public void setMaxEnergy(long value) {
+            Item item;
+            ItemStack stack;
+            if ((item = (stack = inventory.getStack(0)).getItem()) instanceof IESProvider)
+                ((IESProvider<ItemStack>) item).getEnergyStorage(stack).setMaxEnergy(value);
         }
     }
 }

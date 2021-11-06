@@ -5,6 +5,7 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.math.BlockPos;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.DmN.core.common.energy.IESObject;
 import ru.DmN.core.common.energy.IESProvider;
@@ -26,7 +27,7 @@ public class CableBlockEntity extends BlockEntity implements IESProvider {
     /// ENERGY FUNCTIONS
 
     @Override
-    public IESObject<?> getEnergyStorage(@Nullable Object obj) {
+    public @NotNull IESObject<?> getEnergyStorage(@Nullable Object obj) {
         return storage;
     }
 

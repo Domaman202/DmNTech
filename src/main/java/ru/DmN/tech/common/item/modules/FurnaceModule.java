@@ -78,7 +78,7 @@ public class FurnaceModule extends MachineModule {
                 //
                 inventory.getStack(0).decrement(1);
                 progress.set(0);
-                heat.set(0);
+                heat.set(heat.get() - material.meltTemperature());
             } else progress.set(progress.get() + (heat.get() / material.meltTemperature()));
         }
     }

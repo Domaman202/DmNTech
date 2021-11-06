@@ -1,6 +1,9 @@
 {
   "itemGroup.dmntest.items": "DmNTest",
   "block.dmntest.test_machine_block": "Test Machine Block",
+  "block.dmntest.inf_energy_source": "Infinity Energy Source",
+  "block.dmntest.test_cable": "Test Cable",
+  "block.dmntest.test_gui": "Test Gui",
   "item.dmntest.test_machine_block": "Test Machine Block",
   "item.dmntest.test_energy_wandi": "Test Energy Wand (Inc)",
   "item.dmntest.test_energy_wandd": "Test Energy Wand (Dec)",

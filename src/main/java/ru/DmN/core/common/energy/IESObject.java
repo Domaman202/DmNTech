@@ -1,6 +1,7 @@
 package ru.DmN.core.common.energy;
 
 import net.minecraft.util.math.Direction;
+import org.jetbrains.annotations.NotNull;
 
 public interface IESObject <T> extends IESProvider <T> {
     /**
@@ -101,9 +102,9 @@ public interface IESObject <T> extends IESProvider <T> {
 
     /**
      * Setting max energy
-     * @param maxEnergy max energy
+     * @param value max energy
      */
-    void setMaxEnergy(long maxEnergy);
+    void setMaxEnergy(long value);
 
     /**
      * Setting max energy to side
@@ -116,19 +117,19 @@ public interface IESObject <T> extends IESProvider <T> {
 
     /**
      * Setting max energy
-     * @param maxEnergy max energy
+     * @param value max energy
      */
-    default void setMaxEnergy(T obj, long maxEnergy) {
-        setMaxEnergy(maxEnergy);
+    default void setMaxEnergy(T obj, long value) {
+        setMaxEnergy(value);
     }
 
     /**
      * Setting max energy to side
-     * @param maxEnergy max energy
+     * @param value max energy
      * @param side side
      */
-    default void setMaxEnergy(T obj, long maxEnergy, Direction side) {
-        setMaxEnergy(obj, maxEnergy);
+    default void setMaxEnergy(T obj, long value, Direction side) {
+        setMaxEnergy(obj, value);
     }
 
     /**
@@ -458,7 +459,7 @@ public interface IESObject <T> extends IESProvider <T> {
      * @return energy storage
      */
     @Override
-    default IESObject<T> getEnergyStorage(T obj) {
+    default @NotNull IESObject<T> getEnergyStorage(T obj) {
         return this;
     }
 }

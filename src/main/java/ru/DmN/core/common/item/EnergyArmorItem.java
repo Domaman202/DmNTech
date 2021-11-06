@@ -6,6 +6,7 @@ import net.minecraft.item.ArmorMaterial;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.math.MathHelper;
+import org.jetbrains.annotations.NotNull;
 import ru.DmN.core.common.energy.IESProvider;
 import ru.DmN.core.common.energy.IESObject;
 import ru.DmN.core.common.energy.ItemStackEnergyStorage;
@@ -48,7 +49,7 @@ public class EnergyArmorItem extends ArmorItem implements IESProvider<ItemStack>
     /// IESProvider
 
     @Override
-    public IESObject<ItemStack> getEnergyStorage(ItemStack stack) {
+    public @NotNull IESObject<ItemStack> getEnergyStorage(ItemStack stack) {
         return new ItemStackEnergyStorage(stack.getOrCreateSubNbt(DMN_DATA));
     }
 }

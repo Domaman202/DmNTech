@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "dmntech:item/battery/redc"
+    "layer0": "dmntech:item/battery/rec"
   }
 }

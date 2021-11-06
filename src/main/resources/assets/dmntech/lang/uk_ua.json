@@ -2,7 +2,14 @@
   "itemGroup.dmntech.group_all": "DmNTech",
   "block.dmntech.dmnfurnace": "ДомамаНська пiч",
   "block.dmntech.rmpb": "РМБ",
+  "block.dmntech.trec": "Конвертор енергії",
   "item.dmntech.coil.cupronickel": "Медно-нікелева котушка",
   "item.dmntech.coil.nichrome": "Ніхромова котушка",
-  "item.dmntech.coil.cantal": "Канталова котушка"
+  "item.dmntech.coil.cantal": "Канталова котушка",
+  "item.dmntech.modules.coil_consumer": "Утримувач котушки",
+  "item.dmntech.modules.furnace": "Пiч",
+  "item.dmntech.battery.lv": "Акумулятор [НВ]",
+  "item.dmntech.battery.mv": "Акумулятор [СВ]",
+  "item.dmntech.battery.rec": "Енергетичний кристал",
+  "text.dmntech.modules.coil_consumer": "Утримувач котушки [ %d ]"
 }

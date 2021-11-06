@@ -84,15 +84,6 @@ public class DmNFurnace extends AbstractFurnaceBlock {
                     world.setBlockState(pos, state.with(LIT, false), 3);
             }
 
-            // Burn tick
-            if (entity.burn > 0) {
-                // Decrement burn time
-                entity.burn--;
-                // Check and increment heat
-                if (entity.heat < 1600 && entity.heat < entity.lastBurnMaterial.maxTemperature())
-                    entity.heat += entity.lastBurnMaterial.burnCoefficient();
-            }
-
             // Checking heat for recipe
             IMaterial input = ((IMaterialProvider) recipe.getIngredients().get(0).getMatchingStacks()[0].getItem()).getMaterial();
             int meltTemperature = entity.recipeNeededTemperature = input.meltTemperature();
@@ -119,16 +110,25 @@ public class DmNFurnace extends AbstractFurnaceBlock {
                         return;
                     entity.getStack(0).decrement(1);
                     entity.progress = 0;
+                    entity.heat = 0;
                 }
             }
-
-            // Heat Tick
-            if (entity.heat > 0)
-                entity.heat -= 1;
 
             // Update chunk for save
             world.getWorldChunk(pos).markDirty();
         }
+
+        // Burn tick
+        if (entity.burn > 0) {
+            // Decrement burn time
+            entity.burn--;
+            // Check and increment heat
+            if (entity.heat < 1600 && entity.heat < entity.lastBurnMaterial.maxTemperature())
+                entity.heat += entity.lastBurnMaterial.burnCoefficient();
+        } else
+            // Heat Tick
+            if (entity.heat > 0)
+                entity.heat -= 1;
     }
 
     @Override

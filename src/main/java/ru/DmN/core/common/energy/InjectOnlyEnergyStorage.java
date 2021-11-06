@@ -1,12 +1,12 @@
 package ru.DmN.core.common.energy;
 
 public class InjectOnlyEnergyStorage <T extends SimpleEnergyStorage<T>> extends SimpleEnergyStorage <T> {
-    public InjectOnlyEnergyStorage(long maxEnergy) {
-        super(maxEnergy);
+    public InjectOnlyEnergyStorage(long max) {
+        super(max);
     }
 
-    public InjectOnlyEnergyStorage(long energy, long maxEnergy) {
-        super(energy, maxEnergy);
+    public InjectOnlyEnergyStorage(long energy, long max) {
+        super(energy, max);
     }
 
     @Override

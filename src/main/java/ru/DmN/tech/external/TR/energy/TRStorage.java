@@ -29,8 +29,7 @@ public class TRStorage <T> implements EnergyStorage {
 
         if (inserted > 0) {
             this.snapshotParticipant.updateSnapshots(transaction);
-            this.storage.insertEnergy(inserted);
-            return inserted;
+            return inserted - this.storage.insertEnergy(inserted);
         }
 
         return 0;
@@ -42,8 +41,7 @@ public class TRStorage <T> implements EnergyStorage {
 
         if (extracted > 0) {
             this.snapshotParticipant.updateSnapshots(transaction);
-            this.storage.extractEnergy(extracted);
-            return extracted;
+            return extracted - this.storage.extractEnergy(extracted);
         }
 
         return 0;

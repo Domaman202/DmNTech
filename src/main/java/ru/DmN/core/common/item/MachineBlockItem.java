@@ -12,6 +12,7 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.NotNull;
 import ru.DmN.core.common.block.MachineBlock;
 import ru.DmN.core.common.block.entity.MachineBlockEntity;
 import ru.DmN.core.common.energy.IESProvider;
@@ -85,7 +86,7 @@ public class MachineBlockItem extends BlockItem implements IESProvider<ItemStack
     /// ENERGY FUNCTIONS
 
     @Override
-    public IESObject<ItemStack> getEnergyStorage(ItemStack stack) {
-        return new ItemStackEnergyStorage(stack.getNbt());
+    public @NotNull IESObject<ItemStack> getEnergyStorage(ItemStack stack) {
+        return new ItemStackEnergyStorage(stack.getOrCreateNbt());
     }
 }

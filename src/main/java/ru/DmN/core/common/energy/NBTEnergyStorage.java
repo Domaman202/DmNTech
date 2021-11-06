@@ -20,8 +20,8 @@ public class NBTEnergyStorage <T> implements IESObject <T> {
     }
 
     @Override
-    public void setMaxEnergy(long maxEnergy) {
-        nbt.putLong("max_energy", maxEnergy);
+    public void setMaxEnergy(long value) {
+        nbt.putLong("max_energy", value);
     }
 
     @Override

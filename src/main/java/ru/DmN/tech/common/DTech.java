@@ -31,10 +31,6 @@ public class DTech implements ModInitializer {
     public static final String MOD_ID = "dmntech";
     public static final Identifier ID_RMPB = new Identifier(MOD_ID, "rmpb");
     public static final Identifier ID_DMNFURNACE = new Identifier(MOD_ID, "dmnfurnace");
-    public static final Identifier ID_MACHINECASING = new Identifier(MOD_ID, "machinecasing");
-    public static final Identifier ID_LV_BATTERY = new Identifier(MOD_ID, "battery/lv_battery");
-    public static final Identifier ID_MV_BATTERY = new Identifier(MOD_ID, "battery/mv_battery");
-    public static final Identifier ID_ENERGY_CRYSTAL = new Identifier(MOD_ID, "battery/energy_crystal");
     //
     public static final ItemGroup DmNTechAllGroup = FabricItemGroupBuilder.create(new Identifier(MOD_ID, "group_all")).icon(() -> new ItemStack(RMPBBlock.INSTANCE)).build();
     public static final Item.Settings DEFAULT_ITEM_SETTINGS = new Item.Settings().group(DTech.DmNTechAllGroup);
@@ -55,7 +51,7 @@ public class DTech implements ModInitializer {
         DMN_FURNACE_BLOCK_ENTITY_TYPE = Registry.register(Registry.BLOCK_ENTITY_TYPE, ID_DMNFURNACE, FabricBlockEntityTypeBuilder.create(DmNFurnaceBlockEntity::new, DmNFurnace.INSTANCE).build());
         DMN_FURNACE_SCREEN_HANDLER_TYPE = GlobalRegistry.register(ID_DMNFURNACE, DmNFurnaceScreenHandler::new);
         //
-        MACHINECASING_SCREEN_HANDLER_TYPE = GlobalRegistry.register(ID_MACHINECASING, TestGuiBlockScreenHandler::new);
+        MACHINECASING_SCREEN_HANDLER_TYPE = GlobalRegistry.register(new Identifier(MOD_ID, "machinecasing"), (id, inv, buf) -> new MachineCasingScreenHandler(MACHINECASING_SCREEN_HANDLER_TYPE, id, inv, buf));
         //
         GlobalRegistry.register(CoilConsumerModule.INSTANCE, new Identifier(MOD_ID, "modules/coil_consumer"));
         GlobalRegistry.register(FurnaceModule.INSTANCE, new Identifier(MOD_ID, "modules/furnace"));
@@ -64,9 +60,9 @@ public class DTech implements ModInitializer {
         GlobalRegistry.register(Coil.NICHROME, new Identifier(MOD_ID, "coil/nichrome"));
         GlobalRegistry.register(Coil.CANTAL, new Identifier(MOD_ID, "coil/cantal"));
         //
-        GlobalRegistry.register(SimpleBattery.LV_BATTERY, ID_LV_BATTERY);
-        GlobalRegistry.register(SimpleBattery.MV_BATTERY, ID_MV_BATTERY);
-        GlobalRegistry.register(SimpleBattery.ENERGY_CRYSTAL, ID_ENERGY_CRYSTAL);
+        GlobalRegistry.register(SimpleBattery.LV_BATTERY, new Identifier(MOD_ID, "battery/lv"));
+        GlobalRegistry.register(SimpleBattery.MV_BATTERY, new Identifier(MOD_ID, "battery/mv"));
+        GlobalRegistry.register(SimpleBattery.ENERGY_CRYSTAL, new Identifier(MOD_ID, "battery/rec"));
         //
         TRMain.loadTRIntegration();
     }

@@ -1,15 +1,17 @@
 package ru.DmN.core.common.energy;
 
+import org.jetbrains.annotations.NotNull;
+
 public class SimpleEnergyStorage <T extends SimpleEnergyStorage<T>> implements IESObject <T> {
     public long energy = 0;
-    public long maxEnergy;
+    public long capacity;
 
-    public SimpleEnergyStorage(long maxEnergy) {
-        this.maxEnergy = maxEnergy;
+    public SimpleEnergyStorage(long capacity) {
+        this.capacity = capacity;
     }
 
-    public SimpleEnergyStorage(long energy, long maxEnergy) {
-        this(maxEnergy);
+    public SimpleEnergyStorage(long energy, long max) {
+        this(max);
         this.energy = energy;
     }
 
@@ -34,28 +36,28 @@ public class SimpleEnergyStorage <T extends SimpleEnergyStorage<T>> implements I
     }
 
     @Override
-    public void setMaxEnergy(long maxEnergy) {
-        this.maxEnergy = maxEnergy;
+    public void setMaxEnergy(long value) {
+        this.capacity = value;
     }
 
     @Override
     public long getMaxEnergy() {
-        return maxEnergy;
+        return capacity;
     }
 
     @Override
-    public void setMaxEnergy(T obj, long maxEnergy) {
-        obj.maxEnergy = maxEnergy;
+    public void setMaxEnergy(T obj, long value) {
+        obj.capacity = value;
     }
 
     @Override
     public long getMaxEnergy(T obj) {
-        return obj.maxEnergy;
+        return obj.capacity;
     }
 
     @Override
     public long insertEnergy(long value) {
-        long i = maxEnergy - energy;
+        long i = capacity - energy;
         if (value > i) {
             energy += i;
             return value - i;
@@ -66,7 +68,7 @@ public class SimpleEnergyStorage <T extends SimpleEnergyStorage<T>> implements I
 
     @Override
     public long insertEnergy(T obj, long value) {
-        long i = obj.maxEnergy - obj.energy;
+        long i = obj.capacity - obj.energy;
         if (value > i) {
             obj.energy += i;
             return value - i;
@@ -106,7 +108,7 @@ public class SimpleEnergyStorage <T extends SimpleEnergyStorage<T>> implements I
     }
 
     @Override
-    public SimpleEnergyStorage<T> getEnergyStorage(T obj) {
+    public @NotNull SimpleEnergyStorage<T> getEnergyStorage(T obj) {
         return this;
     }
 }

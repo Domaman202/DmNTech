@@ -2,9 +2,14 @@
   "itemGroup.dmntech.group_all": "DmNTech",
   "block.dmntech.dmnfurnace": "DmNFurnace",
   "block.dmntech.rmpb": "RMPB",
+  "block.dmntech.trec": "Energy Converter",
   "item.dmntech.coil.cupronickel": "Cupronickel coil",
   "item.dmntech.coil.nichrome": "Nichrome coil",
   "item.dmntech.coil.cantal": "Cantal coil",
   "item.dmntech.modules.coil_consumer": "Coil consumer",
+  "item.dmntech.modules.furnace": "Furnace",
+  "item.dmntech.battery.lv": "Battery [LV]",
+  "item.dmntech.battery.mv": "Battery [MV]",
+  "item.dmntech.battery.rec": "Energy Crystal",
   "text.dmntech.modules.coil_consumer": "Coil consumer [ %d ]"
 }

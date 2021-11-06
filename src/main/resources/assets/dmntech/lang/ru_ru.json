@@ -2,7 +2,14 @@
   "itemGroup.dmntech.group_all": "DmNTech",
   "block.dmntech.dmnfurnace": "ДомамаНская печь",
   "block.dmntech.rmpb": "РМБ",
+  "block.dmntech.trec": "Конвертор энергии",
   "item.dmntech.coil.cupronickel": "Медно-никелевая катушка",
   "item.dmntech.coil.nichrome": "Нихромовая катушка",
-  "item.dmntech.coil.cantal": "Канталовая катушка"
+  "item.dmntech.coil.cantal": "Канталовая катушка",
+  "item.dmntech.modules.coil_consumer": "Держатель катушки",
+  "item.dmntech.modules.furnace": "Печь",
+  "item.dmntech.battery.lv": "Аккумулятор [НВ]",
+  "item.dmntech.battery.mv": "Аккумулятор [СВ]",
+  "item.dmntech.battery.rec": "Энергетический кристал",
+  "text.dmntech.modules.coil_consumer": "Держатель катушки [ %d ]"
 }

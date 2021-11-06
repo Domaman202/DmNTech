@@ -62,7 +62,6 @@ public abstract class MachineCasingBlockEntity extends MachineBlockEntity {
         return new MachineCasingScreenHandler(MACHINECASING_SCREEN_HANDLER_TYPE, syncId, playerInventory, inventory, properties, pos);
     }
 
-
     /// NBT
 
     @Override
