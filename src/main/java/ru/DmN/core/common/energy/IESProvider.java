@@ -3,7 +3,7 @@ package ru.DmN.core.common.energy;
 import net.minecraft.util.math.Direction;
 import org.jetbrains.annotations.Nullable;
 
-public interface IESProvider<T> {
+public interface IESProvider <T> {
     /**
      * Return energy storage of this
      * @return energy storage

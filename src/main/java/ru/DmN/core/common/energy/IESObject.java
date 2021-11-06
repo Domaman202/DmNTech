@@ -2,7 +2,7 @@ package ru.DmN.core.common.energy;
 
 import net.minecraft.util.math.Direction;
 
-public interface IESObject <T> extends IESProvider<T> {
+public interface IESObject <T> extends IESProvider <T> {
     /**
      * Setting energy
      * @param value energy count

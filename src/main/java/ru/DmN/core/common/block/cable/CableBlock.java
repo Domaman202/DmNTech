@@ -73,19 +73,13 @@ public abstract class CableBlock extends ConnectingBlock implements BlockEntityP
 
     public void neighborUpdate(BlockState state, World world, BlockPos pos, Block block, BlockPos fromPos, boolean notify) {
         super.neighborUpdate(state, world, pos, block, fromPos, notify);
-        BlockState x = withConnectionProperties(world, pos);
-        if (state != x)
-            world.setBlockState(pos, x);
+        world.setBlockState(pos, withConnectionProperties(world, pos));
     }
 
     @Override
     public BlockState getStateForNeighborUpdate(BlockState state, Direction facing, BlockState neighborState, WorldAccess world, BlockPos pos, BlockPos neighborPos) {
-        if (!state.canPlaceAt(world, pos)) {
-            world.getBlockTickScheduler().schedule(pos, this, 1);
-            return super.getStateForNeighborUpdate(state, facing, neighborState, world, pos, neighborPos);
-        } else {
-            return state.with(FACING_PROPERTIES.get(facing), shouldConnectCable((World) world, pos));
-        }
+        world.getBlockTickScheduler().schedule(pos, this, 1);
+        return super.getStateForNeighborUpdate(state, facing, neighborState, world, pos, neighborPos);
     }
 
     /// CONNECTION

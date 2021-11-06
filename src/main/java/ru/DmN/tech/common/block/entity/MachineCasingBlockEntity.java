@@ -2,22 +2,29 @@ package ru.DmN.tech.common.block.entity;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.screen.PropertyDelegate;
+import net.minecraft.screen.ScreenHandler;
 import net.minecraft.util.math.BlockPos;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import ru.DmN.core.common.block.MachineBlock;
 import ru.DmN.core.common.block.entity.MachineBlockEntity;
 import ru.DmN.core.common.inventory.ConfigurableInventory;
 import ru.DmN.core.common.inventory.SimpleConfigurableInventory;
 import ru.DmN.tech.common.block.MachineCasing;
+import ru.DmN.tech.common.gui.MachineCasingScreenHandler;
 import ru.DmN.tech.common.item.modules.MachineModule;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+
+import static ru.DmN.tech.common.DTech.MACHINECASING_SCREEN_HANDLER_TYPE;
 
 public abstract class MachineCasingBlockEntity extends MachineBlockEntity {
     public final Map<String, MachineCasing.IMachineData<?>> specific = new HashMap<>();
@@ -27,7 +34,7 @@ public abstract class MachineCasingBlockEntity extends MachineBlockEntity {
     /// CONSTRUCTORS
 
     public MachineCasingBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state, int internal, int io) {
-        this(type, pos, state, new SimpleConfigurableInventory(0), internal, io);
+        this(type, pos, state, new SimpleConfigurableInventory(1), internal, io);
     }
 
     public MachineCasingBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state, ConfigurableInventory inventory, int internal, int io) {
@@ -35,17 +42,26 @@ public abstract class MachineCasingBlockEntity extends MachineBlockEntity {
     }
 
     public MachineCasingBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state, long energy, long maxEnergy, int internal, int io) {
-        this(type, pos, state, new SimpleConfigurableInventory(0), energy, maxEnergy, internal, io);
+        this(type, pos, state, new SimpleConfigurableInventory(1), energy, maxEnergy, internal, io);
     }
 
     public MachineCasingBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state, ConfigurableInventory inventory, long energy, long maxEnergy, int internal, int io) {
         super(type, pos, state, inventory, energy, maxEnergy);
 
+        this.storage = new SpecEnergyStorage<>();
         this.properties = new UnsafeProperties();
 
         this.internal = new ArrayList<>(internal);
         this.io = new ArrayList<>(io);
     }
+
+    /// GUI
+
+    @Override
+    public @Nullable ScreenHandler createMenu(int syncId, PlayerInventory playerInventory, PlayerEntity player) {
+        return new MachineCasingScreenHandler(MACHINECASING_SCREEN_HANDLER_TYPE, syncId, playerInventory, inventory, properties, pos);
+    }
+
 
     /// NBT
 
@@ -92,7 +108,7 @@ public abstract class MachineCasingBlockEntity extends MachineBlockEntity {
     }
 
 
-    /// UNSAFE PROPERTIES CLASS
+    /// UNSAFE PROPERTIES
 
     public class UnsafeProperties implements PropertyDelegate {
         @Override

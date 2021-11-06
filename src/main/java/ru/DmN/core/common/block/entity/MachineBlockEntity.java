@@ -156,4 +156,32 @@ public class MachineBlockEntity extends SimpleConfigurableLCBlockEntity <Configu
     public SidedInventory getInventory(BlockState state, WorldAccess world, BlockPos pos) {
         return this;
     }
+
+    /// SPEC ENERGY STORAGE
+
+    public class SpecEnergyStorage <T> implements IESObject <T> {
+        @Override
+        public void setEnergy(long value) {
+            inventory.getStack(0).getOrCreateSubNbt(DMN_DATA).putLong("energy", value);
+        }
+
+        @Override
+        public long getEnergy() {
+            ItemStack stack;
+            NbtCompound nbt;
+            return (stack = inventory.getStack(0)).hasNbt() && (nbt = stack.getNbt()).contains(DMN_DATA) ? nbt.getCompound(DMN_DATA).getLong("energy") : 0;
+        }
+
+        @Override
+        public long getMaxEnergy() {
+            ItemStack stack;
+            NbtCompound nbt;
+            return (stack = inventory.getStack(0)).hasNbt() && (nbt = stack.getNbt()).contains(DMN_DATA) ? nbt.getCompound(DMN_DATA).getLong("max_energy") : 0;
+        }
+
+        @Override
+        public void setMaxEnergy(long maxEnergy) {
+            inventory.getStack(0).getOrCreateSubNbt(DMN_DATA).putLong("max_energy", maxEnergy);
+        }
+    }
 }
