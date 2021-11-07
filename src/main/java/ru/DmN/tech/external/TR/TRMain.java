@@ -1,6 +1,5 @@
 package ru.DmN.tech.external.TR;
 
-import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.util.Identifier;
 import ru.DmN.core.common.registry.GlobalRegistry;

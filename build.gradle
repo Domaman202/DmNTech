@@ -12,7 +12,10 @@ version = project.mod_version
 group = project.maven_group
 
 repositories {
-
+	maven {
+		name = "Modmuss50"
+		url = "https://maven.modmuss50.me/"
+	}
 }
 
 dependencies {
@@ -25,8 +28,9 @@ dependencies {
 	implementation group: 'org.javassist', name: 'javassist', version: '3.28.0-GA'
 
 	// !OPTIONAL!
-	modImplementation("teamreborn:energy:2.0.0-beta1")
-	modImplementation fileTree(dir: "optional", include: "**.jar")
+	modImplementation "teamreborn:energy:2.0.0-beta1"
+	modImplementation("RebornCore:RebornCore-${project.rc_version}") { exclude group: "net.fabricmc.fabric-api" }
+	modImplementation("TechReborn:TechReborn-${project.tr_version}") { exclude group: "net.fabricmc.fabric-api" exclude group: "RebornCore" }
 	//
 	modRuntime fileTree(dir: "runtime", include: "**.jar")
 	//

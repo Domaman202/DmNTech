@@ -44,7 +44,9 @@
     "minecraft": "*",
     "java": ">=16"
   },
-  "suggests": {
-    "another-mod": "*"
+
+  "recommends": {
+    "reborncore": "*",
+    "techreborn": "*"
   }
 }
