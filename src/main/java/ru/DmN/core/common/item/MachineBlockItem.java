@@ -2,7 +2,6 @@ package ru.DmN.core.common.item;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.BlockItem;
@@ -14,15 +13,14 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 import ru.DmN.core.common.block.MachineBlock;
-import ru.DmN.core.common.block.entity.MachineBlockEntity;
-import ru.DmN.core.common.energy.IESProvider;
+import ru.DmN.core.common.energy.IESItem;
 import ru.DmN.core.common.energy.IESObject;
 import ru.DmN.core.common.energy.ItemStackEnergyStorage;
 import ru.DmN.core.common.utils.ColorUtils;
 
 import static ru.DmN.core.common.DCore.DMN_DATA;
 
-public class MachineBlockItem extends BlockItem implements IESProvider<ItemStack> {
+public class MachineBlockItem extends BlockItem implements IESItem {
     public MachineBlockItem(Block block, Settings settings) {
         super(block, settings);
     }

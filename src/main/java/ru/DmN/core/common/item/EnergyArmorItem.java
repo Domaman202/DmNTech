@@ -7,13 +7,14 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.math.MathHelper;
 import org.jetbrains.annotations.NotNull;
+import ru.DmN.core.common.energy.IESItem;
 import ru.DmN.core.common.energy.IESProvider;
 import ru.DmN.core.common.energy.IESObject;
 import ru.DmN.core.common.energy.ItemStackEnergyStorage;
 
 import static ru.DmN.core.common.DCore.DMN_DATA;
 
-public class EnergyArmorItem extends ArmorItem implements IESProvider<ItemStack> {
+public class EnergyArmorItem extends ArmorItem implements IESItem {
     /// CONSTRUCTORS
 
     public EnergyArmorItem(ArmorMaterial material, EquipmentSlot slot, Settings settings) {

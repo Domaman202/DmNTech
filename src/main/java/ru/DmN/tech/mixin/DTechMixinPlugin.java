@@ -5,10 +5,15 @@ import org.objectweb.asm.tree.ClassNode;
 import org.spongepowered.asm.mixin.extensibility.IMixinConfigPlugin;
 import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
+import java.util.function.Supplier;
 
 public class DTechMixinPlugin implements IMixinConfigPlugin {
+    public static final Map<String, Supplier<Boolean>> mixinMap = new HashMap<>();
+
     public static boolean checkTRELoad() {
         return FabricLoader.getInstance().isModLoaded("team_reborn_energy");
     }
@@ -33,6 +38,8 @@ public class DTechMixinPlugin implements IMixinConfigPlugin {
             return checkTRELoad();
         if (targetClassName.startsWith("techreborn"))
             return checkTRLoad();
+        if (mixinMap.containsKey(mixinClassName))
+            return mixinMap.get(mixinClassName).get();
         return true;
     }
 

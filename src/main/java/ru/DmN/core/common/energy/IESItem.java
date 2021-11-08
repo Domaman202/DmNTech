@@ -3,7 +3,7 @@ package ru.DmN.core.common.energy;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
-public interface IESItem extends IESObject<ItemStack> {
+public interface IESItem extends IESObject <ItemStack> {
     /**
      * Stack 2 stacks from 1
      * @param stack0 stack №0
@@ -20,36 +20,5 @@ public interface IESItem extends IESObject<ItemStack> {
             return true;
         }
         return false;
-    }
-
-    ////
-
-
-    @Override
-    default void setEnergy(long value) {
-    }
-
-    @Override
-    default long getEnergy() {
-        return 0;
-    }
-
-    @Override
-    default long getMaxEnergy() {
-        return 0;
-    }
-
-    @Override
-    default void setMaxEnergy(long maxEnergy) {
-    }
-
-    @Override
-    default long insertEnergy(long value) {
-        return value;
-    }
-
-    @Override
-    default long extractEnergy(long value) {
-        return -value;
     }
 }

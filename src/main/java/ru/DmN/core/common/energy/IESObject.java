@@ -6,14 +6,17 @@ import org.jetbrains.annotations.NotNull;
 public interface IESObject <T> extends IESProvider <T> {
     /**
      * Setting energy
+     *
      * @param value energy count
      */
-    void setEnergy(long value);
+    default void setEnergy(long value) {
+    }
 
     /**
      * Setting energy with side
+     *
      * @param value energy count
-     * @param side side
+     * @param side  side
      */
     default void setEnergy(long value, Direction side) {
         setEnergy(value);
@@ -21,6 +24,7 @@ public interface IESObject <T> extends IESProvider <T> {
 
     /**
      * Setting energy
+     *
      * @param value energy count
      */
     default void setEnergy(T obj, long value) {
@@ -29,8 +33,9 @@ public interface IESObject <T> extends IESProvider <T> {
 
     /**
      * Setting energy with side
+     *
      * @param value energy count
-     * @param side side
+     * @param side  side
      */
     default void setEnergy(T obj, long value, Direction side) {
         setEnergy(obj, value);
@@ -38,12 +43,16 @@ public interface IESObject <T> extends IESProvider <T> {
 
     /**
      * Getting energy
+     *
      * @return stored energy
      */
-    long getEnergy();
+    default long getEnergy() {
+        return 0;
+    }
 
     /**
      * Getting energy to side
+     *
      * @param side side
      * @return stored energy
      */
@@ -53,6 +62,7 @@ public interface IESObject <T> extends IESProvider <T> {
 
     /**
      * Getting energy
+     *
      * @return stored energy
      */
     default long getEnergy(T obj) {
@@ -61,6 +71,7 @@ public interface IESObject <T> extends IESProvider <T> {
 
     /**
      * Getting energy to side
+     *
      * @param side side
      * @return stored energy
      */
@@ -70,12 +81,16 @@ public interface IESObject <T> extends IESProvider <T> {
 
     /**
      * Getting max energy
+     *
      * @return max energy store
      */
-    long getMaxEnergy();
+    default long getMaxEnergy() {
+        return 0;
+    }
 
     /**
      * Getting max energy with side
+     *
      * @param side side
      * @return max energy store
      */
@@ -85,6 +100,7 @@ public interface IESObject <T> extends IESProvider <T> {
 
     /**
      * Getting max energy
+     *
      * @return max energy store
      */
     default long getMaxEnergy(T obj) {
@@ -93,6 +109,7 @@ public interface IESObject <T> extends IESProvider <T> {
 
     /**
      * Getting max energy with side
+     *
      * @param side side
      * @return max energy store
      */
@@ -102,6 +119,7 @@ public interface IESObject <T> extends IESProvider <T> {
 
     /**
      * Setting max energy
+     *
      * @param value max energy
      */
     default void setMaxEnergy(long value) {
@@ -109,8 +127,9 @@ public interface IESObject <T> extends IESProvider <T> {
 
     /**
      * Setting max energy to side
+     *
      * @param maxEnergy max energy
-     * @param side side
+     * @param side      side
      */
     default void setMaxEnergy(long maxEnergy, Direction side) {
         setMaxEnergy(maxEnergy);
@@ -118,6 +137,7 @@ public interface IESObject <T> extends IESProvider <T> {
 
     /**
      * Setting max energy
+     *
      * @param value max energy
      */
     default void setMaxEnergy(T obj, long value) {
@@ -126,8 +146,9 @@ public interface IESObject <T> extends IESProvider <T> {
 
     /**
      * Setting max energy to side
+     *
      * @param value max energy
-     * @param side side
+     * @param side  side
      */
     default void setMaxEnergy(T obj, long value, Direction side) {
         setMaxEnergy(obj, value);
@@ -135,6 +156,7 @@ public interface IESObject <T> extends IESProvider <T> {
 
     /**
      * If storage energy equals storage max energy return true
+     *
      * @return storage is full?
      */
     default boolean isFull() {
@@ -143,6 +165,7 @@ public interface IESObject <T> extends IESProvider <T> {
 
     /**
      * If storage energy equals storage max energy return true
+     *
      * @param side side
      * @return storage is full?
      */
@@ -152,6 +175,7 @@ public interface IESObject <T> extends IESProvider <T> {
 
     /**
      * If storage energy equals storage max energy return true
+     *
      * @return storage is full?
      */
     default boolean isFull(T obj) {
@@ -160,6 +184,7 @@ public interface IESObject <T> extends IESProvider <T> {
 
     /**
      * If storage energy equals storage max energy return true
+     *
      * @param side side
      * @return storage is full?
      */
@@ -169,6 +194,7 @@ public interface IESObject <T> extends IESProvider <T> {
 
     /**
      * Inserting energy
+     *
      * @param value energy count
      * @return the amount of energy that has not been placed
      */
@@ -185,8 +211,9 @@ public interface IESObject <T> extends IESProvider <T> {
 
     /**
      * Inserting energy to side
+     *
      * @param value energy count
-     * @param side side
+     * @param side  side
      * @return the amount of energy that has not been placed
      */
     default long insertEnergy(long value, Direction side) {
@@ -196,6 +223,7 @@ public interface IESObject <T> extends IESProvider <T> {
 
     /**
      * Inserting energy
+     *
      * @param value energy count
      * @return the amount of energy that has not been placed
      */
@@ -212,8 +240,9 @@ public interface IESObject <T> extends IESProvider <T> {
 
     /**
      * Inserting energy to side
+     *
      * @param value energy count
-     * @param side side
+     * @param side  side
      * @return the amount of energy that has not been placed
      */
     default long insertEnergy(T obj, long value, Direction side) {
@@ -222,6 +251,7 @@ public interface IESObject <T> extends IESProvider <T> {
 
     /**
      * Extracting energy
+     *
      * @param value energy count
      * @return the amount of energy failed to be extracted
      */
@@ -243,8 +273,9 @@ public interface IESObject <T> extends IESProvider <T> {
 
     /**
      * Extracting energy with side
+     *
      * @param value energy count
-     * @param side side
+     * @param side  side
      * @return the amount of energy failed to be extracted
      */
     default long extractEnergy(long value, Direction side) {
@@ -275,8 +306,9 @@ public interface IESObject <T> extends IESProvider <T> {
 
     /**
      * Extracting energy with side
+     *
      * @param value energy count
-     * @param side side
+     * @param side  side
      * @return the amount of energy failed to be extracted
      */
     default long extractEnergy(T obj, long value, Direction side) {
@@ -285,6 +317,7 @@ public interface IESObject <T> extends IESProvider <T> {
 
     /**
      * Equalizing energy of 2 energy storages
+     *
      * @param storage storage
      * @return energy count
      */
@@ -316,9 +349,10 @@ public interface IESObject <T> extends IESProvider <T> {
 
     /**
      * Equalizing energy of 2 energy storages with sides
+     *
      * @param storage storage
-     * @param side0 this side
-     * @param side1 storage side
+     * @param side0   this side
+     * @param side1   storage side
      * @return energy count
      */
     default long equalize(IESObject<?> storage, Direction side0, Direction side1) {
@@ -344,6 +378,7 @@ public interface IESObject <T> extends IESProvider <T> {
 
     /**
      * Equalizing energy of 2 energy storages
+     *
      * @param storage storage
      */
     default long equalize(T obj, IESObject<?> storage) {
@@ -369,9 +404,10 @@ public interface IESObject <T> extends IESProvider <T> {
 
     /**
      * Equalizing energy of 2 energy storages with sides
+     *
      * @param storage storage
-     * @param side0 this side
-     * @param side1 storage side
+     * @param side0   this side
+     * @param side1   storage side
      * @return energy count
      */
     default long equalize(T obj, IESObject<?> storage, Direction side0, Direction side1) {
@@ -397,6 +433,7 @@ public interface IESObject <T> extends IESProvider <T> {
 
     /**
      * Suck energy from storage
+     *
      * @param storage energy storage
      * @return count of sucked energy
      */
@@ -411,9 +448,10 @@ public interface IESObject <T> extends IESProvider <T> {
 
     /**
      * Suck energy from storage with sides
+     *
      * @param storage energy storage
-     * @param side0 this side
-     * @param side1 storage side
+     * @param side0   this side
+     * @param side1   storage side
      * @return count of sucked energy
      */
     default long suckEnergy(IESObject<?> storage, Direction side0, Direction side1) {
@@ -427,6 +465,7 @@ public interface IESObject <T> extends IESProvider <T> {
 
     /**
      * Suck energy from storage
+     *
      * @param storage energy storage
      * @return count of sucked energy
      */
@@ -441,9 +480,10 @@ public interface IESObject <T> extends IESProvider <T> {
 
     /**
      * Suck energy from storage with sides
+     *
      * @param storage energy storage
-     * @param side0 this side
-     * @param side1 storage side
+     * @param side0   this side
+     * @param side1   storage side
      * @return count of sucked energy
      */
     default long suckEnergy(T obj, IESObject<?> storage, Direction side0, Direction side1) {
@@ -457,6 +497,7 @@ public interface IESObject <T> extends IESProvider <T> {
 
     /**
      * Returning energy storage
+     *
      * @return energy storage
      */
     @Override
