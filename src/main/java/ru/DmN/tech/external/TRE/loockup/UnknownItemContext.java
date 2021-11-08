@@ -1,4 +1,4 @@
-package ru.DmN.tech.external.TR.loockup;
+package ru.DmN.tech.external.TRE.loockup;
 
 import net.fabricmc.fabric.api.transfer.v1.context.ContainerItemContext;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;

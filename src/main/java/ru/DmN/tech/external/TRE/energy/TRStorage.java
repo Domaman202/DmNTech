@@ -1,4 +1,4 @@
-package ru.DmN.tech.external.TR.energy;
+package ru.DmN.tech.external.TRE.energy;
 
 import net.minecraft.item.ItemStack;
 import ru.DmN.core.common.energy.IESObject;

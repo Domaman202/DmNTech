@@ -1,4 +1,4 @@
-package ru.DmN.tech.external.TR.loockup;
+package ru.DmN.tech.external.TRE.loockup;
 
 import net.fabricmc.fabric.api.lookup.v1.block.BlockApiLookup;
 import net.minecraft.block.BlockState;
@@ -8,8 +8,8 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import ru.DmN.core.common.block.entity.MachineBlockEntity;
-import ru.DmN.tech.external.TR.block.entity.TREConverterEntity;
-import ru.DmN.tech.external.TR.energy.DmNStorage;
+import ru.DmN.tech.external.TRE.block.entity.TREConverterEntity;
+import ru.DmN.tech.external.TRE.energy.DmNStorage;
 import team.reborn.energy.api.EnergyStorage;
 
 /// ENERGY BLOCK API

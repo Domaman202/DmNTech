@@ -1,4 +1,4 @@
-package ru.DmN.tech.external.TR.block.entity;
+package ru.DmN.tech.external.TRE.block.entity;
 
 import net.fabricmc.fabric.api.transfer.v1.transaction.TransactionContext;
 import net.fabricmc.fabric.api.transfer.v1.transaction.base.SnapshotParticipant;
@@ -8,7 +8,7 @@ import ru.DmN.core.common.energy.IESObject;
 import ru.DmN.tech.common.block.entity.MachineCasingBlockEntity;
 import team.reborn.energy.api.EnergyStorage;
 
-import static ru.DmN.tech.external.TR.TRMain.TRECONVERTER_BLOCK_ENTITY_TYPE;
+import static ru.DmN.tech.external.TRE.TREMain.TRECONVERTER_BLOCK_ENTITY_TYPE;
 
 public class TREConverterEntity extends MachineCasingBlockEntity implements EnergyStorage {
     public TREConverterEntity(BlockPos pos, BlockState state) {

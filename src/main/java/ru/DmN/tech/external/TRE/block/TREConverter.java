@@ -1,4 +1,4 @@
-package ru.DmN.tech.external.TR.block;
+package ru.DmN.tech.external.TRE.block;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Material;
@@ -6,7 +6,7 @@ import net.minecraft.util.math.BlockPos;
 import org.jetbrains.annotations.Nullable;
 import ru.DmN.core.common.block.MachineBlock;
 import ru.DmN.core.common.block.entity.MachineBlockEntity;
-import ru.DmN.tech.external.TR.block.entity.TREConverterEntity;
+import ru.DmN.tech.external.TRE.block.entity.TREConverterEntity;
 
 import static ru.DmN.tech.common.DTech.DEFAULT_ITEM_SETTINGS;
 

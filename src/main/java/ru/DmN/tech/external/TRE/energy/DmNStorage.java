@@ -1,4 +1,4 @@
-package ru.DmN.tech.external.TR.energy;
+package ru.DmN.tech.external.TRE.energy;
 
 import net.fabricmc.fabric.api.transfer.v1.transaction.TransactionContext;
 import net.fabricmc.fabric.api.transfer.v1.transaction.base.SnapshotParticipant;

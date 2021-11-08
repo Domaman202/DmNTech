@@ -24,6 +24,7 @@ import ru.DmN.tech.common.item.modules.CoilConsumerModule;
 import ru.DmN.tech.common.item.modules.FurnaceModule;
 import ru.DmN.tech.common.registry.MaterialRegistry;
 import ru.DmN.tech.external.TR.TRMain;
+import ru.DmN.tech.external.TRE.TREMain;
 import ru.DmN.tech.test.gui.TestGuiBlockScreenHandler;
 
 public class DTech implements ModInitializer {
@@ -65,6 +66,7 @@ public class DTech implements ModInitializer {
         GlobalRegistry.register(SimpleBattery.ENERGY_CRYSTAL, new Identifier(MOD_ID, "battery/rec"));
         //
         TRMain.loadTRIntegration();
+        TREMain.loadTREIntegration();
     }
 
     static {

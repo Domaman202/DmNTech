@@ -4,14 +4,13 @@ import net.fabricmc.loader.api.FabricLoader;
 import org.objectweb.asm.tree.ClassNode;
 import org.spongepowered.asm.mixin.extensibility.IMixinConfigPlugin;
 import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
-import ru.DmN.tech.external.TR.TRMain;
 
 import java.util.List;
 import java.util.Set;
 
 public class DTechMixinPlugin implements IMixinConfigPlugin {
     public static boolean checkTRELoad() {
-        return checkTRLoad() || FabricLoader.getInstance().isModLoaded("team_reborn_energy");
+        return FabricLoader.getInstance().isModLoaded("team_reborn_energy");
     }
 
     public static boolean checkTRLoad() {
