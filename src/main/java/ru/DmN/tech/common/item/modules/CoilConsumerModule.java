@@ -63,9 +63,11 @@ public class CoilConsumerModule extends MachineModule implements ICombinable {
         IMaterial material;
         if (temperature < (material = this.getMaterial(stack)).maxTemperature()) {
             int energyCoefficient = material.energyCoefficient();
-            int resultMultiplier = (int) (storage.getEnergy() * (1f / energyCoefficient));
-            resultMultiplier -= resultMultiplier / material.maxTemperature();
-            temperatureD.set(temperature + resultMultiplier);
+            float resultMultiplier = storage.getEnergy() * (1f / energyCoefficient);
+            int maxTemperature = material.maxTemperature();
+            if (resultMultiplier > maxTemperature)
+                resultMultiplier += maxTemperature - resultMultiplier - temperature;
+            temperatureD.set((int) (temperature + resultMultiplier));
             storage.extractEnergy((long) Math.ceil(resultMultiplier * energyCoefficient));
         }
     }
