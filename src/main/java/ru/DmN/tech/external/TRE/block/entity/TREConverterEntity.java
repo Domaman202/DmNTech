@@ -37,7 +37,7 @@ public class TREConverterEntity extends MachineCasingBlockEntity implements Ener
     }
 
     public class ConverterEnergyStorage extends SpecEnergyStorage implements EnergyStorage, IESObject {
-        public final SnapshotParticipant<Long> snapshotParticipant = new SnapshotParticipant<Long>() {
+        public final SnapshotParticipant<Long> snapshotParticipant = new SnapshotParticipant<>() {
             @Override
             protected Long createSnapshot() {
                 return ConverterEnergyStorage.this.getEnergy();
@@ -60,8 +60,7 @@ public class TREConverterEntity extends MachineCasingBlockEntity implements Ener
 
             if (inserted > 0) {
                 snapshotParticipant.updateSnapshots(transaction);
-                this.insertEnergy(inserted);
-                return inserted;
+                return inserted - this.insertEnergy(inserted);
             }
 
             return 0;
@@ -78,8 +77,7 @@ public class TREConverterEntity extends MachineCasingBlockEntity implements Ener
 
             if (extracted > 0) {
                 snapshotParticipant.updateSnapshots(transaction);
-                this.extractEnergy(extracted);
-                return extracted;
+                return extracted - this.extractEnergy(extracted);
             }
 
             return 0;

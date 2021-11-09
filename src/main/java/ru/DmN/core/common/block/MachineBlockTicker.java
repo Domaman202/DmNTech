@@ -37,8 +37,8 @@ public abstract class MachineBlockTicker <T extends MachineBlockEntity> extends 
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
-        if (type.supports(this.getDefaultState()))
+//        if (type.supports(this.getDefaultState()))
             return (BlockEntityTicker<T>) this;
-        return null;
+//        return null;
     }
 }

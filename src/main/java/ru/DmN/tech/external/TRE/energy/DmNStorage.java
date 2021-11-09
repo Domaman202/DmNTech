@@ -4,6 +4,7 @@ import net.fabricmc.fabric.api.transfer.v1.transaction.TransactionContext;
 import net.fabricmc.fabric.api.transfer.v1.transaction.base.SnapshotParticipant;
 import ru.DmN.core.common.energy.IESObject;
 import team.reborn.energy.api.EnergyStorage;
+import techreborn.blocks.storage.energy.EnergyStorageBlock;
 
 public class DmNStorage<T> implements EnergyStorage {
     public final IESObject<T> storage;

@@ -10,9 +10,9 @@ import ru.DmN.tech.common.material.IMaterialProvider;
 import static ru.DmN.tech.common.DTech.DEFAULT_ITEM_SETTINGS;
 
 public class Coil extends Item implements IMaterial, IMaterialProvider<ItemStack>, ICombinable {
-    public static final Coil CUPRONICKEL = new Coil(DEFAULT_ITEM_SETTINGS, 4, 800);
-    public static final Coil NICHROME = new Coil(DEFAULT_ITEM_SETTINGS, 8, 1200);
-    public static final Coil CANTAL = new Coil(DEFAULT_ITEM_SETTINGS, 16, 2400);
+    public static final Coil CUPRONICKEL = new Coil(DEFAULT_ITEM_SETTINGS, 1, 800);
+    public static final Coil NICHROME = new Coil(DEFAULT_ITEM_SETTINGS, 2, 1200);
+    public static final Coil CANTAL = new Coil(DEFAULT_ITEM_SETTINGS, 4, 1850);
 
     public int maxTemperature;
     public int energyCoefficient;
