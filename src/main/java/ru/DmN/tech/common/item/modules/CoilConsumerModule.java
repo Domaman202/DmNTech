@@ -58,7 +58,7 @@ public class CoilConsumerModule extends MachineModule implements ICombinable {
             float resultMultiplier = storage.getEnergy() * (8f / energyCoefficient);
             int maxTemperature = material.maxTemperature();
             if (resultMultiplier > maxTemperature)
-                resultMultiplier += maxTemperature - resultMultiplier - temperature;
+                resultMultiplier = maxTemperature - temperature;
             temperatureD.set((int) (temperature + resultMultiplier));
             storage.extractEnergy((long) Math.ceil(resultMultiplier * energyCoefficient));
         }
