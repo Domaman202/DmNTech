@@ -6,6 +6,7 @@ import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import org.jetbrains.annotations.NotNull;
+import ru.DmN.tech.common.block.MachineCasing;
 import ru.DmN.tech.common.block.entity.MachineCasingBlockEntity;
 import ru.DmN.tech.common.gui.slot.IMachineSlotType;
 
@@ -20,7 +21,19 @@ public abstract class MachineModule extends Module {
 
     /// MACHINE
 
-    public abstract void updateProperties(MachineCasingBlockEntity entity, ItemStack stack, int slot);
+    public boolean updateProperties(MachineCasingBlockEntity entity, ItemStack stack, int slot, MachineCasing.MachineDataType type, Supplier<MachineCasing.IMachineData<?>> data) {
+        var internal = entity.internal;
+
+        for (int x = internal.size() - slot; x <= slot; x++)
+            internal.add(MachineCasing.EmptyMachineData.INSTANCE);
+
+        if (internal.get(slot) == MachineCasing.EmptyMachineData.INSTANCE)
+            internal.set(slot, data.get());
+        else return internal.get(slot).getType() == type;
+        return true;
+    }
+
+    public abstract boolean updateProperties(MachineCasingBlockEntity entity, ItemStack stack, int slot);
 
     public abstract void tick(MachineCasingBlockEntity entity, ItemStack stack, int slot);
 

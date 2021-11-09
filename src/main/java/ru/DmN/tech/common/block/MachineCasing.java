@@ -69,8 +69,8 @@ public abstract class MachineCasing <T extends MachineCasingBlockEntity> extends
     }
 
     public static abstract class SimpleMachineData <T> implements IMachineData <T> {
-        public T value;
         public final MachineDataType type;
+        public T value;
 
         public SimpleMachineData(T value, MachineDataType type) {
             this.value = value;
@@ -118,7 +118,7 @@ public abstract class MachineCasing <T extends MachineCasingBlockEntity> extends
 
         @Override
         public MachineDataType getType() {
-            return MachineDataType.INTERNAL;
+            return MachineDataType.EMPTY;
         }
     }
 
@@ -158,10 +158,9 @@ public abstract class MachineCasing <T extends MachineCasingBlockEntity> extends
     }
 
     public enum MachineDataType {
-        CONSTANT,
-        INTERNAL,
-        INPUT,
-        OUTPUT,
-        INPUT_OUTPUT
+        EMPTY,
+        TEMPERATURE,
+        ROTATION,
+        LASER
     }
 }

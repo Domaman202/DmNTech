@@ -5,7 +5,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.screen.PropertyDelegate;
-import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Identifier;
@@ -22,7 +21,6 @@ import ru.DmN.tech.common.material.EmptyMaterial;
 import ru.DmN.tech.common.material.IMaterial;
 import ru.DmN.tech.common.material.IMaterialProvider;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Supplier;
 
@@ -35,20 +33,14 @@ public class CoilConsumerModule extends MachineModule implements ICombinable {
     /// CONSTRUCTORS
 
     public CoilConsumerModule() {
-        super(DEFAULT_ITEM_SETTINGS, DefaultMachineSlotType.ASSEMBLY);
+        super(DEFAULT_ITEM_SETTINGS, DefaultMachineSlotType.SOURCE);
     }
 
     /// MACHINE
 
     @Override
-    public void updateProperties(MachineCasingBlockEntity entity, ItemStack stack, int slot) {
-        var internal = entity.internal;
-
-        for (int x = internal.size() - slot; x <= slot; x++)
-            internal.add(MachineCasing.EmptyMachineData.INSTANCE);
-
-        if (internal.get(slot) == MachineCasing.EmptyMachineData.INSTANCE)
-            internal.set(slot, new MachineCasing.IntMachineData(0, MachineCasing.MachineDataType.INTERNAL));
+    public boolean updateProperties(MachineCasingBlockEntity entity, ItemStack stack, int slot) {
+        return this.updateProperties(entity, stack, slot, MachineCasing.MachineDataType.TEMPERATURE, () -> new MachineCasing.IntMachineData(0, MachineCasing.MachineDataType.TEMPERATURE));
     }
 
     @Override

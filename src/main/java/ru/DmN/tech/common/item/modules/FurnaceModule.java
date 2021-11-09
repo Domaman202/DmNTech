@@ -32,14 +32,8 @@ public class FurnaceModule extends MachineModule {
     /// MACHINE
 
     @Override
-    public void updateProperties(MachineCasingBlockEntity entity, ItemStack stack, int slot) {
-        var internal = entity.internal;
-
-        for (int x = internal.size() - slot; x <= slot; x++)
-            internal.add(MachineCasing.EmptyMachineData.INSTANCE);
-
-        if (internal.get(slot) == MachineCasing.EmptyMachineData.INSTANCE)
-            internal.set(slot, new MachineCasing.IntMachineData(0, MachineCasing.MachineDataType.INTERNAL));
+    public boolean updateProperties(MachineCasingBlockEntity entity, ItemStack stack, int slot) {
+        return this.updateProperties(entity, stack, slot, MachineCasing.MachineDataType.TEMPERATURE, () -> new MachineCasing.IntMachineData(0, MachineCasing.MachineDataType.TEMPERATURE));
     }
 
     @Override

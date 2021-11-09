@@ -1,5 +1,6 @@
 package ru.DmN.tech.common.block.entity;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
@@ -70,7 +71,8 @@ public abstract class MachineCasingBlockEntity extends MachineBlockEntity {
             ItemStack stack;
             Item item;
             if ((item = (stack = inventory.getStack(i)).getItem()) instanceof MachineModule)
-                ((MachineModule) item).updateProperties(this, stack, i);
+                if (!((MachineModule) item).updateProperties(this, stack, i))
+                    Block.dropStack(world, pos, stack);
         }
 
         nbt.putInt("mdata", internal.size());
@@ -88,7 +90,8 @@ public abstract class MachineCasingBlockEntity extends MachineBlockEntity {
             ItemStack stack;
             Item item;
             if ((item = (stack = inventory.getStack(i)).getItem()) instanceof MachineModule)
-                ((MachineModule) item).updateProperties(this, stack, i);
+                if (!((MachineModule) item).updateProperties(this, stack, i))
+                    Block.dropStack(world, pos, stack);
         }
 
         for (int i = 0; i < nbt.getInt("mdata") && i != internal.size(); i++)
@@ -103,7 +106,8 @@ public abstract class MachineCasingBlockEntity extends MachineBlockEntity {
         super.setStack(slot, stack);
         Item item;
         if ((item = stack.getItem()) instanceof MachineModule)
-            ((MachineModule) item).updateProperties(this, stack, slot);
+            if (!((MachineModule) item).updateProperties(this, stack, slot))
+                Block.dropStack(world, pos, stack);
     }
 
 
