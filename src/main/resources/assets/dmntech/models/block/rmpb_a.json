@@ -3,9 +3,9 @@
   "textures": {
     "up": "dmntech:block/rmpb/up",
     "down": "dmntech:block/rmpb/down_a",
-    "north": "dmntech:block/rmpb/side",
-    "south": "dmntech:block/rmpb/side",
-    "east": "dmntech:block/rmpb/side",
-    "west": "dmntech:block/rmpb/side"
+    "north": "dmntech:block/rmpb/side_a",
+    "south": "dmntech:block/rmpb/side_a",
+    "east": "dmntech:block/rmpb/side_a",
+    "west": "dmntech:block/rmpb/side_a"
   }
 }
