@@ -16,7 +16,7 @@ public abstract class ColoredButton implements Clickable {
         this.startW = w;
         this.startH = h;
 
-        DrawableHelper.fill(matrices, this.startW, this.startH, this.startW + this.sizeW, this.startH + this.sizeH, color);
+        DrawableHelper.fill(matrices, w, h, w + this.sizeW, h + this.sizeH, color);
     }
 
     @Override

@@ -14,8 +14,8 @@ public class MachineScreen <T extends MachineScreenHandler> extends AdvancedScre
     public MachineScreen(T handler, PlayerInventory inventory, Text title) {
         super(handler, inventory, title);
         //
-        this.addComponent("energy", new EnergyStorage(handler.properties), 18, 20);
-        this.addComponent("active", new MachineActivationButton(10, 10, handler.properties, inventory.player.world, handler.pos), 5, 19);
+        this.addComponent("energy", new EnergyStorage(handler.properties), 18, 19);
+        this.addComponent("active", new MachineActivationButton(10, 10, handler.properties, inventory.player.world, handler.pos), 5, 18);
     }
 
     @Override
