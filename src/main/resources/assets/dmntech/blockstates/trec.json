@@ -1,0 +1,6 @@
+{
+  "variants": {
+    "active=true": { "model": "dmntech:block/trec" },
+    "active=false": { "model": "dmntech:block/trec" }
+  }
+}

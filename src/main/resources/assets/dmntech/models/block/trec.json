@@ -1,0 +1,11 @@
+{
+  "parent": "block/cube_all",
+  "textures": {
+    "up": "dmntech:block/trec/up",
+    "down": "dmntech:block/trec/down",
+    "north": "dmntech:block/trec/side",
+    "south": "dmntech:block/trec/side",
+    "east": "dmntech:block/trec/side",
+    "west": "dmntech:block/trec/side"
+  }
+}

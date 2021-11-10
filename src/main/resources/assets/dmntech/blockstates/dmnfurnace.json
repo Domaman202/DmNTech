@@ -1,33 +1,33 @@
 {
   "variants": {
     "facing=east,lit=false": {
-      "model": "minecraft:block/furnace",
+      "model": "dmntech:block/dmnfurnace",
       "y": 90
     },
     "facing=east,lit=true": {
-      "model": "minecraft:block/furnace_on",
+      "model": "dmntech:block/dmnfurnace",
       "y": 90
     },
     "facing=north,lit=false": {
-      "model": "minecraft:block/furnace"
+      "model": "dmntech:block/dmnfurnace"
     },
     "facing=north,lit=true": {
-      "model": "minecraft:block/furnace_on"
+      "model": "dmntech:block/dmnfurnace"
     },
     "facing=south,lit=false": {
-      "model": "minecraft:block/furnace",
+      "model": "dmntech:block/dmnfurnace",
       "y": 180
     },
     "facing=south,lit=true": {
-      "model": "minecraft:block/furnace_on",
+      "model": "dmntech:block/dmnfurnace",
       "y": 180
     },
     "facing=west,lit=false": {
-      "model": "minecraft:block/furnace",
+      "model": "dmntech:block/dmnfurnace",
       "y": 270
     },
     "facing=west,lit=true": {
-      "model": "minecraft:block/furnace_on",
+      "model": "dmntech:block/dmnfurnace",
       "y": 270
     }
   }
