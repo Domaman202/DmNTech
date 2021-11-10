@@ -1,6 +1,6 @@
 {
   "variants": {
-    "active=true": { "model": "dmntech:block/rmpb" },
+    "active=true": { "model": "dmntech:block/rmpb_a" },
     "active=false": { "model": "dmntech:block/rmpb" }
   }
 }
