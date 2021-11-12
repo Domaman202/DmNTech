@@ -5,9 +5,9 @@ import net.minecraft.block.Material;
 import net.minecraft.item.Item;
 import net.minecraft.util.math.BlockPos;
 import org.jetbrains.annotations.Nullable;
-import ru.DmN.core.common.block.entity.MachineBlockEntity;
+import ru.DmN.core.block.entity.MachineBlockEntity;
 import ru.DmN.core.test.TestMain;
-import ru.DmN.tech.common.block.MachineCasing;
+import ru.DmN.tech.block.MachineCasing;
 import ru.DmN.tech.test.block.entity.TestGuiBlockEntity;
 
 public class TestGuiBlock extends MachineCasing <TestGuiBlockEntity> {

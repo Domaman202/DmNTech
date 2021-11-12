@@ -2,7 +2,7 @@ package ru.DmN.tech.external.TRE;
 
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.util.Identifier;
-import ru.DmN.core.common.registry.GlobalRegistry;
+import ru.DmN.core.registry.GlobalRegistry;
 import ru.DmN.tech.external.TRE.block.TREConverter;
 import ru.DmN.tech.external.TRE.block.entity.TREConverterEntity;
 import ru.DmN.tech.external.TRE.loockup.DmNEBA;

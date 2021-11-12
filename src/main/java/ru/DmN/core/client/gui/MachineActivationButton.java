@@ -6,7 +6,7 @@ import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import ru.DmN.core.common.block.MachineBlock;
+import ru.DmN.core.block.MachineBlock;
 
 import java.awt.*;
 

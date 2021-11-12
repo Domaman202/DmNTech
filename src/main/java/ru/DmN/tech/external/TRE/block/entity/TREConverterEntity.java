@@ -4,8 +4,8 @@ import net.fabricmc.fabric.api.transfer.v1.transaction.TransactionContext;
 import net.fabricmc.fabric.api.transfer.v1.transaction.base.SnapshotParticipant;
 import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockPos;
-import ru.DmN.core.common.energy.IESObject;
-import ru.DmN.tech.common.block.entity.MachineCasingBlockEntity;
+import ru.DmN.core.energy.IESObject;
+import ru.DmN.tech.block.entity.MachineCasingBlockEntity;
 import team.reborn.energy.api.EnergyStorage;
 
 import static ru.DmN.tech.external.TRE.TREMain.TRECONVERTER_BLOCK_ENTITY_TYPE;

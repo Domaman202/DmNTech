@@ -3,8 +3,8 @@ package ru.DmN.tech.mixin;
 import net.minecraft.item.Item;
 import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
-import ru.DmN.tech.common.material.IMaterial;
-import ru.DmN.tech.common.material.IMaterialProvider;
+import ru.DmN.tech.material.IMaterial;
+import ru.DmN.tech.material.IMaterialProvider;
 
 @Mixin(Item.class)
 public class MixinItem implements IMaterialProvider {

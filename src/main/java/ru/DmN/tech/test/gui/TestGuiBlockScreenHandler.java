@@ -4,8 +4,8 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.util.math.BlockPos;
-import ru.DmN.core.common.inventory.ConfigurableInventory;
-import ru.DmN.tech.common.gui.MachineCasingScreenHandler;
+import ru.DmN.core.inventory.ConfigurableInventory;
+import ru.DmN.tech.gui.MachineCasingScreenHandler;
 import ru.DmN.tech.test.TestMain;
 
 public class TestGuiBlockScreenHandler extends MachineCasingScreenHandler {

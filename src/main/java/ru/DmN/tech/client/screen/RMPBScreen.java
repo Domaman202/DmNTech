@@ -6,7 +6,7 @@ import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import ru.DmN.core.client.gui.DynamicTextComponent;
 import ru.DmN.core.client.screen.MachineScreen;
-import ru.DmN.tech.common.gui.RMPBScreenHandler;
+import ru.DmN.tech.gui.RMPBScreenHandler;
 
 import java.awt.*;
 
@@ -15,7 +15,7 @@ public class RMPBScreen extends MachineScreen <RMPBScreenHandler> {
     public int propertyJ = 0;
 
     public RMPBScreen(RMPBScreenHandler handler, PlayerInventory inventory, Text title) {
-        super(handler, inventory, title);
+        super(handler, inventory, title, true);
         //
         this.addComponent("ec", new DynamicTextComponent(() -> new LiteralText("Detonation Power -> " + propertyI), Color.WHITE.getRGB()), 32, 30);
         this.addComponent("dp", new DynamicTextComponent(() -> new LiteralText("Energy Consumption -> " + propertyJ), Color.WHITE.getRGB()), 32, 40);

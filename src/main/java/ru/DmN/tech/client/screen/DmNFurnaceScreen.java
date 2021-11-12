@@ -5,13 +5,13 @@ import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import ru.DmN.core.client.gui.DynamicTextComponent;
 import ru.DmN.core.client.screen.AdvancedScreen;
-import ru.DmN.tech.common.gui.DmNFurnaceScreenHandler;
+import ru.DmN.tech.gui.DmNFurnaceScreenHandler;
 
 import java.awt.*;
 
 public class DmNFurnaceScreen extends AdvancedScreen <DmNFurnaceScreenHandler> {
     public DmNFurnaceScreen(DmNFurnaceScreenHandler handler, PlayerInventory inventory, Text title) {
-        super(handler, inventory, title);
+        super(handler, inventory, title, true);
         //
         this.addComponent("progress", new DynamicTextComponent(() -> new LiteralText("Progress => " + handler.properties.get(1)), Color.RED.getRGB()), 54, 30);
         this.addComponent("burn", new DynamicTextComponent(() -> new LiteralText("Burn time => " + handler.properties.get(2)), Color.RED.getRGB()), 54, 40);

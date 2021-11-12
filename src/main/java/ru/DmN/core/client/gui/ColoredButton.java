@@ -3,19 +3,13 @@ package ru.DmN.core.client.gui;
 import net.minecraft.client.gui.DrawableHelper;
 import net.minecraft.client.util.math.MatrixStack;
 
-public abstract class ColoredButton implements Clickable {
-    public int startW, startH;
-    public int sizeW, sizeH;
-
+public abstract class ColoredButton extends Button {
     public ColoredButton(int sizeW, int sizeH) {
-        this.sizeW = sizeW;
-        this.sizeH = sizeH;
+        super(sizeW, sizeH);
     }
 
     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta, int w, int h, int color) {
-        this.startW = w;
-        this.startH = h;
-
+        super.render(matrices, mouseX, mouseY, delta, w, h);
         DrawableHelper.fill(matrices, w, h, w + this.sizeW, h + this.sizeH, color);
     }
 

@@ -5,8 +5,8 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.util.math.BlockPos;
-import ru.DmN.core.common.gui.MachineScreenHandler;
-import ru.DmN.core.common.inventory.ConfigurableInventory;
+import ru.DmN.core.gui.MachineScreenHandler;
+import ru.DmN.core.inventory.ConfigurableInventory;
 
 import static ru.DmN.core.test.TestMain.INF_ENERGY_SOURCE_SCREEN_HANDLER_TYPE;
 

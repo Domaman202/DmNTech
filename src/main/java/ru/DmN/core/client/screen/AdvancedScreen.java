@@ -1,6 +1,8 @@
 package ru.DmN.core.client.screen;
 
 import com.mojang.blaze3d.systems.RenderSystem;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.util.math.MatrixStack;
@@ -12,19 +14,28 @@ import ru.DmN.core.client.gui.IComponent;
 import ru.DmN.core.client.gui.MethodReference;
 import ru.DmN.core.client.gui.compound.CompoundElement;
 import ru.DmN.core.client.gui.compound.NamedCompound;
+import ru.DmN.core.client.gui.tab.Tab;
+import ru.DmN.core.client.gui.tab.TabCompound;
 
+@Environment(EnvType.CLIENT)
 public abstract class AdvancedScreen <T extends ScreenHandler> extends HandledScreen <T> {
-    public static final Identifier DEFAULT_BACKGROUND_TEXTURE = new Identifier("dmncore", "textures/gui/default_machine_gui.png");
+    public static final Identifier DEFAULT_BACKGROUND_TEXTURE = new Identifier("dmncore", "textures/gui/simple.png");
     public final NamedCompound components = new NamedCompound();
     public int w = 0;
     public int h = 0;
 
-    public AdvancedScreen(T handler, PlayerInventory inventory, Text title) {
+    public AdvancedScreen(T handler, PlayerInventory inventory, Text title, boolean tabs) {
         super(handler, inventory, title);
         //
         this.addComponent("defaultRender", new MethodReference(this::defaultRender), 0, 0);
+        if (tabs)
+            this.addComponent("tabs", new TabCompound(), 0, 0);
         //
         ++this.backgroundHeight;
+    }
+
+    public void addTab(Tab tab) {
+        ((TabCompound) components.getCompound("tabs").component).components.add(tab);
     }
 
     public void addComponent(String name, IComponent component, int x, int y) {

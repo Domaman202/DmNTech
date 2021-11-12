@@ -5,9 +5,9 @@ import net.fabricmc.fabric.api.client.screenhandler.v1.ScreenRegistry;
 import ru.DmN.tech.client.screen.DmNFurnaceScreen;
 import ru.DmN.tech.client.screen.MachineCasingScreen;
 import ru.DmN.tech.client.screen.RMPBScreen;
-import ru.DmN.tech.common.gui.MachineCasingScreenHandler;
+import ru.DmN.tech.gui.MachineCasingScreenHandler;
 
-import static ru.DmN.tech.common.DTech.*;
+import static ru.DmN.tech.DTech.*;
 
 public class DTechClient implements ClientModInitializer {
     @Override

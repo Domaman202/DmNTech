@@ -7,14 +7,14 @@ import net.minecraft.text.Text;
 import ru.DmN.core.client.gui.DynamicTextComponent;
 import ru.DmN.core.client.gui.MethodCaller;
 import ru.DmN.core.client.screen.MachineScreen;
-import ru.DmN.tech.common.gui.MachineCasingScreenHandler;
-import ru.DmN.tech.common.item.modules.MachineModule;
+import ru.DmN.tech.gui.MachineCasingScreenHandler;
+import ru.DmN.tech.item.modules.MachineModule;
 
 import java.awt.*;
 
 public class MachineCasingScreen <T extends MachineCasingScreenHandler> extends MachineScreen <T> {
     public MachineCasingScreen(T handler, PlayerInventory inventory, Text title) {
-        super(handler, inventory, title);
+        super(handler, inventory, title, true);
         this.getCompound("energy").xOffset = 36;
         this.getCompound("active").xOffset = 24;
         //

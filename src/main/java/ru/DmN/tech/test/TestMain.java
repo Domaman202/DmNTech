@@ -4,7 +4,7 @@ import net.fabricmc.api.ModInitializer;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.util.Identifier;
-import ru.DmN.core.common.registry.GlobalRegistry;
+import ru.DmN.core.registry.GlobalRegistry;
 import ru.DmN.tech.test.block.TestGuiBlock;
 import ru.DmN.tech.test.block.entity.TestGuiBlockEntity;
 import ru.DmN.tech.test.gui.TestGuiBlockScreenHandler;

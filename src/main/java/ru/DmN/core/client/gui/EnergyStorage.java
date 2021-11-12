@@ -4,7 +4,7 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.text.TranslatableText;
-import ru.DmN.core.common.utils.ColorUtils;
+import ru.DmN.core.utils.ColorUtils;
 
 public class EnergyStorage implements IComponent {
     public final PropertyDelegate properties;

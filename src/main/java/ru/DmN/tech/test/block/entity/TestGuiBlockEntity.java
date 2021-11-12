@@ -6,8 +6,8 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.util.math.BlockPos;
 import org.jetbrains.annotations.Nullable;
-import ru.DmN.core.common.inventory.SimpleConfigurableInventory;
-import ru.DmN.tech.common.block.entity.MachineCasingBlockEntity;
+import ru.DmN.core.inventory.SimpleConfigurableInventory;
+import ru.DmN.tech.block.entity.MachineCasingBlockEntity;
 import ru.DmN.tech.test.TestMain;
 import ru.DmN.tech.test.gui.TestGuiBlockScreenHandler;
 

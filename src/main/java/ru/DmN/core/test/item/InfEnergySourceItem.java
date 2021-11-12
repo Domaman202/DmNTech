@@ -2,8 +2,8 @@ package ru.DmN.core.test.item;
 
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import ru.DmN.core.common.item.MachineBlockItem;
-import ru.DmN.core.common.utils.ColorUtils;
+import ru.DmN.core.item.MachineBlockItem;
+import ru.DmN.core.utils.ColorUtils;
 import ru.DmN.core.test.TestMain;
 import ru.DmN.core.test.block.InfEnergySourceBlock;
 

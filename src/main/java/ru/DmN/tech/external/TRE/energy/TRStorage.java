@@ -1,7 +1,7 @@
 package ru.DmN.tech.external.TRE.energy;
 
 import net.minecraft.item.ItemStack;
-import ru.DmN.core.common.energy.IESObject;
+import ru.DmN.core.energy.IESObject;
 import team.reborn.energy.api.EnergyStorage;
 import team.reborn.energy.api.base.SimpleBatteryItem;
 

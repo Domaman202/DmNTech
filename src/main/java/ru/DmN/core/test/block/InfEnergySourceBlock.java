@@ -7,10 +7,10 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
-import ru.DmN.core.common.block.MachineBlock;
-import ru.DmN.core.common.block.MachineBlockTicker;
-import ru.DmN.core.common.block.entity.MachineBlockEntity;
-import ru.DmN.core.common.energy.IESProvider;
+import ru.DmN.core.block.MachineBlock;
+import ru.DmN.core.block.MachineBlockTicker;
+import ru.DmN.core.block.entity.MachineBlockEntity;
+import ru.DmN.core.energy.IESProvider;
 import ru.DmN.core.test.block.entity.InfEnergySourceBlockEntity;
 import ru.DmN.core.test.item.InfEnergySourceItem;
 

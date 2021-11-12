@@ -4,11 +4,11 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.Material;
 import net.minecraft.util.math.BlockPos;
 import org.jetbrains.annotations.Nullable;
-import ru.DmN.core.common.block.MachineBlock;
-import ru.DmN.core.common.block.entity.MachineBlockEntity;
+import ru.DmN.core.block.MachineBlock;
+import ru.DmN.core.block.entity.MachineBlockEntity;
 import ru.DmN.tech.external.TRE.block.entity.TREConverterEntity;
 
-import static ru.DmN.tech.common.DTech.DEFAULT_ITEM_SETTINGS;
+import static ru.DmN.tech.DTech.DEFAULT_ITEM_SETTINGS;
 
 public class TREConverter extends MachineBlock {
     public static final TREConverter INSTANCE = new TREConverter();

@@ -7,7 +7,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
-import ru.DmN.core.common.block.entity.MachineBlockEntity;
+import ru.DmN.core.block.entity.MachineBlockEntity;
 import ru.DmN.tech.external.TRE.block.entity.TREConverterEntity;
 import ru.DmN.tech.external.TRE.energy.DmNStorage;
 import team.reborn.energy.api.EnergyStorage;

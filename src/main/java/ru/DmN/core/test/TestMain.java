@@ -12,7 +12,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
-import ru.DmN.core.common.registry.GlobalRegistry;
+import ru.DmN.core.registry.GlobalRegistry;
 import ru.DmN.core.test.armor.TestInfinityArmor;
 import ru.DmN.core.test.block.InfEnergySourceBlock;
 import ru.DmN.core.test.block.TestCableBlock;

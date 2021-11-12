@@ -6,14 +6,14 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.text.Text;
 import ru.DmN.core.client.gui.MethodCallerButton;
-import ru.DmN.core.common.DCore;
-import ru.DmN.core.common.gui.CombinatorScreenHandler;
+import ru.DmN.core.DCore;
+import ru.DmN.core.gui.CombinatorScreenHandler;
 
 import java.awt.*;
 
 public class CombinatorScreen extends AdvancedScreen <CombinatorScreenHandler> {
     public CombinatorScreen(CombinatorScreenHandler handler, PlayerInventory inventory, Text title) {
-        super(handler, inventory, title);
+        super(handler, inventory, title, false);
         //
         this.addComponent("combineb", new MethodCallerButton((mouseX, mouseY, button, instance) -> {
             PacketByteBuf buf = PacketByteBufs.create();

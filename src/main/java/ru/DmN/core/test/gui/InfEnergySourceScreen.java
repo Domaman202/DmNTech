@@ -6,6 +6,6 @@ import ru.DmN.core.client.screen.MachineScreen;
 
 public class InfEnergySourceScreen extends MachineScreen <InfEnergySourceScreenHandler> {
     public InfEnergySourceScreen(InfEnergySourceScreenHandler handler, PlayerInventory inventory, Text title) {
-        super(handler, inventory, title);
+        super(handler, inventory, title, false);
     }
 }
