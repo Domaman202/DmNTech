@@ -50,39 +50,39 @@ public class SidedSlotConfigScreen implements Clickable {
     @Override
     public boolean mouseClicked(double mouseX, double mouseY, int button) {
         if (this.tryClick(mouseX, mouseY, 0)) {
-            this.nextMode(slot, Direction.UP);
+            this.nextMode(slot, Direction.UP, button);
             return true;
         }
 
         if (this.tryClick(mouseX, mouseY, 8)) {
-            this.nextMode(slot, Direction.DOWN);
+            this.nextMode(slot, Direction.DOWN, button);
             return true;
         }
 
         if (this.tryClick(mouseX, mouseY, 16)) {
-            this.nextMode(slot, Direction.NORTH);
+            this.nextMode(slot, Direction.NORTH, button);
             return true;
         }
 
         if (this.tryClick(mouseX, mouseY, 24)) {
-            this.nextMode(slot, Direction.SOUTH);
+            this.nextMode(slot, Direction.SOUTH, button);
             return true;
         }
 
         if (this.tryClick(mouseX, mouseY, 32)) {
-            this.nextMode(slot, Direction.WEST);
+            this.nextMode(slot, Direction.WEST, button);
             return true;
         }
 
         if (this.tryClick(mouseX, mouseY, 40)) {
-            this.nextMode(slot, Direction.EAST);
+            this.nextMode(slot, Direction.EAST, button);
             return true;
         }
 
         return false;
     }
 
-    public void nextMode(int slot, Direction dir) {
+    public void nextMode(int slot, Direction dir, int button) {
         var stack = this.inventory.getStack(slot);
         // 0 - все
         // 1 - вход
@@ -90,9 +90,18 @@ public class SidedSlotConfigScreen implements Clickable {
         // 3 - ничего
         var type = this.inventory.canInsert(slot, stack, dir) ? this.inventory.canExtract(slot, stack, dir) ? 0 : 1 : this.inventory.canExtract(slot, stack, dir) ? 2 : 3;
         //
-        type++;
+        if (button == 0)
+            type++;
+        else if (button == 1)
+            type--;
+        else
+            type = 3;
         //
         switch (type) {
+            case -1, 0, 4 -> {
+                this.inventory.setInsertable(dir, true);
+                this.inventory.setExtractable(dir, true);
+            }
             case 1 -> {
                 this.inventory.setInsertable(dir, true);
                 this.inventory.setExtractable(dir, false);
@@ -104,10 +113,6 @@ public class SidedSlotConfigScreen implements Clickable {
             case 3 -> {
                 this.inventory.setInsertable(dir, false);
                 this.inventory.setExtractable(dir, false);
-            }
-            case 4 -> {
-                this.inventory.setInsertable(dir, true);
-                this.inventory.setExtractable(dir, true);
             }
         }
         //
