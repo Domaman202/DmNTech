@@ -19,6 +19,6 @@ public class Button implements Clickable {
 
     @Override
     public boolean mouseClicked(double mouseX, double mouseY, int button) {
-        return (startW < mouseX) && mouseX < (startW + sizeW) && (startH < mouseY) && mouseY < (startH + sizeH);
+        return (this.startW < mouseX) && mouseX < (this.startW + this.sizeW) && (this.startH < mouseY) && mouseY < (this.startH + this.sizeH);
     }
 }
