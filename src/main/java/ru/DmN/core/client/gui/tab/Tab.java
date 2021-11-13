@@ -49,7 +49,7 @@ public class Tab extends Button {
     }
 
     public static class TabGuiHandler extends ScreenHandler {
-        protected TabGuiHandler(int syncId) {
+        public TabGuiHandler(int syncId) {
             super(null, syncId);
         }
 
