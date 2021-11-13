@@ -2,7 +2,6 @@ package ru.DmN.tech.test.gui;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.DrawableHelper;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.render.*;
 import net.minecraft.client.util.math.MatrixStack;
@@ -44,40 +43,41 @@ public class TestGuiBlockScreen extends MachineCasingScreen <TestGuiBlockScreenH
             //
             matrices.push();
             //
-            TestGuiBlockScreen.fill(matrices.peek().getModel(), mouseX, mouseY, mouseX, mouseY, Color.RED.getRGB());
+            test(matrices.peek().getModel(), mouseX, mouseY);
             //
             matrices.pop();
         }
     }
 
-    public static void fill(Matrix4f matrix, int x1, int y1, int x2, int y2, int color) {
-        int x;
-        if (x1 < x2) {
-            x = x1;
-            x1 = x2;
-            x2 = x;
-        }
-
-        if (y1 < y2) {
-            x = y1;
-            y1 = y2;
-            y2 = x;
-        }
-
-        float i = (float)(color >> 24 & 255) / 255.0F;
-        float f = (float)(color >> 16 & 255) / 255.0F;
-        float g = (float)(color >> 8 & 255) / 255.0F;
-        float h = (float)(color & 255) / 255.0F;
+    public static void test(Matrix4f matrix, int x, int y) {
         BufferBuilder bufferBuilder = Tessellator.getInstance().getBuffer();
         RenderSystem.enableBlend();
         RenderSystem.disableTexture();
         RenderSystem.defaultBlendFunc();
         RenderSystem.setShader(GameRenderer::getPositionColorShader);
-        bufferBuilder.begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_COLOR);
-        bufferBuilder.vertex(matrix, x1, 0, 0).color(f, g, h, i).next();
-        bufferBuilder.vertex(matrix, 0, 0, 0).color(f, g, h, i).next();
-        bufferBuilder.vertex(matrix, 0, y1, 0).color(f, g, h, i).next();
-        bufferBuilder.vertex(matrix, x1, y1, 0).color(f, g, h, i).next();
+        bufferBuilder.begin(VertexFormat.DrawMode.TRIANGLES, VertexFormats.POSITION_COLOR);
+        //
+        float i = (Color.RED.getRGB() >> 24 & 255) / 255.0F;
+        float f = (Color.RED.getRGB() >> 16 & 255) / 255.0F;
+        float g = (Color.RED.getRGB() >> 8 & 255) / 255.0F;
+        float h = (Color.RED.getRGB() & 255) / 255.0F;
+        //
+        bufferBuilder.vertex(matrix, x, 0, 0).color(f, g, h, i).next();
+        //
+        i = (Color.GREEN.getRGB() >> 24 & 255) / 255.0F;
+        f = (Color.GREEN.getRGB() >> 16 & 255) / 255.0F;
+        g = (Color.GREEN.getRGB() >> 8 & 255) / 255.0F;
+        h = (Color.GREEN.getRGB() & 255) / 255.0F;
+        //
+        bufferBuilder.vertex(matrix, 0, y, 0).color(f, g, h, i).next();
+        //
+        i = (Color.BLUE.getRGB() >> 24 & 255) / 255.0F;
+        f = (Color.BLUE.getRGB() >> 16 & 255) / 255.0F;
+        g = (Color.BLUE.getRGB() >> 8 & 255) / 255.0F;
+        h = (Color.BLUE.getRGB() & 255) / 255.0F;
+        //
+        bufferBuilder.vertex(matrix, x, y, 0).color(f, g, h, i).next();
+        //
         bufferBuilder.end();
         BufferRenderer.draw(bufferBuilder);
         RenderSystem.enableTexture();
