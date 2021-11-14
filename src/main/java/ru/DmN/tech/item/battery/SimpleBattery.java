@@ -7,6 +7,7 @@ import org.jetbrains.annotations.NotNull;
 import ru.DmN.core.energy.IESItem;
 import ru.DmN.core.energy.IESObject;
 import ru.DmN.core.energy.ItemStackEnergyStorage;
+import ru.DmN.core.energy.WrapperConfigurableEnergyStorage;
 
 import static ru.DmN.core.DCore.DMN_DATA;
 import static ru.DmN.core.utils.ColorUtils.calcColorWithEnergy;

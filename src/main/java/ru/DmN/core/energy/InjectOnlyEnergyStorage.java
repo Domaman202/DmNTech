@@ -4,7 +4,7 @@ package ru.DmN.core.energy;
  * this type of storage does not allow you to give energy, but if you need to take energy, you need to use `setEnergy` method.
  * @param <T> storage object type
  */
-public class InjectOnlyEnergyStorage <T extends SimpleEnergyStorage<T>> extends SimpleEnergyStorage <T> {
+public class InjectOnlyEnergyStorage <T extends SimpleEnergyStorage<T>> extends SimpleConfigurableEnergyStorage <T> {
     public InjectOnlyEnergyStorage(long max) {
         super(max);
     }

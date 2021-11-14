@@ -32,12 +32,12 @@ public class FurnaceModule extends MachineModule {
     /// MACHINE
 
     @Override
-    public boolean updateProperties(MachineCasingBlockEntity entity, ItemStack stack, int slot) {
+    public boolean updateProperties(@NotNull MachineCasingBlockEntity entity, @NotNull ItemStack stack, int slot) {
         return this.updateProperties(entity, stack, slot, MachineCasing.MachineDataType.TEMPERATURE, () -> new MachineCasing.IntMachineData(0, MachineCasing.MachineDataType.TEMPERATURE));
     }
 
     @Override
-    public void tick(MachineCasingBlockEntity entity, ItemStack stack, int slot) {
+    public void tick(@NotNull MachineCasingBlockEntity entity, @NotNull ItemStack stack, int slot) {
         World world = entity.getWorld();
         //
         Inventory inventory = entity.inventory.cute(slot + 1, slot + 2);

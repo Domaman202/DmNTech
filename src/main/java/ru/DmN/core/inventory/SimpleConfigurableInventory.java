@@ -70,15 +70,15 @@ public class SimpleConfigurableInventory extends SimpleInventory implements Conf
 
     @Override
     public boolean canInsert(int slot, ItemStack stack, Direction dir) {
-        if (ieTable.containsKey(dir))
-            return ieTable.get(dir).getLeft() && slot < this.size();
+        if (ieTable.getOrDefault(dir, new Pair<>(false, false)).getLeft())
+            return slot < this.size();
         else return false;
     }
 
     @Override
     public boolean canExtract(int slot, ItemStack stack, Direction dir) {
-        if (ieTable.containsKey(dir))
-            return ieTable.get(dir).getRight() && slot < this.size();
+        if (ieTable.getOrDefault(dir, new Pair<>(false, false)).getRight())
+            return slot < this.size();
         else return false;
     }
 }

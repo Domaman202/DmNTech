@@ -7,6 +7,7 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.text.Text;
 import ru.DmN.core.client.gui.EnergyStorage;
 import ru.DmN.core.client.gui.MachineActivationButton;
+import ru.DmN.core.client.gui.tab.EnergyStorageConfigurator;
 import ru.DmN.core.client.gui.tab.InventoryConfigurator;
 import ru.DmN.core.gui.MachineScreenHandler;
 
@@ -22,8 +23,10 @@ public class MachineScreen <T extends MachineScreenHandler> extends AdvancedScre
         this.addComponent("energy", new EnergyStorage(handler.properties), 18, 19);
         this.addComponent("active", new MachineActivationButton(10, 10, handler.properties, inventory.player.world, handler.pos), 5, 18);
         //
-        if (tabs)
+        if (tabs) {
             this.addTab(new InventoryConfigurator(16, 16, handler.inventory, inventory));
+            this.addTab(new EnergyStorageConfigurator(16, 16, handler.storage, inventory));
+        }
     }
 
     @Override

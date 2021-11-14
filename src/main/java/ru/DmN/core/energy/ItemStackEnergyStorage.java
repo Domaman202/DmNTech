@@ -2,6 +2,7 @@ package ru.DmN.core.energy;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.util.math.Direction;
 
 import static ru.DmN.core.DCore.DMN_DATA;
 
@@ -14,21 +15,33 @@ public class ItemStackEnergyStorage extends NBTEnergyStorage <ItemStack> {
     }
 
     @Override
+    public void setInsertable(ItemStack obj, Direction side, boolean value) {
+        obj.getOrCreateSubNbt(DMN_DATA).putBoolean(side.getName() + 'l', value);
+    }
+
+    @Override
+    public void setExtractable(ItemStack obj, Direction side, boolean value) {
+        obj.getOrCreateSubNbt(DMN_DATA).putBoolean(side.getName() + 'r', value);
+    }
+
+    @Override
+    public boolean canInsert(ItemStack obj, Direction side) {
+        return obj.getOrCreateSubNbt(DMN_DATA).getBoolean(side.getName() + 'l');
+    }
+
+    @Override
+    public boolean canExtract(ItemStack obj, Direction side) {
+        return obj.getOrCreateSubNbt(DMN_DATA).getBoolean(side.getName() + 'r');
+    }
+
+    @Override
     public void setEnergy(ItemStack obj, long value) {
-        if (!obj.hasNbt())
-            obj.setNbt(new NbtCompound());
-        if (!obj.getNbt().contains(DMN_DATA))
-            obj.getNbt().put(DMN_DATA, new NbtCompound());
-        obj.getNbt().getCompound(DMN_DATA).putLong("energy", value);
+        obj.getOrCreateSubNbt(DMN_DATA).putLong("energy", value);
     }
 
     @Override
     public void setMaxEnergy(ItemStack obj, long value) {
-        if (!obj.hasNbt())
-            obj.setNbt(new NbtCompound());
-        if (!obj.getNbt().contains(DMN_DATA))
-            obj.getNbt().put(DMN_DATA, new NbtCompound());
-        obj.getNbt().getCompound(DMN_DATA).putLong("max_energy", value);
+        obj.getOrCreateSubNbt(DMN_DATA).putLong("max_energy", value);
     }
 
     @Override

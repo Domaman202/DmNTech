@@ -11,6 +11,10 @@ import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.util.math.BlockPos;
 import org.jetbrains.annotations.Nullable;
+import ru.DmN.core.energy.IESObject;
+import ru.DmN.core.energy.SimpleConfigurableEnergyStorage;
+import ru.DmN.core.energy.SimpleEnergyStorage;
+import ru.DmN.core.energy.WrapperConfigurableEnergyStorage;
 import ru.DmN.core.inventory.ConfigurableInventory;
 import ru.DmN.core.inventory.SimpleConfigurableInventory;
 import ru.DmN.core.screen.DynamicPropertyDelegate;
@@ -19,10 +23,11 @@ public abstract class MachineScreenHandler extends ScreenHandler {
     public ConfigurableInventory inventory;
     public PropertyDelegate properties;
     public Inventory pInventory;
+    public IESObject<?> storage;
     public final BlockPos pos;
 
     public MachineScreenHandler(@Nullable ScreenHandlerType<?> type, int syncId, PlayerInventory playerInventory, PacketByteBuf buf) {
-        this(type, syncId, playerInventory, new SimpleConfigurableInventory(buf.readInt()), new DynamicPropertyDelegate(), buf.readBlockPos());
+        this(type, syncId, playerInventory, new SimpleConfigurableInventory(buf.readInt()), new DynamicPropertyDelegate(), null, buf.readBlockPos());
     }
 
     public MachineScreenHandler(@Nullable ScreenHandlerType<?> type, int syncId, PlayerInventory playerInventory, BlockPos pos) {
@@ -30,14 +35,15 @@ public abstract class MachineScreenHandler extends ScreenHandler {
     }
 
     public MachineScreenHandler(@Nullable ScreenHandlerType<?> type, int syncId, PlayerInventory playerInventory, PropertyDelegate properties, BlockPos pos) {
-        this(type, syncId, playerInventory, new SimpleConfigurableInventory(0), properties, pos);
+        this(type, syncId, playerInventory, new SimpleConfigurableInventory(0), properties, null, pos);
     }
 
-    public MachineScreenHandler(@Nullable ScreenHandlerType<?> type, int syncId, PlayerInventory playerInventory, ConfigurableInventory inventory, PropertyDelegate properties, BlockPos pos) {
+    public MachineScreenHandler(@Nullable ScreenHandlerType<?> type, int syncId, PlayerInventory playerInventory, ConfigurableInventory inventory, PropertyDelegate properties, IESObject<?> storage, BlockPos pos) {
         super(type, syncId);
         this.pInventory = playerInventory;
         this.properties = properties;
         this.inventory = inventory;
+        this.storage = storage == null ? new SimpleConfigurableEnergyStorage<>(0) : storage;
         this.pos = pos;
 
         inventory.onOpen(playerInventory.player);

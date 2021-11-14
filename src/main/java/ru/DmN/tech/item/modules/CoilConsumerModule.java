@@ -39,12 +39,12 @@ public class CoilConsumerModule extends MachineModule implements ICombinable {
     /// MACHINE
 
     @Override
-    public boolean updateProperties(MachineCasingBlockEntity entity, ItemStack stack, int slot) {
+    public boolean updateProperties(@NotNull MachineCasingBlockEntity entity, @NotNull ItemStack stack, int slot) {
         return this.updateProperties(entity, stack, slot, MachineCasing.MachineDataType.TEMPERATURE, () -> new MachineCasing.IntMachineData(0, MachineCasing.MachineDataType.TEMPERATURE));
     }
 
     @Override
-    public void tick(MachineCasingBlockEntity entity, ItemStack stack, int slot) {
+    public void tick(@NotNull MachineCasingBlockEntity entity, @NotNull ItemStack stack, int slot) {
         IESObject<?> storage = entity.storage;
         var temperatureD = (MachineCasing.IMachineData<Integer>) entity.internal.get(slot);
 
@@ -55,12 +55,12 @@ public class CoilConsumerModule extends MachineModule implements ICombinable {
         IMaterial material;
         if (temperature < (material = this.getMaterial(stack)).maxTemperature()) {
             int energyCoefficient = material.energyCoefficient();
-            float resultMultiplier = storage.getEnergy() * (8f / energyCoefficient);
+            float resultMultiplier = storage.getEnergy() * (8f / energyCoefficient) + temperature;
             int maxTemperature = material.maxTemperature();
             if (resultMultiplier > maxTemperature)
-                resultMultiplier = maxTemperature - temperature;
-            temperatureD.set((int) (temperature + resultMultiplier));
-            storage.extractEnergy((long) Math.ceil(resultMultiplier * energyCoefficient));
+                resultMultiplier = maxTemperature;
+            temperatureD.set((int) resultMultiplier);
+            storage.extractEnergy((long) Math.ceil((resultMultiplier - temperature) * energyCoefficient));
         }
     }
 

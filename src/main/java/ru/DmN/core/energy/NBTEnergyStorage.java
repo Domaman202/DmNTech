@@ -1,6 +1,7 @@
 package ru.DmN.core.energy;
 
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.util.math.Direction;
 
 /**
  * Energy storage which is stored energy in NBT
@@ -11,6 +12,26 @@ public class NBTEnergyStorage <T> implements IESObject <T> {
 
     public NBTEnergyStorage(NbtCompound nbt) {
         this.nbt = nbt;
+    }
+
+    @Override
+    public void setInsertable(Direction side, boolean value) {
+        nbt.putBoolean(side.getName() + 'l', value);
+    }
+
+    @Override
+    public void setExtractable(Direction side, boolean value) {
+        nbt.putBoolean(side.getName() + 'r', value);
+    }
+
+    @Override
+    public boolean canInsert(Direction side) {
+        return nbt.getBoolean(side.getName() + 'l');
+    }
+
+    @Override
+    public boolean canExtract(Direction side) {
+        return nbt.getBoolean(side.getName() + 'r');
     }
 
     @Override

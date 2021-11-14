@@ -41,7 +41,7 @@ public class RMPBBlockEntity extends MachineBlockEntity {
 
     @Override
     public @Nullable ScreenHandler createMenu(int syncId, PlayerInventory playerInventory, PlayerEntity player) {
-        return new RMPBScreenHandler(syncId, playerInventory, inventory, properties, pos);
+        return new RMPBScreenHandler(syncId, playerInventory, this.inventory, this.properties, this.storage, this.pos);
     }
 
     @Override

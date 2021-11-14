@@ -20,15 +20,14 @@ public interface ConfigurableInventory extends SidedInventory {
 
     /**
      * Writing side data to buffer
-     * @param inv inventory
      * @param slot slot (needed from check data)
      * @param buf buffer
      * @return buffer
      */
-    static PacketByteBuf toBuf(ConfigurableInventory inv, int slot, PacketByteBuf buf) {
+    default PacketByteBuf toBuf(int slot, PacketByteBuf buf) {
         for (var direction : Direction.values()) {
-            buf.writeBoolean(inv.canInsert(slot, inv.getStack(slot), direction));
-            buf.writeBoolean(inv.canExtract(slot, inv.getStack(slot), direction));
+            buf.writeBoolean(this.canInsert(slot, this.getStack(slot), direction));
+            buf.writeBoolean(this.canExtract(slot, this.getStack(slot), direction));
         }
 
         return buf;
@@ -36,13 +35,12 @@ public interface ConfigurableInventory extends SidedInventory {
 
     /**
      * Reading side data pf buffer
-     * @param inv inventory
      * @param buf buffer
      */
-    static void ofBuf(ConfigurableInventory inv, PacketByteBuf buf) {
+    default void ofBuf(PacketByteBuf buf) {
         for (var direction : Direction.values()) {
-            inv.setInsertable(direction, buf.readBoolean());
-            inv.setExtractable(direction, buf.readBoolean());
+            this.setInsertable(direction, buf.readBoolean());
+            this.setExtractable(direction, buf.readBoolean());
         }
     }
 }

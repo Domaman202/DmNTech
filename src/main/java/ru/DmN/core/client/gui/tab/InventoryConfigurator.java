@@ -1,14 +1,13 @@
 package ru.DmN.core.client.gui.tab;
 
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
-import ru.DmN.core.client.gui.SidedSlotConfigScreen;
+import ru.DmN.core.client.gui.InventoryConfigScreen;
 import ru.DmN.core.inventory.ConfigurableInventory;
 
 public class InventoryConfigurator extends Tab {
@@ -34,7 +33,7 @@ public class InventoryConfigurator extends Tab {
         public InvConfigGui(TabGuiHandler handler, PlayerInventory inventory, Text title) {
             super(handler, inventory, title, false);
             //
-            this.addComponent("info", new SidedSlotConfigScreen(InventoryConfigurator.this.inventory, 0), 16, 14);
+            this.addComponent("info", new InventoryConfigScreen(InventoryConfigurator.this.inventory, 0), 16, 14);
         }
     }
 }

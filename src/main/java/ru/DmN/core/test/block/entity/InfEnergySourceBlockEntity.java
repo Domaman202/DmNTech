@@ -22,7 +22,7 @@ public class InfEnergySourceBlockEntity extends MachineBlockEntity {
 
     @Override
     public @Nullable ScreenHandler createMenu(int syncId, PlayerInventory playerInventory, PlayerEntity player) {
-        return new InfEnergySourceScreenHandler(syncId, playerInventory, inventory, properties, pos);
+        return new InfEnergySourceScreenHandler(syncId, playerInventory, this.inventory, this.properties, this.storage, this.pos);
     }
 
     @SuppressWarnings("rawtypes")

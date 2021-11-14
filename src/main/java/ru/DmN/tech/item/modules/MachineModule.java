@@ -21,7 +21,7 @@ public abstract class MachineModule extends Module {
 
     /// MACHINE
 
-    public boolean updateProperties(MachineCasingBlockEntity entity, ItemStack stack, int slot, MachineCasing.MachineDataType type, Supplier<MachineCasing.IMachineData<?>> data) {
+    public boolean updateProperties(@NotNull MachineCasingBlockEntity entity, @NotNull ItemStack stack, int slot, MachineCasing.MachineDataType type, Supplier<MachineCasing.IMachineData<?>> data) {
         var internal = entity.internal;
 
         for (int x = internal.size() - slot; x <= slot; x++)
@@ -33,9 +33,9 @@ public abstract class MachineModule extends Module {
         return true;
     }
 
-    public abstract boolean updateProperties(MachineCasingBlockEntity entity, ItemStack stack, int slot);
+    public abstract boolean updateProperties(@NotNull MachineCasingBlockEntity entity, @NotNull ItemStack stack, int slot);
 
-    public abstract void tick(MachineCasingBlockEntity entity, ItemStack stack, int slot);
+    public abstract void tick(@NotNull MachineCasingBlockEntity entity, @NotNull ItemStack stack, int slot);
 
     public @NotNull Map<Integer, Supplier<Text>> getPropertyText(int slot, ItemStack stack, PropertyDelegate properties) {
         return new HashMap<>();

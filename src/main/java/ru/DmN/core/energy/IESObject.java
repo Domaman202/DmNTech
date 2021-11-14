@@ -1,5 +1,7 @@
 package ru.DmN.core.energy;
 
+import net.minecraft.nbt.NbtCompound;
+import net.minecraft.network.PacketByteBuf;
 import net.minecraft.util.math.Direction;
 import org.jetbrains.annotations.NotNull;
 
@@ -8,6 +10,134 @@ import org.jetbrains.annotations.NotNull;
  * @param <T> storage object type
  */
 public interface IESObject <T> extends IESProvider <T> {
+    /**
+     * Writing side data to buffer
+     * @param buf buffer
+     * @return buffer
+     */
+    default PacketByteBuf toBuf(PacketByteBuf buf) {
+        for (var direction : Direction.values()) {
+            buf.writeBoolean(this.canInsert(direction));
+            buf.writeBoolean(this.canExtract(direction));
+        }
+
+        return buf;
+    }
+
+    /**
+     * Writing side data to buffer
+     * @param buf buffer
+     * @return buffer
+     */
+    default PacketByteBuf toBuf(T obj, PacketByteBuf buf) {
+        for (var direction : Direction.values()) {
+            buf.writeBoolean(this.canInsert(obj, direction));
+            buf.writeBoolean(this.canExtract(obj, direction));
+        }
+
+        return buf;
+    }
+
+    /**
+     * Reading side data pf buffer
+     * @param buf buffer
+     */
+    default PacketByteBuf ofBuf(PacketByteBuf buf) {
+        for (var direction : Direction.values()) {
+            this.setInsertable(direction, buf.readBoolean());
+            this.setExtractable(direction, buf.readBoolean());
+        }
+
+        return buf;
+    }
+
+    /**
+     * Reading side data pf buffer
+     * @param buf buffer
+     */
+    default PacketByteBuf ofBuf(T obj, PacketByteBuf buf) {
+        for (var direction : Direction.values()) {
+            this.setInsertable(obj, direction, buf.readBoolean());
+            this.setExtractable(obj, direction, buf.readBoolean());
+        }
+
+        return buf;
+    }
+
+    default NbtCompound toNbt(NbtCompound nbt) {
+        nbt.putLong("energy", this.getEnergy());
+        nbt.putLong("max_energy", this.getMaxEnergy());
+        return nbt;
+    }
+
+    default NbtCompound toNbt(T obj, NbtCompound nbt) {
+        nbt.putLong("energy", this.getEnergy(obj));
+        nbt.putLong("max_energy", this.getMaxEnergy(obj));
+        return nbt;
+    }
+
+    default NbtCompound readNbt(NbtCompound nbt) {
+        this.setEnergy(nbt.getLong("energy"));
+        this.setMaxEnergy(nbt.getLong("max_energy"));
+        return nbt;
+    }
+
+    default NbtCompound readNbt(T obj, NbtCompound nbt) {
+        this.setEnergy(obj, nbt.getLong("energy"));
+        this.setMaxEnergy(obj, nbt.getLong("max_energy"));
+        return nbt;
+    }
+
+    /**
+     * Sets the possibility of inserting from the side
+     * @param side side
+     * @param value value
+     */
+    default void setInsertable(Direction side, boolean value) {
+    }
+
+    /**
+     * Sets the possibility of inserting from the side
+     * @param side side
+     * @param value value
+     */
+    default void setInsertable(T obj, Direction side, boolean value) {
+        this.setInsertable(side, value);
+    }
+
+    /**
+     * Sets the possibility of extracting from the side
+     * @param side side
+     * @param value value
+     */
+    default void setExtractable(Direction side, boolean value) {
+    }
+
+    /**
+     * Sets the possibility of extracting from the side
+     * @param side side
+     * @param value value
+     */
+    default void setExtractable(T obj, Direction side, boolean value) {
+        this.setExtractable(side, value);
+    }
+
+    default boolean canInsert(Direction side) {
+        return false;
+    }
+
+    default boolean canInsert(T obj, Direction side) {
+        return this.canInsert(side);
+    }
+
+    default boolean canExtract(Direction side) {
+        return false;
+    }
+
+    default boolean canExtract(T obj, Direction side) {
+        return this.canExtract(side);
+    }
+
     /**
      * Setting energy
      *

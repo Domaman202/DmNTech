@@ -2,24 +2,20 @@ package ru.DmN.core;
 
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
-import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.fabricmc.fabric.api.screenhandler.v1.ScreenHandlerRegistry;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
 import ru.DmN.core.block.CombinatorBlock;
 import ru.DmN.core.block.MachineBlock;
 import ru.DmN.core.gui.CombinatorScreenHandler;
 import ru.DmN.core.gui.MachineScreenHandler;
 import ru.DmN.core.gui.SimpleMachineScreenHandler;
-import ru.DmN.core.inventory.ConfigurableInventory;
 import ru.DmN.core.item.VoltmeterItem;
 import ru.DmN.core.item.WrenchItem;
 import ru.DmN.core.registry.GlobalRegistry;
@@ -36,8 +32,11 @@ public class DCore implements ModInitializer {
     public static ScreenHandlerType<CombinatorScreenHandler> COMBINATOR_SCREEN_HANDLER;
     //
     public static Identifier COMBINE_CLICK_ID = new Identifier(MOD_ID, "combine_click");
-    public static Identifier INVENTORY_CONFIG_UPDATE_ID = new Identifier(MOD_ID, "icu");
-    public static Identifier REQUIRE_INVENTORY_CONFIG_UPDATE_ID = new Identifier(MOD_ID, "ricu");
+    //
+    public static Identifier MACHINE_I_CONFIG_UPDATE_ID = new Identifier(MOD_ID, "micu");
+    public static Identifier MACHINE_E_CONFIG_UPDATE_ID = new Identifier(MOD_ID, "mecu");
+    public static Identifier REQUIRE_MACHINE_CONFIG_UPDATE_ID = new Identifier(MOD_ID, "rmcu");
+    public static Identifier MACHINE_CONFIG_UPDATE_ID = new Identifier(MOD_ID, "mcu");
 
     @Override
     public void onInitialize() {
@@ -62,15 +61,17 @@ public class DCore implements ModInitializer {
                 else ((CombinatorScreenHandler) player.currentScreenHandler).unCombine(true);
             });
             //
-            ServerPlayNetworking.registerGlobalReceiver(INVENTORY_CONFIG_UPDATE_ID, (server, player, handler, buf, responseSender) -> {
+            ServerPlayNetworking.registerGlobalReceiver(MACHINE_I_CONFIG_UPDATE_ID, (server, player, handler, buf, responseSender) -> {
                 var inventory = ((MachineScreenHandler) player.currentScreenHandler).inventory;
-                ConfigurableInventory.ofBuf(inventory, buf);
+                inventory.ofBuf(buf);
                 inventory.markDirty();
             });
             //
-            ServerPlayNetworking.registerGlobalReceiver(REQUIRE_INVENTORY_CONFIG_UPDATE_ID, (server, player, handler, buf, responseSender) -> {
+            ServerPlayNetworking.registerGlobalReceiver(MACHINE_E_CONFIG_UPDATE_ID, (server, player, handler, buf, responseSender) -> ((MachineScreenHandler) player.currentScreenHandler).storage.ofBuf(buf));
+            //
+            ServerPlayNetworking.registerGlobalReceiver(REQUIRE_MACHINE_CONFIG_UPDATE_ID, (server, player, handler, buf, responseSender) -> {
                 if (player.currentScreenHandler instanceof MachineScreenHandler screen)
-                    ServerPlayNetworking.send(player, INVENTORY_CONFIG_UPDATE_ID, ConfigurableInventory.toBuf(screen.inventory, 0, PacketByteBufs.create()));
+                    ServerPlayNetworking.send(player, MACHINE_CONFIG_UPDATE_ID, screen.inventory.toBuf(0, screen.storage.toBuf(PacketByteBufs.create())));
             });
         } catch (Throwable error) {
             throw new Error(error);

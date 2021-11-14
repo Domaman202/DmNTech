@@ -19,16 +19,15 @@ import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.DmN.core.block.MachineBlock;
-import ru.DmN.core.energy.IESObject;
-import ru.DmN.core.energy.IESProvider;
+import ru.DmN.core.energy.*;
 import ru.DmN.core.inventory.ConfigurableInventory;
 import ru.DmN.core.gui.SimpleMachineScreenHandler;
-import ru.DmN.core.energy.SimpleEnergyStorage;
 import ru.DmN.core.inventory.SimpleConfigurableInventory;
 import ru.DmN.core.screen.MachinePropertyDelegate;
 
@@ -54,7 +53,7 @@ public class MachineBlockEntity extends SimpleConfigurableLCBlockEntity <Configu
 
     public MachineBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state, ConfigurableInventory inventory, long energy, long maxEnergy) {
         super(type, pos, state, inventory);
-        this.storage = new SimpleEnergyStorage<>(energy, maxEnergy);
+        this.storage = new SimpleConfigurableEnergyStorage<>(energy, maxEnergy);
         this.properties = new MachinePropertyDelegate<>(this);
     }
 
@@ -119,11 +118,9 @@ public class MachineBlockEntity extends SimpleConfigurableLCBlockEntity <Configu
     }
 
     public NbtCompound writeDmNData(@NotNull NbtCompound nbt) {
-        nbt.putLong("energy", this.storage.getEnergy());
-        nbt.putLong("max_energy", this.storage.getMaxEnergy());
         nbt.putBoolean("active", this.world.getBlockState(pos).get(MachineBlock.ACTIVE));
         nbt.put("inv", this.inventory.toNbtList());
-        return nbt;
+        return this.storage.toNbt(nbt);
     }
 
     @Override
@@ -137,9 +134,7 @@ public class MachineBlockEntity extends SimpleConfigurableLCBlockEntity <Configu
     }
 
     public void readDmNData(@NotNull NbtCompound nbt) {
-        this.storage.setEnergy(nbt.getLong("energy"));
-        this.storage.setMaxEnergy(nbt.getLong("max_energy"));
-        this.inventory.readNbtList((NbtList) nbt.get("inv"));
+        this.inventory.readNbtList((NbtList) this.storage.readNbt(nbt).get("inv"));
         if (this.world != null)
             this.world.setBlockState(this.pos, this.world.getBlockState(this.pos).with(MachineBlock.ACTIVE, nbt.getBoolean("active")));
     }
@@ -159,6 +154,34 @@ public class MachineBlockEntity extends SimpleConfigurableLCBlockEntity <Configu
     /// SPEC ENERGY STORAGE
 
     public class SpecEnergyStorage<T> implements IESObject<T> {
+        @Override
+        public void setInsertable(Direction side, boolean value) {
+            markDirty();
+            ItemStack stack;
+            if ((stack = inventory.getStack(0)).getItem() instanceof IESProvider)
+                stack.getOrCreateSubNbt(DMN_DATA).putBoolean(side.getName() + 'l', value);
+        }
+
+        @Override
+        public void setExtractable(Direction side, boolean value) {
+            markDirty();
+            ItemStack stack;
+            if ((stack = inventory.getStack(0)).getItem() instanceof IESProvider)
+                stack.getOrCreateSubNbt(DMN_DATA).putBoolean(side.getName() + 'r', value);
+        }
+
+        @Override
+        public boolean canInsert(Direction side) {
+            ItemStack stack;
+            return (stack = inventory.getStack(0)).getItem() instanceof IESProvider && stack.getOrCreateSubNbt(DMN_DATA).getBoolean(side.getName() + 'l');
+        }
+
+        @Override
+        public boolean canExtract(Direction side) {
+            ItemStack stack;
+            return (stack = inventory.getStack(0)).getItem() instanceof IESProvider && stack.getOrCreateSubNbt(DMN_DATA).getBoolean(side.getName() + 'r');
+        }
+
         @Override
         public long getEnergy() {
             Item item;

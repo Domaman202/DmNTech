@@ -23,6 +23,6 @@ public class TestGuiBlockEntity extends MachineCasingBlockEntity {
     @Override
     @Nullable
     public ScreenHandler createMenu(int syncId, PlayerInventory playerInventory, PlayerEntity player) {
-        return new TestGuiBlockScreenHandler(syncId, this, playerInventory, properties, pos);
+        return new TestGuiBlockScreenHandler(syncId, this, playerInventory, this.properties, this.storage, this.pos);
     }
 }

@@ -18,7 +18,7 @@ public class DmNFurnaceScreenHandler extends MachineScreenHandler {
     }
 
     public DmNFurnaceScreenHandler(int syncId, PlayerInventory playerInventory, ConfigurableInventory inventory, PropertyDelegate properties, BlockPos pos) {
-        super(DMN_FURNACE_SCREEN_HANDLER_TYPE, syncId, playerInventory, inventory, properties, pos);
+        super(DMN_FURNACE_SCREEN_HANDLER_TYPE, syncId, playerInventory, inventory, properties, null, pos);
         this.addSlots();
     }
 

@@ -60,7 +60,7 @@ public abstract class MachineCasingBlockEntity extends MachineBlockEntity {
 
     @Override
     public @Nullable ScreenHandler createMenu(int syncId, PlayerInventory playerInventory, PlayerEntity player) {
-        return new MachineCasingScreenHandler(MACHINECASING_SCREEN_HANDLER_TYPE, syncId, playerInventory, inventory, properties, pos);
+        return new MachineCasingScreenHandler(MACHINECASING_SCREEN_HANDLER_TYPE, syncId, playerInventory, this.inventory, this.properties, this.storage, this.pos);
     }
 
     /// NBT

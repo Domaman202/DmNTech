@@ -11,22 +11,21 @@ import ru.DmN.core.inventory.ConfigurableInventory;
 
 import java.awt.*;
 
-import static ru.DmN.core.DCore.INVENTORY_CONFIG_UPDATE_ID;
-import static ru.DmN.core.DCore.REQUIRE_INVENTORY_CONFIG_UPDATE_ID;
+import static ru.DmN.core.DCore.*;
 
-public class SidedSlotConfigScreen implements Clickable {
+public class InventoryConfigScreen implements Clickable {
     public final ConfigurableInventory inventory;
     public int startW, startH;
     public final int slot;
 
-    public SidedSlotConfigScreen(ConfigurableInventory inventory, int slot) {
+    public InventoryConfigScreen(ConfigurableInventory inventory, int slot) {
         this.inventory = inventory;
         this.slot = slot;
     }
 
     @Override
     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta, int w, int h) {
-        ClientPlayNetworking.send(REQUIRE_INVENTORY_CONFIG_UPDATE_ID, PacketByteBufs.empty());
+        ClientPlayNetworking.send(REQUIRE_MACHINE_CONFIG_UPDATE_ID, PacketByteBufs.empty());
 
         var tr = MinecraftClient.getInstance().textRenderer;
 
@@ -128,6 +127,6 @@ public class SidedSlotConfigScreen implements Clickable {
     }
 
     public static void sendUpdateFromMachineScreen(ConfigurableInventory inventory, int slot) {
-        ClientPlayNetworking.send(INVENTORY_CONFIG_UPDATE_ID, ConfigurableInventory.toBuf(inventory, slot, PacketByteBufs.create()));
+        ClientPlayNetworking.send(MACHINE_I_CONFIG_UPDATE_ID, inventory.toBuf(slot, PacketByteBufs.create()));
     }
 }
