@@ -45,12 +45,12 @@ public abstract class CableBlock extends ConnectingBlock implements BlockEntityP
 
         equalizeEnergyWithMachines(world, pos, storage);
 
-        tryTransferCableEnergy(world, pos.down(),   storage);
-        tryTransferCableEnergy(world, pos.up(),     storage);
-        tryTransferCableEnergy(world, pos.north(),  storage);
-        tryTransferCableEnergy(world, pos.south(),  storage);
-        tryTransferCableEnergy(world, pos.east(),   storage);
-        tryTransferCableEnergy(world, pos.west(),   storage);
+        tryTransferCableEnergy(world, pos.down(), storage);
+        tryTransferCableEnergy(world, pos.up(), storage);
+        tryTransferCableEnergy(world, pos.north(), storage);
+        tryTransferCableEnergy(world, pos.south(), storage);
+        tryTransferCableEnergy(world, pos.east(), storage);
+        tryTransferCableEnergy(world, pos.west(), storage);
     }
 
     /// BLOCK ENTITY
@@ -136,7 +136,11 @@ public abstract class CableBlock extends ConnectingBlock implements BlockEntityP
     }
 
     public static void equalize(World world, BlockPos pos, IESObject<?> storage) {
-        if (shouldConnectMachine(world, pos))
-            storage.equalize(((IESProvider<?>) world.getBlockEntity(pos)).getEnergyStorage(null));
+        if (shouldConnectMachine(world, pos)) {
+            var machine = ((IESProvider<?>) world.getBlockEntity(pos)).getEnergyStorage(null);
+            if (storage.isFull())
+                machine.suckEnergy(storage);
+            else storage.equalize(machine);
+        }
     }
 }
