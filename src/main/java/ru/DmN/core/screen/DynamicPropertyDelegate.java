@@ -4,6 +4,9 @@ import net.minecraft.screen.PropertyDelegate;
 
 import java.util.ArrayList;
 
+/**
+ * Dynamic Size Property Delegate
+ */
 public class DynamicPropertyDelegate implements PropertyDelegate  {
     public final ArrayList<Integer> data = new ArrayList<>();
 

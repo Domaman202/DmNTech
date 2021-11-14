@@ -20,6 +20,9 @@ import ru.DmN.core.utils.ColorUtils;
 
 import static ru.DmN.core.DCore.DMN_DATA;
 
+/**
+ * Item of Machine Block
+ */
 public class MachineBlockItem extends BlockItem implements IESItem {
     public MachineBlockItem(Block block, Settings settings) {
         super(block, settings);

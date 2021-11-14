@@ -2,6 +2,10 @@ package ru.DmN.core.energy;
 
 import org.jetbrains.annotations.NotNull;
 
+/**
+ * Simple energy storage
+ * @param <T> storage object type
+ */
 public class SimpleEnergyStorage <T extends SimpleEnergyStorage<T>> implements IESObject <T> {
     public long energy = 0;
     public long capacity;

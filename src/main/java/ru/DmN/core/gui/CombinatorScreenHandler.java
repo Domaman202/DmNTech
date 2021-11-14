@@ -107,8 +107,14 @@ public class CombinatorScreenHandler extends ScreenHandler {
         return newStack;
     }
 
+    /**
+     * Not recommended for use
+     * @param player User
+     */
+    @Deprecated(forRemoval = true)
     @Override
     public void close(PlayerEntity player) {
+        super.close(player);
         Block.dropStack(player.world, player.getBlockPos(), inventory.removeStack(0));
         Block.dropStack(player.world, player.getBlockPos(), inventory.removeStack(1));
     }

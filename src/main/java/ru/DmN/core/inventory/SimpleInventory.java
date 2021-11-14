@@ -13,6 +13,9 @@ import ru.DmN.core.utils.UnsafeUtils;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Simple Inventory
+ */
 public class SimpleInventory extends net.minecraft.inventory.SimpleInventory implements SidedInventory, DynamicSizeInventory {
     public static long SIZE_OFFSET;
 

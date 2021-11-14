@@ -3,6 +3,10 @@ package ru.DmN.core.energy;
 import net.minecraft.util.math.Direction;
 import org.jetbrains.annotations.NotNull;
 
+/**
+ * Energy Storage Object Interface
+ * @param <T> storage object type
+ */
 public interface IESObject <T> extends IESProvider <T> {
     /**
      * Setting energy

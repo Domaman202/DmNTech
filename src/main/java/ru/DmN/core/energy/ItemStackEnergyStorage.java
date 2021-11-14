@@ -5,6 +5,9 @@ import net.minecraft.nbt.NbtCompound;
 
 import static ru.DmN.core.DCore.DMN_DATA;
 
+/**
+ * Energy storage that is needed to access the energy of an item
+ */
 public class ItemStackEnergyStorage extends NBTEnergyStorage <ItemStack> {
     public ItemStackEnergyStorage(NbtCompound nbt) {
         super(nbt);

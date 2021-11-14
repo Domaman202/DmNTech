@@ -4,6 +4,10 @@ import net.minecraft.screen.PropertyDelegate;
 import ru.DmN.core.block.MachineBlock;
 import ru.DmN.core.block.entity.MachineBlockEntity;
 
+/**
+ * Machine Property Delegate
+ * @param <T> Machine Block Entity Type
+ */
 public class MachinePropertyDelegate <T extends MachineBlockEntity> implements PropertyDelegate {
     public final T entity;
 

@@ -9,6 +9,9 @@ import net.minecraft.util.math.Direction;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Configurable version of SimpleInventory
+ */
 public class SimpleConfigurableInventory extends SimpleInventory implements ConfigurableInventory {
     // insert extract table
     Map<Direction, Pair<Boolean, Boolean>> ieTable = new HashMap<>();

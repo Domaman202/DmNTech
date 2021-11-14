@@ -6,7 +6,12 @@ import net.minecraft.nbt.NbtList;
 import net.minecraft.util.math.Direction;
 import org.jetbrains.annotations.Nullable;
 
+/**
+ * Empty Inventory
+ */
 public class EmptyInventory implements SidedInventory {
+    public static final EmptyInventory INSTANCE = new EmptyInventory();
+
     @Override
     public int[] getAvailableSlots(Direction side) {
         return new int[0];

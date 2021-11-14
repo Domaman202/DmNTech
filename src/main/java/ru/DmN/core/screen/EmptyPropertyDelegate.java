@@ -2,6 +2,9 @@ package ru.DmN.core.screen;
 
 import net.minecraft.screen.PropertyDelegate;
 
+/**
+ * Empty Property Delegate
+ */
 public class EmptyPropertyDelegate implements PropertyDelegate {
     public static final EmptyPropertyDelegate INSTANCE = new EmptyPropertyDelegate();
 

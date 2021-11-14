@@ -2,6 +2,10 @@ package ru.DmN.core.energy;
 
 import net.minecraft.nbt.NbtCompound;
 
+/**
+ * Energy storage which is stored energy in NBT
+ * @param <T> storage object type
+ */
 public class NBTEnergyStorage <T> implements IESObject <T> {
     public final NbtCompound nbt;
 

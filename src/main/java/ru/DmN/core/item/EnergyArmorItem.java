@@ -13,6 +13,9 @@ import ru.DmN.core.energy.ItemStackEnergyStorage;
 
 import static ru.DmN.core.DCore.DMN_DATA;
 
+/**
+ * Energy Usable Armor
+ */
 public class EnergyArmorItem extends ArmorItem implements IESItem {
     /// CONSTRUCTORS
 
