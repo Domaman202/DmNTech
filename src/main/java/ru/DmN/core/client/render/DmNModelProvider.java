@@ -1,5 +1,7 @@
 package ru.DmN.core.client.render;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.model.ModelProviderContext;
 import net.minecraft.client.render.model.UnbakedModel;
 import net.minecraft.util.Identifier;
@@ -9,6 +11,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
+@Environment(EnvType.CLIENT)
 public final class DmNModelProvider {
     public static final Map<Identifier, Function<ModelProviderContext, UnbakedModel>> models = new HashMap<>();
 

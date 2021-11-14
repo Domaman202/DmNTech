@@ -7,14 +7,14 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
-import ru.DmN.core.block.MachineBlock;
-import ru.DmN.core.block.MachineBlockTicker;
-import ru.DmN.core.block.entity.MachineBlockEntity;
+import ru.DmN.core.block.Machine;
+import ru.DmN.core.block.MachineTicker;
+import ru.DmN.core.block.entity.MachineBE;
 import ru.DmN.core.energy.IESProvider;
 import ru.DmN.core.test.block.entity.InfEnergySourceBlockEntity;
 import ru.DmN.core.test.item.InfEnergySourceItem;
 
-public class InfEnergySourceBlock extends MachineBlockTicker <InfEnergySourceBlockEntity> {
+public class InfEnergySourceBlock extends MachineTicker<InfEnergySourceBlockEntity> {
     public static final InfEnergySourceBlock INSTANCE = new InfEnergySourceBlock();
 
     public InfEnergySourceBlock() {
@@ -23,13 +23,13 @@ public class InfEnergySourceBlock extends MachineBlockTicker <InfEnergySourceBlo
 
     @Override
     @Nullable
-    public MachineBlockEntity createBlockEntity(BlockPos pos, BlockState state) {
+    public MachineBE createBlockEntity(BlockPos pos, BlockState state) {
         return new InfEnergySourceBlockEntity(pos, state);
     }
 
     @Override
     public void tick(World world, BlockPos pos, BlockState state, InfEnergySourceBlockEntity entity) {
-        if (MachineBlock.isActive(world, pos)) {
+        if (Machine.isActive(world, pos)) {
             /// SLOT 0
             ItemStack stack;
             if ((stack = entity.inventory.getStack(0)) != ItemStack.EMPTY) {

@@ -9,7 +9,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.DmN.core.energy.IESObject;
 import ru.DmN.core.energy.IESProvider;
-import ru.DmN.core.energy.SimpleEnergyStorage;
+import ru.DmN.core.energy.SimpleES;
 
 import static ru.DmN.core.DCore.DMN_DATA;
 
@@ -31,7 +31,7 @@ public class CableBlockEntity extends BlockEntity implements IESProvider {
         return storage;
     }
 
-    public static class CableEnergyStorage extends SimpleEnergyStorage<CableEnergyStorage> {
+    public static class CableEnergyStorage extends SimpleES<CableEnergyStorage> {
         public IESObject<?> LESO = null;
 
         public CableEnergyStorage(long maxEnergy) {

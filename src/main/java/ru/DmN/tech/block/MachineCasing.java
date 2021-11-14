@@ -6,17 +6,17 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import ru.DmN.core.block.MachineBlock;
-import ru.DmN.core.block.MachineBlockTicker;
+import ru.DmN.core.block.Machine;
+import ru.DmN.core.block.MachineTicker;
 import ru.DmN.core.inventory.ConfigurableInventory;
 import ru.DmN.core.item.MachineBlockItem;
 import ru.DmN.core.utils.Lazy;
-import ru.DmN.tech.block.entity.MachineCasingBlockEntity;
-import ru.DmN.tech.item.modules.MachineModule;
+import ru.DmN.tech.block.entity.MachineCasingBE;
+import ru.DmN.tech.item.module.MachineModule;
 
 import java.util.function.Supplier;
 
-public abstract class MachineCasing <T extends MachineCasingBlockEntity> extends MachineBlockTicker <T> {
+public abstract class MachineCasing <T extends MachineCasingBE> extends MachineTicker<T> {
     /// CONSTRUCTORS
 
     public MachineCasing(Settings settings, Item.Settings settings_, Void unused) {
@@ -39,7 +39,7 @@ public abstract class MachineCasing <T extends MachineCasingBlockEntity> extends
 
     @Override
     public void tick(World world, BlockPos pos, BlockState state, T entity) {
-        if (MachineBlock.isActive(world, pos) && !world.isClient) {
+        if (Machine.isActive(world, pos) && !world.isClient) {
             ConfigurableInventory inventory = entity.inventory;
             for (int i = 0; i < inventory.size(); i++) {
                 ItemStack stack;

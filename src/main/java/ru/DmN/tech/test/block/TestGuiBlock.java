@@ -5,12 +5,12 @@ import net.minecraft.block.Material;
 import net.minecraft.item.Item;
 import net.minecraft.util.math.BlockPos;
 import org.jetbrains.annotations.Nullable;
-import ru.DmN.core.block.entity.MachineBlockEntity;
+import ru.DmN.core.block.entity.MachineBE;
 import ru.DmN.core.test.TestMain;
 import ru.DmN.tech.block.MachineCasing;
-import ru.DmN.tech.test.block.entity.TestGuiBlockEntity;
+import ru.DmN.tech.test.block.entity.TestGuiBE;
 
-public class TestGuiBlock extends MachineCasing <TestGuiBlockEntity> {
+public class TestGuiBlock extends MachineCasing <TestGuiBE> {
     public static final TestGuiBlock INSTANCE = new TestGuiBlock();
 
     /// CONSTRUCTORS
@@ -23,7 +23,7 @@ public class TestGuiBlock extends MachineCasing <TestGuiBlockEntity> {
 
     @Override
     @Nullable
-    public MachineBlockEntity createBlockEntity(BlockPos pos, BlockState state) {
-        return new TestGuiBlockEntity(pos, state);
+    public MachineBE createBlockEntity(BlockPos pos, BlockState state) {
+        return new TestGuiBE(pos, state);
     }
 }

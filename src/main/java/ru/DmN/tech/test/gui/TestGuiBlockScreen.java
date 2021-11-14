@@ -8,11 +8,11 @@ import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import net.minecraft.util.math.Matrix4f;
 import ru.DmN.core.client.gui.tab.Tab;
-import ru.DmN.tech.client.screen.MachineCasingScreen;
+import ru.DmN.tech.client.screen.MachineCasingGui;
 
 import java.awt.*;
 
-public class TestGuiBlockScreen extends MachineCasingScreen <TestGuiBlockScreenHandler> {
+public class TestGuiBlockScreen extends MachineCasingGui<TestGuiBlockScreenHandler> {
     public TestGuiBlockScreen(TestGuiBlockScreenHandler handler, PlayerInventory inventory, Text title) {
         super(handler, inventory, title);
         //

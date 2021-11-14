@@ -14,7 +14,7 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 import org.jetbrains.annotations.Nullable;
-import ru.DmN.core.block.MachineBlock;
+import ru.DmN.core.block.Machine;
 import ru.DmN.core.block.cable.entity.CableBlockEntity;
 import ru.DmN.core.energy.IESObject;
 import ru.DmN.core.energy.IESProvider;
@@ -114,11 +114,11 @@ public abstract class CableBlock extends ConnectingBlock implements BlockEntityP
 
     public static boolean shouldConnect(World world, BlockPos pos) {
         Block block = world.getBlockState(pos).getBlock();
-        return block instanceof CableBlock || block instanceof MachineBlock;
+        return block instanceof CableBlock || block instanceof Machine;
     }
 
     public static boolean shouldConnectMachine(World world, BlockPos pos) {
-        return world.getBlockState(pos).getBlock() instanceof MachineBlock;
+        return world.getBlockState(pos).getBlock() instanceof Machine;
     }
 
     public static boolean shouldConnectCable(World world, BlockPos pos) {

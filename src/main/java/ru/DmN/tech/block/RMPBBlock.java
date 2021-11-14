@@ -10,10 +10,10 @@ import net.minecraft.world.World;
 import net.minecraft.world.chunk.WorldChunk;
 import net.minecraft.world.explosion.Explosion;
 import org.jetbrains.annotations.Nullable;
-import ru.DmN.core.block.MachineBlockTicker;
-import ru.DmN.core.block.entity.MachineBlockEntity;
+import ru.DmN.core.block.MachineTicker;
+import ru.DmN.core.block.entity.MachineBE;
 import ru.DmN.core.energy.IESObject;
-import ru.DmN.tech.block.entity.RMPBBlockEntity;
+import ru.DmN.tech.block.entity.RMPBBE;
 import sun.misc.Unsafe;
 
 import java.lang.reflect.Field;
@@ -21,7 +21,7 @@ import java.lang.reflect.Field;
 import static ru.DmN.core.block.cable.CableBlock.trySuckEnergyOfCable;
 import static ru.DmN.tech.DTech.DEFAULT_ITEM_SETTINGS;
 
-public class RMPBBlock extends MachineBlockTicker <RMPBBlockEntity> {
+public class RMPBBlock extends MachineTicker<RMPBBE> {
     public static final RMPBBlock INSTANCE = new RMPBBlock();
 
     /// CONSTRUCTORS
@@ -33,7 +33,7 @@ public class RMPBBlock extends MachineBlockTicker <RMPBBlockEntity> {
     /// TICK
 
     @Override
-    public void tick(World world, BlockPos pos, BlockState state, RMPBBlockEntity blockEntity) {
+    public void tick(World world, BlockPos pos, BlockState state, RMPBBE blockEntity) {
         IESObject<?> storage = blockEntity.storage;
 
         trySuckEnergyOfCable(world, pos.down(), storage);
@@ -55,7 +55,7 @@ public class RMPBBlock extends MachineBlockTicker <RMPBBlockEntity> {
         setHardness(state, -1F);
         setActive(true, world, pos);
 
-        RMPBBlockEntity entity = ((RMPBBlockEntity) getBlockEntity(world, pos));
+        RMPBBE entity = ((RMPBBE) getBlockEntity(world, pos));
         IESObject<?> storage = entity.storage;
 
         BlockPos selectedPos = pos.down(pos.getY());
@@ -89,8 +89,8 @@ public class RMPBBlock extends MachineBlockTicker <RMPBBlockEntity> {
 
     @Override
     @Nullable
-    public MachineBlockEntity createBlockEntity(BlockPos pos, BlockState state) {
-        return new RMPBBlockEntity(pos, state);
+    public MachineBE createBlockEntity(BlockPos pos, BlockState state) {
+        return new RMPBBE(pos, state);
     }
 
     /// TODO: MOVE TO UTILS

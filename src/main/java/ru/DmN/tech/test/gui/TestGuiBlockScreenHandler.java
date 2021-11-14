@@ -6,10 +6,10 @@ import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.util.math.BlockPos;
 import ru.DmN.core.energy.IESObject;
 import ru.DmN.core.inventory.ConfigurableInventory;
-import ru.DmN.tech.gui.MachineCasingScreenHandler;
+import ru.DmN.tech.gui.MachineCasingSH;
 import ru.DmN.tech.test.TestMain;
 
-public class TestGuiBlockScreenHandler extends MachineCasingScreenHandler {
+public class TestGuiBlockScreenHandler extends MachineCasingSH {
     public TestGuiBlockScreenHandler(int syncId, PlayerInventory playerInventory, PacketByteBuf buf) {
         super(TestMain.TEST_GUI_SCREEN_HANDLER, syncId, playerInventory, buf);
         addSlots();

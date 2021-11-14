@@ -5,12 +5,12 @@ import net.fabricmc.fabric.api.transfer.v1.transaction.base.SnapshotParticipant;
 import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockPos;
 import ru.DmN.core.energy.IESObject;
-import ru.DmN.tech.block.entity.MachineCasingBlockEntity;
+import ru.DmN.tech.block.entity.MachineCasingBE;
 import team.reborn.energy.api.EnergyStorage;
 
 import static ru.DmN.tech.external.TRE.TREMain.TRECONVERTER_BLOCK_ENTITY_TYPE;
 
-public class TREConverterEntity extends MachineCasingBlockEntity implements EnergyStorage {
+public class TREConverterEntity extends MachineCasingBE implements EnergyStorage {
     public TREConverterEntity(BlockPos pos, BlockState state) {
         super(TRECONVERTER_BLOCK_ENTITY_TYPE, pos, state, 0, 0);
         this.storage = new ConverterEnergyStorage();

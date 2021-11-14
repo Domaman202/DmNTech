@@ -6,8 +6,7 @@ import net.minecraft.nbt.NbtCompound;
 import org.jetbrains.annotations.NotNull;
 import ru.DmN.core.energy.IESItem;
 import ru.DmN.core.energy.IESObject;
-import ru.DmN.core.energy.ItemStackEnergyStorage;
-import ru.DmN.core.energy.WrapperConfigurableEnergyStorage;
+import ru.DmN.core.energy.ItemStackES;
 
 import static ru.DmN.core.DCore.DMN_DATA;
 import static ru.DmN.core.utils.ColorUtils.calcColorWithEnergy;
@@ -60,7 +59,7 @@ public class SimpleBattery extends Item implements IESItem {
         return new SimpleBatteryEnergyStorage(stack.getOrCreateSubNbt(DMN_DATA));
     }
 
-    public class SimpleBatteryEnergyStorage extends ItemStackEnergyStorage {
+    public class SimpleBatteryEnergyStorage extends ItemStackES {
         public SimpleBatteryEnergyStorage(NbtCompound nbt) {
             super(nbt);
         }

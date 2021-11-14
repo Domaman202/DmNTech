@@ -5,12 +5,12 @@ import net.minecraft.block.Material;
 import net.minecraft.item.Item;
 import net.minecraft.util.math.BlockPos;
 import org.jetbrains.annotations.Nullable;
-import ru.DmN.core.block.MachineBlock;
-import ru.DmN.core.block.entity.MachineBlockEntity;
+import ru.DmN.core.block.Machine;
+import ru.DmN.core.block.entity.MachineBE;
 import ru.DmN.core.test.TestMain;
 import ru.DmN.core.test.block.entity.TestMachineBlockEntity;
 
-public class TestMachineBlock extends MachineBlock {
+public class TestMachineBlock extends Machine {
     public static final TestMachineBlock INSTANCE = new TestMachineBlock();
 
     public TestMachineBlock() {
@@ -18,7 +18,7 @@ public class TestMachineBlock extends MachineBlock {
     }
 
     @Override
-    public @Nullable MachineBlockEntity createBlockEntity(BlockPos pos, BlockState state) {
+    public @Nullable MachineBE createBlockEntity(BlockPos pos, BlockState state) {
         return new TestMachineBlockEntity(pos, state);
     }
 }

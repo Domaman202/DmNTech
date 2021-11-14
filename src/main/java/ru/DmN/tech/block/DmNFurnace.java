@@ -20,7 +20,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
-import ru.DmN.tech.block.entity.DmNFurnaceBlockEntity;
+import ru.DmN.tech.block.entity.DmNFurnaceBE;
 import ru.DmN.tech.material.IMaterial;
 import ru.DmN.tech.material.IMaterialProvider;
 
@@ -40,7 +40,7 @@ public class DmNFurnace extends AbstractFurnaceBlock {
     @Nullable
     @Override
     public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
-        return new DmNFurnaceBlockEntity(pos, state);
+        return new DmNFurnaceBE(pos, state);
     }
 
     /// TICKER
@@ -56,7 +56,7 @@ public class DmNFurnace extends AbstractFurnaceBlock {
         if (world.isClient)
             return;
         // Getting entity
-        DmNFurnaceBlockEntity entity = (DmNFurnaceBlockEntity) t;
+        DmNFurnaceBE entity = (DmNFurnaceBE) t;
 
         // Getting recipe
         SmeltingRecipe recipe = world.getRecipeManager().getFirstMatch(RecipeType.SMELTING, entity, world).orElse(null);

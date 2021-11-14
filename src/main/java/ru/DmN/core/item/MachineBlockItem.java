@@ -12,10 +12,10 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
-import ru.DmN.core.block.MachineBlock;
+import ru.DmN.core.block.Machine;
 import ru.DmN.core.energy.IESItem;
 import ru.DmN.core.energy.IESObject;
-import ru.DmN.core.energy.ItemStackEnergyStorage;
+import ru.DmN.core.energy.ItemStackES;
 import ru.DmN.core.utils.ColorUtils;
 
 import static ru.DmN.core.DCore.DMN_DATA;
@@ -40,7 +40,7 @@ public class MachineBlockItem extends BlockItem implements IESItem {
         if (!world.getBlockState(pos).isAir() && world.getBlockState(pos).getFluidState().isEmpty())
             return ActionResult.FAIL;
         // Place
-        MachineBlock block = (MachineBlock) ((BlockItem) stack.getItem()).getBlock();
+        Machine block = (Machine) ((BlockItem) stack.getItem()).getBlock();
         BlockState state = block.getDefaultState();
         world.setBlockState(pos, state);
         block.onPlaced(world, pos, state, context.getPlayer(), stack);
@@ -90,6 +90,6 @@ public class MachineBlockItem extends BlockItem implements IESItem {
 
     @Override
     public @NotNull IESObject<ItemStack> getEnergyStorage(ItemStack stack) {
-        return new ItemStackEnergyStorage(stack.getOrCreateNbt());
+        return new ItemStackES(stack.getOrCreateNbt());
     }
 }

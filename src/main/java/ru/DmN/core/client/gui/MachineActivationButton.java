@@ -6,7 +6,7 @@ import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import ru.DmN.core.block.MachineBlock;
+import ru.DmN.core.block.Machine;
 
 import java.awt.*;
 
@@ -33,7 +33,7 @@ public class MachineActivationButton extends ColoredButton {
             PacketByteBuf buf = PacketByteBufs.create();
             buf.writeBlockPos(pos);
             buf.writeBoolean(properties.get(3) != 1);
-            ((MachineBlock) world.getBlockState(pos).getBlock()).sendPacketC(buf);
+            ((Machine) world.getBlockState(pos).getBlock()).sendPacketC(buf);
             return true;
         }
         return false;

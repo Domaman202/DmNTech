@@ -7,7 +7,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
-import ru.DmN.core.block.entity.MachineBlockEntity;
+import ru.DmN.core.block.entity.MachineBE;
 import ru.DmN.tech.external.TRE.block.entity.TREConverterEntity;
 import ru.DmN.tech.external.TRE.energy.DmNStorage;
 import team.reborn.energy.api.EnergyStorage;
@@ -18,8 +18,8 @@ public class DmNEBA implements BlockApiLookup.BlockApiProvider <EnergyStorage, D
 
     @Override
     public @Nullable EnergyStorage find(World world, BlockPos pos, BlockState state, @Nullable BlockEntity blockEntity, Direction context) {
-        if (blockEntity instanceof MachineBlockEntity)
-            return new DmNStorage<>(((MachineBlockEntity) blockEntity).storage);
+        if (blockEntity instanceof MachineBE)
+            return new DmNStorage<>(((MachineBE) blockEntity).storage);
         return null;
     }
 

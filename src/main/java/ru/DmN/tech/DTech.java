@@ -13,19 +13,18 @@ import net.minecraft.util.registry.Registry;
 import ru.DmN.core.registry.GlobalRegistry;
 import ru.DmN.tech.block.DmNFurnace;
 import ru.DmN.tech.block.RMPBBlock;
-import ru.DmN.tech.block.SolarPanelBlock;
-import ru.DmN.tech.block.entity.DmNFurnaceBlockEntity;
-import ru.DmN.tech.block.entity.RMPBBlockEntity;
-import ru.DmN.tech.block.entity.SolarPanelBlockEntity;
-import ru.DmN.tech.gui.DmNFurnaceScreenHandler;
-import ru.DmN.tech.gui.MachineCasingScreenHandler;
-import ru.DmN.tech.gui.RMPBScreenHandler;
-import ru.DmN.tech.gui.SolarPanelScreenHandler;
+import ru.DmN.tech.block.SolarPanel;
+import ru.DmN.tech.block.entity.DmNFurnaceBE;
+import ru.DmN.tech.block.entity.RMPBBE;
+import ru.DmN.tech.block.entity.SolarPanelBE;
+import ru.DmN.tech.gui.DmNFurnaceSH;
+import ru.DmN.tech.gui.MachineCasingSH;
+import ru.DmN.tech.gui.RMPBSH;
+import ru.DmN.tech.gui.SolarPanelSH;
 import ru.DmN.tech.item.battery.SimpleBattery;
 import ru.DmN.tech.item.component.Coil;
-import ru.DmN.tech.item.modules.CoilConsumerModule;
-import ru.DmN.tech.item.modules.FurnaceModule;
-import ru.DmN.tech.item.modules.SolarPanelModule;
+import ru.DmN.tech.item.module.CoilConsumer;
+import ru.DmN.tech.item.module.Furnace;
 import ru.DmN.tech.registry.MaterialRegistry;
 import ru.DmN.tech.external.TR.TRMain;
 import ru.DmN.tech.external.TRE.TREMain;
@@ -40,31 +39,31 @@ public class DTech implements ModInitializer {
     public static final ItemGroup DmNTechAllGroup = FabricItemGroupBuilder.create(new Identifier(MOD_ID, "group_all")).icon(() -> new ItemStack(RMPBBlock.INSTANCE)).build();
     public static final Item.Settings DEFAULT_ITEM_SETTINGS = new Item.Settings().group(DTech.DmNTechAllGroup);
     //
-    public static BlockEntityType<RMPBBlockEntity> RMPB_BLOCK_ENTITY_TYPE;
-    public static BlockEntityType<DmNFurnaceBlockEntity> DMN_FURNACE_BLOCK_ENTITY_TYPE;
-    public static BlockEntityType<SolarPanelBlockEntity> SOLAR_PANEL_BLOCK_ENTITY_TYPE;
+    public static BlockEntityType<RMPBBE> RMPB_BLOCK_ENTITY_TYPE;
+    public static BlockEntityType<DmNFurnaceBE> DMN_FURNACE_BLOCK_ENTITY_TYPE;
+    public static BlockEntityType<SolarPanelBE> SOLAR_PANEL_BLOCK_ENTITY_TYPE;
     //
-    public static ScreenHandlerType<RMPBScreenHandler> RMPB_SCREEN_HANDLER_TYPE;
-    public static ScreenHandlerType<DmNFurnaceScreenHandler> DMN_FURNACE_SCREEN_HANDLER_TYPE;
-    public static ScreenHandlerType<MachineCasingScreenHandler> MACHINECASING_SCREEN_HANDLER_TYPE;
-    public static ScreenHandlerType<SolarPanelScreenHandler> SOLAR_PANEL_SCREEN_HANDLER_TYPE;
+    public static ScreenHandlerType<RMPBSH> RMPB_SCREEN_HANDLER_TYPE;
+    public static ScreenHandlerType<DmNFurnaceSH> DMN_FURNACE_SCREEN_HANDLER_TYPE;
+    public static ScreenHandlerType<MachineCasingSH> MACHINECASING_SCREEN_HANDLER_TYPE;
+    public static ScreenHandlerType<SolarPanelSH> SOLAR_PANEL_SCREEN_HANDLER_TYPE;
 
     @Override
     public void onInitialize() {
-        RMPB_BLOCK_ENTITY_TYPE = GlobalRegistry.register(RMPBBlock.INSTANCE, RMPBBlockEntity::new, ID_RMPB);
-        RMPB_SCREEN_HANDLER_TYPE = GlobalRegistry.register(ID_RMPB, RMPBScreenHandler::new);
+        RMPB_BLOCK_ENTITY_TYPE = GlobalRegistry.register(RMPBBlock.INSTANCE, RMPBBE::new, ID_RMPB);
+        RMPB_SCREEN_HANDLER_TYPE = GlobalRegistry.register(ID_RMPB, RMPBSH::new);
         //
         GlobalRegistry.register(DmNFurnace.INSTANCE, DEFAULT_ITEM_SETTINGS, ID_DMNFURNACE);
-        DMN_FURNACE_BLOCK_ENTITY_TYPE = Registry.register(Registry.BLOCK_ENTITY_TYPE, ID_DMNFURNACE, FabricBlockEntityTypeBuilder.create(DmNFurnaceBlockEntity::new, DmNFurnace.INSTANCE).build());
-        DMN_FURNACE_SCREEN_HANDLER_TYPE = GlobalRegistry.register(ID_DMNFURNACE, DmNFurnaceScreenHandler::new);
+        DMN_FURNACE_BLOCK_ENTITY_TYPE = Registry.register(Registry.BLOCK_ENTITY_TYPE, ID_DMNFURNACE, FabricBlockEntityTypeBuilder.create(DmNFurnaceBE::new, DmNFurnace.INSTANCE).build());
+        DMN_FURNACE_SCREEN_HANDLER_TYPE = GlobalRegistry.register(ID_DMNFURNACE, DmNFurnaceSH::new);
         //
-        MACHINECASING_SCREEN_HANDLER_TYPE = GlobalRegistry.register(new Identifier(MOD_ID, "machinecasing"), (id, inv, buf) -> new MachineCasingScreenHandler(MACHINECASING_SCREEN_HANDLER_TYPE, id, inv, buf));
+        MACHINECASING_SCREEN_HANDLER_TYPE = GlobalRegistry.register(new Identifier(MOD_ID, "machinecasing"), (id, inv, buf) -> new MachineCasingSH(MACHINECASING_SCREEN_HANDLER_TYPE, id, inv, buf));
         //
-        SOLAR_PANEL_BLOCK_ENTITY_TYPE = GlobalRegistry.register(SolarPanelBlock.INSTANCE, SolarPanelBlockEntity::new, ID_SOLAR_PANEL);
-        SOLAR_PANEL_SCREEN_HANDLER_TYPE = GlobalRegistry.register(ID_SOLAR_PANEL, SolarPanelScreenHandler::new);
+        SOLAR_PANEL_BLOCK_ENTITY_TYPE = GlobalRegistry.register(SolarPanel.INSTANCE, SolarPanelBE::new, ID_SOLAR_PANEL);
+        SOLAR_PANEL_SCREEN_HANDLER_TYPE = GlobalRegistry.register(ID_SOLAR_PANEL, SolarPanelSH::new);
         //
-        GlobalRegistry.register(CoilConsumerModule.INSTANCE, new Identifier(MOD_ID, "modules/coil_consumer"));
-        GlobalRegistry.register(FurnaceModule.INSTANCE, new Identifier(MOD_ID, "modules/furnace"));
+        GlobalRegistry.register(CoilConsumer.INSTANCE, new Identifier(MOD_ID, "modules/coil_consumer"));
+        GlobalRegistry.register(Furnace.INSTANCE, new Identifier(MOD_ID, "modules/furnace"));
         //
         GlobalRegistry.register(Coil.CUPRONICKEL, new Identifier(MOD_ID, "coil/cupronickel"));
         GlobalRegistry.register(Coil.NICHROME, new Identifier(MOD_ID, "coil/nichrome"));
@@ -74,10 +73,10 @@ public class DTech implements ModInitializer {
         GlobalRegistry.register(SimpleBattery.MV_BATTERY, new Identifier(MOD_ID, "battery/mv"));
         GlobalRegistry.register(SimpleBattery.ENERGY_CRYSTAL, new Identifier(MOD_ID, "battery/rec"));
         //
-        GlobalRegistry.register(SolarPanelModule.LV_SOLAR_PANEL, new Identifier(MOD_ID, "solar/lv"));
-        GlobalRegistry.register(SolarPanelModule.MV_SOLAR_PANEL, new Identifier(MOD_ID, "solar/mv"));
-        GlobalRegistry.register(SolarPanelModule.HV_SOLAR_PANEL, new Identifier(MOD_ID, "solar/hv"));
-        GlobalRegistry.register(SolarPanelModule.SHV_SOLAR_PANEL, new Identifier(MOD_ID, "solar/shv"));
+        GlobalRegistry.register(ru.DmN.tech.item.module.SolarPanel.LV_SOLAR_PANEL, new Identifier(MOD_ID, "solar/lv"));
+        GlobalRegistry.register(ru.DmN.tech.item.module.SolarPanel.MV_SOLAR_PANEL, new Identifier(MOD_ID, "solar/mv"));
+        GlobalRegistry.register(ru.DmN.tech.item.module.SolarPanel.HV_SOLAR_PANEL, new Identifier(MOD_ID, "solar/hv"));
+        GlobalRegistry.register(ru.DmN.tech.item.module.SolarPanel.SHV_SOLAR_PANEL, new Identifier(MOD_ID, "solar/shv"));
         //
         TRMain.loadTRIntegration();
         TREMain.loadTREIntegration();

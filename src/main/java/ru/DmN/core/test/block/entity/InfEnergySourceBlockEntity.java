@@ -6,15 +6,15 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.util.math.BlockPos;
 import org.jetbrains.annotations.Nullable;
-import ru.DmN.core.block.MachineBlock;
-import ru.DmN.core.block.entity.MachineBlockEntity;
+import ru.DmN.core.block.Machine;
+import ru.DmN.core.block.entity.MachineBE;
 import ru.DmN.core.energy.IESObject;
 import ru.DmN.core.inventory.SimpleConfigurableInventory;
 import ru.DmN.core.test.TestMain;
 import ru.DmN.core.test.block.InfEnergySourceBlock;
 import ru.DmN.core.test.gui.InfEnergySourceScreenHandler;
 
-public class InfEnergySourceBlockEntity extends MachineBlockEntity {
+public class InfEnergySourceBlockEntity extends MachineBE {
     public InfEnergySourceBlockEntity(BlockPos pos, BlockState state) {
         super(TestMain.TEST_INF_ENERGY_BLOCK_ENTITY_TYPE, pos, state, new SimpleConfigurableInventory(2));
         this.storage = new InfEnergyStorage();
@@ -42,7 +42,7 @@ public class InfEnergySourceBlockEntity extends MachineBlockEntity {
         @Override
         public long getEnergy() {
             BlockState state = world.getBlockState(pos);
-            if (state.getBlock() instanceof MachineBlock)
+            if (state.getBlock() instanceof Machine)
                 return state.get(InfEnergySourceBlock.ACTIVE) ? Long.MAX_VALUE : 0;
             return 0;
         }
