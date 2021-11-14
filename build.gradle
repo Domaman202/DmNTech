@@ -32,7 +32,7 @@ dependencies {
 	modImplementation("RebornCore:RebornCore-${project.rc_version}") { exclude group: "net.fabricmc.fabric-api" }
 	modImplementation("TechReborn:TechReborn-${project.tr_version}") { exclude group: "net.fabricmc.fabric-api" exclude group: "RebornCore" }
 	//
-	modRuntime fileTree(dir: "runtime", include: "**.jar")
+	modRuntimeOnly fileTree(dir: "runtime", include: "**.jar")
 	//
 	runtimeOnly group: 'org.jetbrains.kotlin', name: 'kotlin-stdlib', version: "1.5.31"
 	runtimeOnly group: 'org.jetbrains.kotlin', name: 'kotlin-stdlib-jdk8', version: "1.5.31"
