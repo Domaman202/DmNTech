@@ -27,7 +27,8 @@ public abstract class AdvancedScreen <T extends ScreenHandler> extends HandledSc
     public AdvancedScreen(T handler, PlayerInventory inventory, Text title, boolean tabs) {
         super(handler, inventory, title);
         //
-        this.addComponent("defaultRender", new MethodReference(this::defaultRender), 0, 0);
+        this.addComponent("_render", new MethodReference(this::defaultRender), 0, 0);
+        this.addComponent("_tooltip", new MethodReference((matrices, x, y, delta) -> this.drawMouseoverTooltip(matrices, x, y)), 0, 0);
         if (tabs)
             this.addComponent("tabs", new TabCompound(), 0, 0);
         //
