@@ -45,7 +45,7 @@ public class Tab extends Button {
     }
 
     public TabGui<TabGuiHandler> createGui() {
-        return new TabGui<>(new TabGuiHandler(-1), this.pInventory, new LiteralText(this.name), MinecraftClient.getInstance().currentScreen, false);
+        return new TabGui<>(new TabGuiHandler(-1), this.pInventory, new LiteralText(this.name), false);
     }
 
     public static class TabGuiHandler extends ScreenHandler {
@@ -60,17 +60,8 @@ public class Tab extends Button {
     }
 
     public static class TabGui <T extends TabGuiHandler> extends AdvancedScreen <T> {
-        public final Screen screen;
-
-        public TabGui(T handler, PlayerInventory inventory, Text title, Screen screen, boolean tabs) {
+        public TabGui(T handler, PlayerInventory inventory, Text title, boolean tabs) {
             super(handler, inventory, title, tabs);
-            this.screen = screen;
-        }
-
-        @Override
-        public void onClose() {
-            super.onClose();
-            MinecraftClient.getInstance().setScreen(this.screen);
         }
     }
 }

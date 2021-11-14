@@ -28,13 +28,13 @@ public class TestGuiBlockScreen extends MachineCasingScreen <TestGuiBlockScreenH
 
         @Override
         public TabGui<TabGuiHandler> createGui() {
-            return new TestTabGui(pInventory, new LiteralText(this.name), MinecraftClient.getInstance().currentScreen, false);
+            return new TestTabGui(pInventory, new LiteralText(this.name), false);
         }
     }
 
     public static class TestTabGui extends Tab.TabGui {
-        public TestTabGui(PlayerInventory inventory, Text title, Screen screen, boolean tabs) {
-            super(new Tab.TabGuiHandler(-1), inventory, title, screen, tabs);
+        public TestTabGui(PlayerInventory inventory, Text title, boolean tabs) {
+            super(new Tab.TabGuiHandler(-1), inventory, title, tabs);
         }
 
         @Override

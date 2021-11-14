@@ -27,12 +27,12 @@ public class InventoryConfigurator extends Tab {
 
     @Override
     public TabGui<TabGuiHandler> createGui() {
-        return new InvConfigGui(new TabGuiHandler(-1), this.pInventory, new LiteralText(this.name), MinecraftClient.getInstance().currentScreen);
+        return new InvConfigGui(new TabGuiHandler(-1), this.pInventory, new LiteralText(this.name));
     }
 
     public class InvConfigGui extends TabGui <TabGuiHandler> {
-        public InvConfigGui(TabGuiHandler handler, PlayerInventory inventory, Text title, Screen screen) {
-            super(handler, inventory, title, screen, false);
+        public InvConfigGui(TabGuiHandler handler, PlayerInventory inventory, Text title) {
+            super(handler, inventory, title, false);
             //
             this.addComponent("info", new SidedSlotConfigScreen(InventoryConfigurator.this.inventory, 0), 16, 14);
         }
