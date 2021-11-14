@@ -72,7 +72,7 @@ public abstract class AdvancedScreen <T extends ScreenHandler> extends HandledSc
     @Override
     public void drawBackground(MatrixStack matrices, float delta, int mouseX, int mouseY) {
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
-        RenderSystem.setShaderColor(0.05F, 0.05F, 0.05F, 1F);
+        RenderSystem.setShaderColor(0.05f, 0.05f, 0.05f, 1f);
         RenderSystem.setShaderTexture(0, DEFAULT_BACKGROUND_TEXTURE);
         this.drawTexture(matrices, w, h, 0, 0, this.backgroundWidth, this.backgroundHeight);
     }
