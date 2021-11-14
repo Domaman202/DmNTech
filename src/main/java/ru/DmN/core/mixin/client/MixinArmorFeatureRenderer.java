@@ -20,8 +20,7 @@ public class MixinArmorFeatureRenderer {
     @Inject(method = "getArmorTexture", at = @At("HEAD"), cancellable = true)
     private void getArmorTextureInject(ArmorItem item, boolean legs, String overlay, CallbackInfoReturnable<Identifier> cir) {
         if (item.getMaterial() instanceof IDmNArmorMaterial material) {
-            String string = material.getNamespace() + ":textures/models/armor/" + material.getName() + "_layer_" + (legs ? 2 : 1) + (overlay == null ? "" : "_" + overlay) + ".png";
-            cir.setReturnValue(ARMOR_TEXTURE_CACHE.computeIfAbsent(string, Identifier::new));
+            cir.setReturnValue(ARMOR_TEXTURE_CACHE.computeIfAbsent(material.getNamespace() + ":textures/models/armor/" + material.getName() + "_layer_" + (legs ? 2 : 1) + (overlay == null ? "" : "_" + overlay) + ".png", Identifier::new));
             cir.cancel();
         }
     }

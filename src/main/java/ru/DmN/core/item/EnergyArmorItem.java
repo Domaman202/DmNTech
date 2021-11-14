@@ -26,9 +26,9 @@ public class EnergyArmorItem extends ArmorItem implements IESItem {
     public int getItemBarColor(ItemStack stack) {
         if (stack.hasNbt()) {
             NbtCompound dmnData = stack.getSubNbt(DMN_DATA);
-            float f = Math.max(0.0F, ((float) dmnData.getLong("energy") - (float) stack.getDamage()) / (float) dmnData.getLong("max_energy"));
-            return MathHelper.hsvToRgb(f / 3.0F, 1.0F, 1.0F);
+            return MathHelper.hsvToRgb(Math.max(0.0F, ((float) dmnData.getLong("energy") - (float) stack.getDamage()) / (float) dmnData.getLong("max_energy")) / 3.0F, 1.0F, 1.0F);
         }
+
         return 0;
     }
 
@@ -38,6 +38,7 @@ public class EnergyArmorItem extends ArmorItem implements IESItem {
             NbtCompound dmnData = stack.getSubNbt("dmndata");
             return 13 - Math.round(13.0F - (float) dmnData.getLong("energy") * 13.0F / (float) dmnData.getLong("max_energy"));
         }
+
         return 0;
     }
 

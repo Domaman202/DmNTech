@@ -5,6 +5,7 @@ import ru.DmN.core.energy.IESObject;
 import team.reborn.energy.api.EnergyStorage;
 import team.reborn.energy.api.base.SimpleBatteryItem;
 
+@SuppressWarnings("rawtypes")
 public class TRStorage implements IESObject {
     public final EnergyStorage storage;
     public final ItemStack stack;
@@ -54,10 +55,5 @@ public class TRStorage implements IESObject {
 
         SimpleBatteryItem.setStoredEnergyUnchecked(stack,storage.getAmount() - value);
         return 0;
-    }
-
-    @Override
-    protected void finalize() throws Throwable {
-        super.finalize();
     }
 }

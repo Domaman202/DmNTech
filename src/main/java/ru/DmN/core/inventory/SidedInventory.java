@@ -11,6 +11,6 @@ public interface SidedInventory extends net.minecraft.inventory.SidedInventory {
     NbtList toNbtList();
 
     default Inventory cute(int... slots) {
-        throw new RuntimeException("Oh sheet!");
+        throw new RuntimeException("Oh sheet!"); // TODO:
     }
 }

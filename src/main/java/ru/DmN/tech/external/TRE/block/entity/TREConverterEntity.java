@@ -36,6 +36,7 @@ public class TREConverterEntity extends MachineCasingBlockEntity implements Ener
         return ((ConverterEnergyStorage) this.storage).getCapacity();
     }
 
+    @SuppressWarnings("rawtypes")
     public class ConverterEnergyStorage extends SpecEnergyStorage implements EnergyStorage, IESObject {
         public final SnapshotParticipant<Long> snapshotParticipant = new SnapshotParticipant<>() {
             @Override

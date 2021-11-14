@@ -24,6 +24,7 @@ public enum DmNTechArmorMaterial implements IDmNArmorMaterial {
                 return Ingredient.ofItems(Items.AIR);
             }
     ),
+
     EXAMPLE2("example2_material", -1, new int[]{4, 6, 634, 5}, 1, SoundEvents.ITEM_ARMOR_EQUIP_NETHERITE, 23553, 32525353,
             () -> {
         return Ingredient.ofItems(Items.DIAMOND);
@@ -47,7 +48,7 @@ public enum DmNTechArmorMaterial implements IDmNArmorMaterial {
         this.equipSound = equipSound;
         this.toughness = toughness;
         this.knockbackResistance = knockbackResistance;
-        this.repairIngredientSupplier = new Lazy(repairIngredientSupplier);
+        this.repairIngredientSupplier = new Lazy<>(repairIngredientSupplier);
     }
 
     public int getDurability(EquipmentSlot slotIn) {

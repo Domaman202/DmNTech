@@ -25,6 +25,7 @@ public class RMPBScreen extends MachineScreen <RMPBScreenHandler> {
     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
         this.propertyI = this.handler.properties.get(4);
         this.propertyJ = this.handler.properties.get(5);
+        //
         super.render(matrices, mouseX, mouseY, delta);
     }
 }

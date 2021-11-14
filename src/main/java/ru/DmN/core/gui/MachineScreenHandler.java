@@ -49,15 +49,12 @@ public abstract class MachineScreenHandler extends ScreenHandler {
 
     public void addPlayerSlots() {
         //The player inventory
-        for (int m = 0; m < 3; ++m) {
-            for (int l = 0; l < 9; ++l) {
+        for (int m = 0; m < 3; ++m)
+            for (int l = 0; l < 9; ++l)
                 this.addSlot(pInventory, l + m * 9 + 9, 8 + l * 18, 84 + m * 18);
-            }
-        }
         //The player hotbar
-        for (int m = 0; m < 9; ++m) {
+        for (int m = 0; m < 9; ++m)
             this.addSlot(pInventory, m, 8 + m * 18, 142);
-        }
     }
 
     public void addSlot(Inventory inventory, int index, int x, int y) {

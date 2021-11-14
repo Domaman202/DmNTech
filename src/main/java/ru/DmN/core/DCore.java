@@ -67,6 +67,7 @@ public class DCore implements ModInitializer {
                 ConfigurableInventory.ofBuf(inventory, buf);
                 inventory.markDirty();
             });
+            //
             ServerPlayNetworking.registerGlobalReceiver(REQUIRE_INVENTORY_CONFIG_UPDATE_ID, (server, player, handler, buf, responseSender) -> {
                 if (player.currentScreenHandler instanceof MachineScreenHandler screen)
                     ServerPlayNetworking.send(player, INVENTORY_CONFIG_UPDATE_ID, ConfigurableInventory.toBuf(screen.inventory, 0, PacketByteBufs.create()));

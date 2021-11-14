@@ -14,9 +14,9 @@ import static ru.DmN.core.utils.ColorUtils.calcStepWithEnergy;
 import static ru.DmN.tech.DTech.DEFAULT_ITEM_SETTINGS;
 
 public class SimpleBattery extends Item implements IESItem {
-    public static final SimpleBattery LV_BATTERY = new SimpleBattery(DEFAULT_ITEM_SETTINGS, 1024);
-    public static final SimpleBattery MV_BATTERY = new SimpleBattery(DEFAULT_ITEM_SETTINGS, 4096);
-    public static final SimpleBattery ENERGY_CRYSTAL = new SimpleBattery(DEFAULT_ITEM_SETTINGS, 16384);
+    public static final SimpleBattery LV_BATTERY = new SimpleBattery(DEFAULT_ITEM_SETTINGS, 4096);
+    public static final SimpleBattery MV_BATTERY = new SimpleBattery(DEFAULT_ITEM_SETTINGS, 16384);
+    public static final SimpleBattery ENERGY_CRYSTAL = new SimpleBattery(DEFAULT_ITEM_SETTINGS, 1048576);
 
     public final int maxEnergy;
 

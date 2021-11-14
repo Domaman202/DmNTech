@@ -15,7 +15,6 @@ public class EmptyPropertyDelegate implements PropertyDelegate {
 
     @Override
     public void set(int index, int value) {
-
     }
 
     @Override

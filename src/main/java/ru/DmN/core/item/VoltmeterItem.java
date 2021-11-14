@@ -25,6 +25,7 @@ public class VoltmeterItem extends Item {
         World world = context.getWorld();
         if (world.isClient)
             return ActionResult.SUCCESS;
+
         BlockEntity entity = world.getBlockEntity(context.getBlockPos());
         if (entity instanceof IESProvider<?>) {
             IESObject<?> storage = ((IESProvider<?>) entity).getEnergyStorage(null);
@@ -35,6 +36,7 @@ public class VoltmeterItem extends Item {
             player.sendMessage(new LiteralText("Energy -> " + storage.getEnergy()), false);
             player.sendMessage(new LiteralText("MaxEnergy -> " + storage.getMaxEnergy()), false);
         }
+
         return ActionResult.SUCCESS;
     }
 }

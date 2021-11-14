@@ -69,40 +69,13 @@ public class SimpleConfigurableInventory extends SimpleInventory implements Conf
     public boolean canInsert(int slot, ItemStack stack, Direction dir) {
         if (ieTable.containsKey(dir))
             return ieTable.get(dir).getLeft() && slot < this.size();
-        else
-            return false;
+        else return false;
     }
 
     @Override
     public boolean canExtract(int slot, ItemStack stack, Direction dir) {
         if (ieTable.containsKey(dir))
             return ieTable.get(dir).getRight() && slot < this.size();
-        else
-            return false;
-    }
-
-    /// TODO: MOVE TO UTILS
-
-    public static int directionToInt(Direction dir) {
-        return switch (dir) {
-            case UP -> 0;
-            case DOWN -> 1;
-            case NORTH -> 2;
-            case SOUTH -> 3;
-            case WEST -> 4;
-            case EAST -> 5;
-        };
-    }
-
-    public static Direction directionOfInt(int i) {
-        return switch (i) {
-            case 0 -> Direction.UP;
-            case 1 -> Direction.DOWN;
-            case 2 -> Direction.NORTH;
-            case 3 -> Direction.SOUTH;
-            case 4 -> Direction.WEST;
-            case 5 -> Direction.EAST;
-            default -> throw new RuntimeException("Parse error!");
-        };
+        else return false;
     }
 }

@@ -64,6 +64,7 @@ public class MachineBlockItem extends BlockItem implements IESItem {
             NbtCompound dmnData = stack.getNbt().getCompound(DMN_DATA);
             return ColorUtils.calcColorWithEnergy(dmnData.getLong("energy"), dmnData.getLong("max_energy"));
         }
+
         return 0;
     }
 
@@ -73,6 +74,7 @@ public class MachineBlockItem extends BlockItem implements IESItem {
             NbtCompound dmnData = stack.getNbt().getCompound(DMN_DATA);
             return ColorUtils.calcStepWithEnergy(dmnData.getLong("energy"), dmnData.getLong("max_energy"));
         }
+
         return 0;
     }
 

@@ -15,6 +15,7 @@ import java.awt.*;
 public class MachineCasingScreen <T extends MachineCasingScreenHandler> extends MachineScreen <T> {
     public MachineCasingScreen(T handler, PlayerInventory inventory, Text title) {
         super(handler, inventory, title, true);
+        //
         this.getCompound("energy").xOffset = 36;
         this.getCompound("active").xOffset = 24;
         //
