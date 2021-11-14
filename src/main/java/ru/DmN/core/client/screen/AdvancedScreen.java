@@ -58,6 +58,11 @@ public abstract class AdvancedScreen <T extends ScreenHandler> extends HandledSc
         components.render(matrices, mouseX, mouseY, delta, w, h);
     }
 
+    @Override
+    public void drawMouseoverTooltip(MatrixStack matrices, int x, int y) {
+        super.drawMouseoverTooltip(matrices, w + 175, h + 20);
+    }
+
     public void defaultRender(MatrixStack matrices, int mouseX, int mouseY, float delta) {
         super.render(matrices, mouseX, mouseY, delta);
     }

@@ -11,17 +11,8 @@ public class NamedCompound implements Clickable {
 
     @Override
     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta, int w, int h) {
-        CompoundElement _t = null;
-        for (CompoundElement e : new SmartIterator<>(components)) {
+        for (CompoundElement e : new SmartIterator<>(components))
             e.component.render(matrices, mouseX, mouseY, delta, w + e.xOffset, h + e.yOffset);
-            if (_t == null && e.name.equals("_tooltip"))
-                _t = e;
-        }
-
-        if (_t != null) {
-            _t.component.render(matrices, mouseX, mouseY, delta, w + _t.xOffset, h + _t.yOffset);
-            components.add(_t);
-        }
     }
 
     @Override
