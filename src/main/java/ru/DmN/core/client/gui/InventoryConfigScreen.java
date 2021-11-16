@@ -6,7 +6,7 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.LiteralText;
 import net.minecraft.util.math.Direction;
-import ru.DmN.core.gui.MachineScreenHandler;
+import ru.DmN.core.gui.MachineSH;
 import ru.DmN.core.inventory.ConfigurableInventory;
 
 import java.awt.*;
@@ -116,7 +116,7 @@ public class InventoryConfigScreen implements Clickable {
         }
         //
         var player = MinecraftClient.getInstance().player;
-        if (player.currentScreenHandler instanceof MachineScreenHandler)
+        if (player.currentScreenHandler instanceof MachineSH)
             sendUpdateFromMachineScreen(this.inventory, 0);
         else
             player.sendMessage(new LiteralText("Error send config to inventory!"), false);

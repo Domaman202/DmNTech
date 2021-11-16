@@ -9,7 +9,7 @@ import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
 import org.jetbrains.annotations.Nullable;
 import ru.DmN.core.block.entity.MachineBE;
-import ru.DmN.core.gui.SimpleMachineScreenHandler;
+import ru.DmN.core.gui.SimpleMachineSH;
 import ru.DmN.core.test.TestMain;
 
 public class TestMachineBlockEntity extends MachineBE {
@@ -25,6 +25,6 @@ public class TestMachineBlockEntity extends MachineBE {
     @Override
     @Nullable
     public ScreenHandler createMenu(int syncId, PlayerInventory inv, PlayerEntity player) {
-        return new SimpleMachineScreenHandler(syncId, inv, properties, pos);
+        return new SimpleMachineSH(syncId, inv, properties, pos);
     }
 }

@@ -9,10 +9,10 @@ import ru.DmN.core.client.gui.EnergyStorage;
 import ru.DmN.core.client.gui.MachineActivationButton;
 import ru.DmN.core.client.gui.tab.EnergyStorageConfigurator;
 import ru.DmN.core.client.gui.tab.InventoryConfigurator;
-import ru.DmN.core.gui.MachineScreenHandler;
+import ru.DmN.core.gui.MachineSH;
 
 @Environment(EnvType.CLIENT)
-public class MachineGui<T extends MachineScreenHandler> extends AdvancedScreen <T> {
+public class MachineGui<T extends MachineSH> extends AdvancedScreen <T> {
     public MachineGui(T handler, PlayerInventory inventory, Text title) {
         this(handler, inventory, title, true);
     }

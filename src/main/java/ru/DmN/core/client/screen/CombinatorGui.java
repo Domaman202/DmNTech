@@ -9,13 +9,13 @@ import net.minecraft.network.PacketByteBuf;
 import net.minecraft.text.Text;
 import ru.DmN.core.DCore;
 import ru.DmN.core.client.gui.MethodCallerButton;
-import ru.DmN.core.gui.CombinatorScreenHandler;
+import ru.DmN.core.gui.CombinatorSH;
 
 import java.awt.*;
 
 @Environment(EnvType.CLIENT)
-public class CombinatorGui extends AdvancedScreen <CombinatorScreenHandler> {
-    public CombinatorGui(CombinatorScreenHandler handler, PlayerInventory inventory, Text title) {
+public class CombinatorGui extends AdvancedScreen <CombinatorSH> {
+    public CombinatorGui(CombinatorSH handler, PlayerInventory inventory, Text title) {
         super(handler, inventory, title, false);
         //
         this.addComponent("combineb", new MethodCallerButton((mouseX, mouseY, button, instance) -> {

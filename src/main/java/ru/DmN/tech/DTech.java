@@ -11,9 +11,11 @@ import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import ru.DmN.core.registry.GlobalRegistry;
+import ru.DmN.tech.block.BaseMachineCasing;
 import ru.DmN.tech.block.DmNFurnace;
 import ru.DmN.tech.block.RMPBBlock;
 import ru.DmN.tech.block.SolarPanel;
+import ru.DmN.tech.block.entity.BaseMachineCasingBE;
 import ru.DmN.tech.block.entity.DmNFurnaceBE;
 import ru.DmN.tech.block.entity.RMPBBE;
 import ru.DmN.tech.block.entity.SolarPanelBE;
@@ -42,6 +44,7 @@ public class DTech implements ModInitializer {
     public static BlockEntityType<RMPBBE> RMPB_BLOCK_ENTITY_TYPE;
     public static BlockEntityType<DmNFurnaceBE> DMN_FURNACE_BLOCK_ENTITY_TYPE;
     public static BlockEntityType<SolarPanelBE> SOLAR_PANEL_BLOCK_ENTITY_TYPE;
+    public static BlockEntityType<BaseMachineCasingBE> BMC_BLOCK_ENTITY_TYPE;
     //
     public static ScreenHandlerType<RMPBSH> RMPB_SCREEN_HANDLER_TYPE;
     public static ScreenHandlerType<DmNFurnaceSH> DMN_FURNACE_SCREEN_HANDLER_TYPE;
@@ -61,6 +64,8 @@ public class DTech implements ModInitializer {
         //
         SOLAR_PANEL_BLOCK_ENTITY_TYPE = GlobalRegistry.register(SolarPanel.INSTANCE, SolarPanelBE::new, ID_SOLAR_PANEL);
         SOLAR_PANEL_SCREEN_HANDLER_TYPE = GlobalRegistry.register(ID_SOLAR_PANEL, SolarPanelSH::new);
+        //
+        BMC_BLOCK_ENTITY_TYPE = GlobalRegistry.register(BaseMachineCasing.INSTANCE, BaseMachineCasingBE::new, new Identifier(MOD_ID, "bmc"));
         //
         GlobalRegistry.register(CoilConsumer.INSTANCE, new Identifier(MOD_ID, "modules/coil_consumer"));
         GlobalRegistry.register(Furnace.INSTANCE, new Identifier(MOD_ID, "modules/furnace"));

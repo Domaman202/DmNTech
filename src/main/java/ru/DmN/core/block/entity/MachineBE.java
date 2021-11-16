@@ -27,7 +27,7 @@ import org.jetbrains.annotations.Nullable;
 import ru.DmN.core.block.Machine;
 import ru.DmN.core.energy.*;
 import ru.DmN.core.inventory.ConfigurableInventory;
-import ru.DmN.core.gui.SimpleMachineScreenHandler;
+import ru.DmN.core.gui.SimpleMachineSH;
 import ru.DmN.core.inventory.SimpleConfigurableInventory;
 import ru.DmN.core.screen.MachinePropertyDelegate;
 
@@ -68,7 +68,7 @@ public class MachineBE extends SimpleConfigurableLCBE<ConfigurableInventory> imp
     @Override
     @Nullable
     public ScreenHandler createMenu(int syncId, PlayerInventory playerInventory, PlayerEntity player) {
-        return new SimpleMachineScreenHandler(syncId, playerInventory, properties, pos);
+        return new SimpleMachineSH(syncId, playerInventory, properties, pos);
     }
 
     @Override

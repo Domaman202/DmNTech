@@ -10,11 +10,13 @@ import net.minecraft.world.World;
 import ru.DmN.core.DCore;
 import ru.DmN.core.block.entity.MachineBE;
 
+import static ru.DmN.core.registry.GlobalRegistry.DEFAULT_ITEM_SETTINGS;
+
 public class WrenchItem extends Item {
     public static final WrenchItem INSTANCE = new WrenchItem();
 
     public WrenchItem() {
-        super(new FabricItemSettings().maxCount(1).group(DCore.DCoreGroup));
+        super(DEFAULT_ITEM_SETTINGS);
     }
 
     @Override

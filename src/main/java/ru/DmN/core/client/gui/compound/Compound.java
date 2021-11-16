@@ -9,6 +9,10 @@ import java.util.ArrayList;
 public class Compound implements Clickable {
     public final ArrayList<IComponent> components = new ArrayList<>();
 
+    public ArrayList<IComponent> getComponents() {
+        return this.components;
+    }
+
     @Override
     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta, int w, int h) {
         for (IComponent component : new SmartIterator<>(components))

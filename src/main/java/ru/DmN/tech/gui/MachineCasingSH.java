@@ -7,10 +7,10 @@ import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.util.math.BlockPos;
 import org.jetbrains.annotations.Nullable;
 import ru.DmN.core.energy.IESObject;
-import ru.DmN.core.gui.MachineScreenHandler;
+import ru.DmN.core.gui.MachineSH;
 import ru.DmN.core.inventory.ConfigurableInventory;
 
-public class MachineCasingSH extends MachineScreenHandler {
+public class MachineCasingSH extends MachineSH {
     public MachineCasingSH(@Nullable ScreenHandlerType<?> type, int syncId, PlayerInventory playerInventory, PacketByteBuf buf) {
         super(type, syncId, playerInventory, buf);
         this.addSlot(inventory, 0, 6, 15);

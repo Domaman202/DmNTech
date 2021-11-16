@@ -7,7 +7,6 @@ import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
@@ -18,26 +17,18 @@ import ru.DmN.core.item.ICombinable;
 
 import static ru.DmN.core.DCore.DMN_DATA;
 
-public class CombinatorScreenHandler extends ScreenHandler {
+public class CombinatorSH extends AdvancedSH {
     public final Inventory inventory = new SimpleInventory(2);
     public final BlockPos pos;
     public final World world;
 
-    public CombinatorScreenHandler(int syncId, PlayerInventory inventory) {
-        super(DCore.COMBINATOR_SCREEN_HANDLER, syncId);
+    public CombinatorSH(int syncId, PlayerInventory inventory) {
+        super(DCore.COMBINATOR_SCREEN_HANDLER, syncId, inventory);
         this.pos = inventory.player.getBlockPos();
         this.world = inventory.player.world;
 
-        this.addSlot(new Slot(this.inventory, 0, 15, 30));
-        this.addSlot(new Slot(this.inventory, 1, 31, 30));
-
-        //The player inventory
-        for (int m = 0; m < 3; ++m)
-            for (int l = 0; l < 9; ++l)
-                this.addSlot(new Slot(inventory, l + m * 9 + 9, 8 + l * 18, 84 + m * 18));
-        //The player hotbar
-        for (int m = 0; m < 9; ++m)
-            this.addSlot(new Slot(inventory, m, 8 + m * 18, 142));
+        this.addSlot(this.inventory, 0, 15, 30);
+        this.addSlot(this.inventory, 1, 31, 30);
     }
 
     public void combine() {

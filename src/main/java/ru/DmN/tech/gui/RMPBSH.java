@@ -5,11 +5,11 @@ import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.util.math.BlockPos;
 import ru.DmN.core.energy.IESObject;
-import ru.DmN.core.gui.MachineScreenHandler;
+import ru.DmN.core.gui.MachineSH;
 import ru.DmN.core.inventory.ConfigurableInventory;
 import ru.DmN.tech.DTech;
 
-public class RMPBSH extends MachineScreenHandler {
+public class RMPBSH extends MachineSH {
     public RMPBSH(int syncId, PlayerInventory playerInventory, PacketByteBuf buf) {
         super(DTech.RMPB_SCREEN_HANDLER_TYPE, syncId, playerInventory, buf);
         this.addSlot(inventory, 0, 15, 30);

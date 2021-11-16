@@ -13,8 +13,10 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import ru.DmN.core.block.Machine;
 
+import static ru.DmN.core.DCore.DCoreGroup;
+
 public class GlobalRegistry {
-    public static final Item.Settings DEFAULT_ITEM_SETTINGS = new Item.Settings();
+    public static final Item.Settings DEFAULT_ITEM_SETTINGS = new Item.Settings().group(DCoreGroup);
 
     public static void register(Item item, Identifier id) {
         Registry.register(Registry.ITEM, id, item);
@@ -32,7 +34,7 @@ public class GlobalRegistry {
         Registry.register(Registry.ITEM, id, Registry.register(Registry.BLOCK, id, block).asItem());
     }
 
-    public static <T extends BlockEntity> BlockEntityType<T> register(Machine block, FabricBlockEntityTypeBuilder.Factory<T> factory, Identifier id) {
+    public static <T extends BlockEntity> BlockEntityType<T> register(Block block, FabricBlockEntityTypeBuilder.Factory<T> factory, Identifier id) {
         Registry.register(Registry.ITEM, id, Registry.register(Registry.BLOCK, id, block).asItem());
         return Registry.register(Registry.BLOCK_ENTITY_TYPE, id, FabricBlockEntityTypeBuilder.create(factory, block).build());
     }

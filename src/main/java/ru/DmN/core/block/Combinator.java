@@ -14,7 +14,7 @@ import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
-import ru.DmN.core.gui.CombinatorScreenHandler;
+import ru.DmN.core.gui.CombinatorSH;
 
 public class Combinator extends Block implements NamedScreenHandlerFactory {
     public static final Combinator INSTANCE = new Combinator();
@@ -46,6 +46,6 @@ public class Combinator extends Block implements NamedScreenHandlerFactory {
     @Nullable
     @Override
     public ScreenHandler createMenu(int syncId, PlayerInventory inv, PlayerEntity player) {
-        return new CombinatorScreenHandler(syncId, inv);
+        return new CombinatorSH(syncId, inv);
     }
 }

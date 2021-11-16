@@ -6,7 +6,6 @@ import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.PropertyDelegate;
-import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.util.math.BlockPos;
@@ -17,27 +16,27 @@ import ru.DmN.core.inventory.ConfigurableInventory;
 import ru.DmN.core.inventory.SimpleConfigurableInventory;
 import ru.DmN.core.screen.DynamicPropertyDelegate;
 
-public abstract class MachineScreenHandler extends ScreenHandler {
+public abstract class MachineSH extends AdvancedSH {
     public ConfigurableInventory inventory;
     public PropertyDelegate properties;
     public Inventory pInventory;
     public IESObject<?> storage;
     public final BlockPos pos;
 
-    public MachineScreenHandler(@Nullable ScreenHandlerType<?> type, int syncId, PlayerInventory playerInventory, PacketByteBuf buf) {
+    public MachineSH(@Nullable ScreenHandlerType<?> type, int syncId, PlayerInventory playerInventory, PacketByteBuf buf) {
         this(type, syncId, playerInventory, new SimpleConfigurableInventory(buf.readInt()), new DynamicPropertyDelegate(), null, buf.readBlockPos());
     }
 
-    public MachineScreenHandler(@Nullable ScreenHandlerType<?> type, int syncId, PlayerInventory playerInventory, BlockPos pos) {
+    public MachineSH(@Nullable ScreenHandlerType<?> type, int syncId, PlayerInventory playerInventory, BlockPos pos) {
         this(type, syncId, playerInventory, new DynamicPropertyDelegate(), pos);
     }
 
-    public MachineScreenHandler(@Nullable ScreenHandlerType<?> type, int syncId, PlayerInventory playerInventory, PropertyDelegate properties, BlockPos pos) {
+    public MachineSH(@Nullable ScreenHandlerType<?> type, int syncId, PlayerInventory playerInventory, PropertyDelegate properties, BlockPos pos) {
         this(type, syncId, playerInventory, new SimpleConfigurableInventory(0), properties, null, pos);
     }
 
-    public MachineScreenHandler(@Nullable ScreenHandlerType<?> type, int syncId, PlayerInventory playerInventory, ConfigurableInventory inventory, PropertyDelegate properties, IESObject<?> storage, BlockPos pos) {
-        super(type, syncId);
+    public MachineSH(@Nullable ScreenHandlerType<?> type, int syncId, PlayerInventory playerInventory, ConfigurableInventory inventory, PropertyDelegate properties, IESObject<?> storage, BlockPos pos) {
+        super(type, syncId, playerInventory);
         this.pInventory = playerInventory;
         this.properties = properties;
         this.inventory = inventory;
@@ -47,22 +46,6 @@ public abstract class MachineScreenHandler extends ScreenHandler {
         inventory.onOpen(playerInventory.player);
 
         addProperties(properties);
-
-        addPlayerSlots();
-    }
-
-    public void addPlayerSlots() {
-        //The player inventory
-        for (int m = 0; m < 3; ++m)
-            for (int l = 0; l < 9; ++l)
-                this.addSlot(pInventory, l + m * 9 + 9, 8 + l * 18, 84 + m * 18);
-        //The player hotbar
-        for (int m = 0; m < 9; ++m)
-            this.addSlot(pInventory, m, 8 + m * 18, 142);
-    }
-
-    public void addSlot(Inventory inventory, int index, int x, int y) {
-        this.addSlot(new Slot(inventory, index, x, y));
     }
 
     @Override

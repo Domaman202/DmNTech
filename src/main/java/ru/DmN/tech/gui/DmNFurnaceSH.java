@@ -7,11 +7,11 @@ import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.util.math.BlockPos;
 import ru.DmN.core.inventory.ConfigurableInventory;
-import ru.DmN.core.gui.MachineScreenHandler;
+import ru.DmN.core.gui.MachineSH;
 
 import static ru.DmN.tech.DTech.DMN_FURNACE_SCREEN_HANDLER_TYPE;
 
-public class DmNFurnaceSH extends MachineScreenHandler {
+public class DmNFurnaceSH extends MachineSH {
     public DmNFurnaceSH(int syncId, PlayerInventory inventory, PacketByteBuf buf) {
         super(DMN_FURNACE_SCREEN_HANDLER_TYPE, syncId, inventory, buf);
         this.addSlots();
