@@ -12,6 +12,7 @@ public class ListableCompound extends Compound {
     public int size;
     public int maxSize;
     public int lastOffset;
+    public boolean inc;
     public Button incOffset;
     public Button decOffset;
 
@@ -20,7 +21,7 @@ public class ListableCompound extends Compound {
         this.maxSize = maxSize;
         //
         this.incOffset = new TextMethodCallerButton((mouseX, mouseY, button, instance) -> {
-            if (instance.startH - size > (decOffset).startH)
+            if (inc)
                 lastOffset++;
             return true;
         }, 8, 8, Color.BLUE.getRGB(), new LiteralText("N").asOrderedText());
@@ -33,6 +34,8 @@ public class ListableCompound extends Compound {
 
     @Override
     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta, int w, int h) {
+        inc = false;
+        IComponent last = null;
         int i = h - size;
         int j = lastOffset;
         for (IComponent component : new SmartIterator<>(components)) {
@@ -41,12 +44,16 @@ public class ListableCompound extends Compound {
                 continue;
             }
 
-            if ((i += size) < (maxSize + h))
+            if ((i += size) < (maxSize + h)) {
                 component.render(matrices, mouseX, mouseY, delta, w, i);
-            else break;
+                last = component;
+            } else {
+                inc = components.get(components.size() - 1) != last;
+                break;
+            }
         }
         //
-        this.incOffset.render(matrices, mouseX, mouseY, delta, w - 8, i - size);
+        this.incOffset.render(matrices, mouseX, mouseY, delta, w - 8, h + 8);
         this.decOffset.render(matrices, mouseX, mouseY, delta, w - 8, h);
     }
 
