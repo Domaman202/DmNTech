@@ -53,7 +53,7 @@ public class ListableCompound extends Compound {
             }
         }
         //
-        this.incOffset.render(matrices, mouseX, mouseY, delta, w - 8, h + 8);
+        this.incOffset.render(matrices, mouseX, mouseY, delta, w - 8, h + 10);
         this.decOffset.render(matrices, mouseX, mouseY, delta, w - 8, h);
     }
 
