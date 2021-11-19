@@ -12,6 +12,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
+import org.jetbrains.annotations.ApiStatus;
 import ru.DmN.core.registry.GlobalRegistry;
 import ru.DmN.core.test.armor.TestInfinityArmor;
 import ru.DmN.core.test.block.InfEnergySourceBlock;
@@ -27,6 +28,7 @@ import ru.DmN.core.test.item.TestEnergyWandI;
 import static net.minecraft.server.command.CommandManager.argument;
 import static net.minecraft.server.command.CommandManager.literal;
 
+@ApiStatus.Internal
 public class TestMain implements ModInitializer {
     public static final ItemGroup DTestGroup = FabricItemGroupBuilder.create(new Identifier("dmntest", "items")).icon(() -> new ItemStack(TestMachineBlock.INSTANCE)).build();
     public static BlockEntityType<TestMachineBlockEntity> TEST_MACHINE_BLOCK_ENTITY_TYPE;

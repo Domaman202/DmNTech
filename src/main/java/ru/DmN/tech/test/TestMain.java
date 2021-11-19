@@ -4,11 +4,13 @@ import net.fabricmc.api.ModInitializer;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.util.Identifier;
+import org.jetbrains.annotations.ApiStatus;
 import ru.DmN.core.registry.GlobalRegistry;
 import ru.DmN.tech.test.block.TestGuiBlock;
 import ru.DmN.tech.test.block.entity.TestGuiBE;
 import ru.DmN.tech.test.gui.TestGuiBlockScreenHandler;
 
+@ApiStatus.Internal
 public class TestMain implements ModInitializer {
     public static final Identifier TEST_GUI_ID = new Identifier("dmntest", "test_gui");
     public static BlockEntityType<TestGuiBE> TEST_GUI_BLOCK_ENTITY;

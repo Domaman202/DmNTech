@@ -5,6 +5,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.util.math.BlockPos;
+import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.Nullable;
 import ru.DmN.core.block.Machine;
 import ru.DmN.core.block.entity.MachineBE;
@@ -14,6 +15,7 @@ import ru.DmN.core.test.TestMain;
 import ru.DmN.core.test.block.InfEnergySourceBlock;
 import ru.DmN.core.test.gui.InfEnergySourceScreenHandler;
 
+@ApiStatus.Internal
 public class InfEnergySourceBlockEntity extends MachineBE {
     public InfEnergySourceBlockEntity(BlockPos pos, BlockState state) {
         super(TestMain.TEST_INF_ENERGY_BLOCK_ENTITY_TYPE, pos, state, new SimpleConfigurableInventory(2));

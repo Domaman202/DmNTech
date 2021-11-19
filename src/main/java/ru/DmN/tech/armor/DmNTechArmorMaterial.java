@@ -17,7 +17,6 @@ import static ru.DmN.core.DCore.MOD_ID;
 /**
  * @author AlgorithmLX
  */
-
 public enum DmNTechArmorMaterial implements IDmNArmorMaterial {
     EXAMPLE("example_material", -1, new int[]{2147483647, 2147483647, 2147483647, 2147483647}, 2147483647, SoundEvents.ITEM_ARMOR_EQUIP_NETHERITE, 2147483647F, 2147483647F,
             () -> {

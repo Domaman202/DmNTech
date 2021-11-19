@@ -6,6 +6,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.Nullable;
 import ru.DmN.core.block.Machine;
 import ru.DmN.core.block.MachineTicker;
@@ -14,6 +15,7 @@ import ru.DmN.core.energy.IESProvider;
 import ru.DmN.core.test.block.entity.InfEnergySourceBlockEntity;
 import ru.DmN.core.test.item.InfEnergySourceItem;
 
+@ApiStatus.Internal
 public class InfEnergySourceBlock extends MachineTicker<InfEnergySourceBlockEntity> {
     public static final InfEnergySourceBlock INSTANCE = new InfEnergySourceBlock();
 

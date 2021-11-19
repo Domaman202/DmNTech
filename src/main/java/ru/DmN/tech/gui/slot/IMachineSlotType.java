@@ -1,5 +1,8 @@
 package ru.DmN.tech.gui.slot;
 
+import org.jetbrains.annotations.ApiStatus;
+
+@ApiStatus.Experimental
 public interface IMachineSlotType {
     String getName();
 

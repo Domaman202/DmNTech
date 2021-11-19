@@ -13,12 +13,14 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
+import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.Nullable;
 import ru.DmN.core.block.Machine;
 import ru.DmN.core.block.cable.entity.CableBlockEntity;
 import ru.DmN.core.energy.IESObject;
 import ru.DmN.core.energy.IESProvider;
 
+@ApiStatus.Experimental
 public abstract class CableBlock extends ConnectingBlock implements BlockEntityProvider, BlockEntityTicker<CableBlockEntity> {
     /// CONSTRUCTORS
 

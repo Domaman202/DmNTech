@@ -5,6 +5,7 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.math.BlockPos;
+import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.DmN.core.energy.IESObject;
@@ -13,6 +14,7 @@ import ru.DmN.core.energy.SimpleES;
 
 import static ru.DmN.core.DCore.DMN_DATA;
 
+@ApiStatus.Experimental
 @SuppressWarnings("rawtypes")
 public class CableBlockEntity extends BlockEntity implements IESProvider {
     public IESObject<?> storage;

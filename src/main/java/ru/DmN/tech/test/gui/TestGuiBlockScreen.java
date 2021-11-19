@@ -7,11 +7,13 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import net.minecraft.util.math.Matrix4f;
+import org.jetbrains.annotations.ApiStatus;
 import ru.DmN.core.client.gui.tab.Tab;
 import ru.DmN.tech.client.screen.MachineCasingGui;
 
 import java.awt.*;
 
+@ApiStatus.Internal
 public class TestGuiBlockScreen extends MachineCasingGui<TestGuiBlockScreenHandler> {
     public TestGuiBlockScreen(TestGuiBlockScreenHandler handler, PlayerInventory inventory, Text title) {
         super(handler, inventory, title);

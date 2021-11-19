@@ -3,10 +3,12 @@ package ru.DmN.core.test.armor;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.sound.SoundEvent;
+import org.jetbrains.annotations.ApiStatus;
 import ru.DmN.core.item.EnergyArmorItem;
 import ru.DmN.core.armor.IDmNArmorMaterial;
 import ru.DmN.core.test.TestMain;
 
+@ApiStatus.Internal
 public class TestInfinityArmor extends EnergyArmorItem {
     public static final TestInfinityArmor HEAD = new TestInfinityArmor(EquipmentSlot.HEAD);
     public static final TestInfinityArmor CHEST = new TestInfinityArmor(EquipmentSlot.CHEST);

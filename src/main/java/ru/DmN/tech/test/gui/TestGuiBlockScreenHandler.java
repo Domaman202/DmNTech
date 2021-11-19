@@ -4,11 +4,13 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.util.math.BlockPos;
+import org.jetbrains.annotations.ApiStatus;
 import ru.DmN.core.energy.IESObject;
 import ru.DmN.core.inventory.ConfigurableInventory;
 import ru.DmN.tech.gui.MachineCasingSH;
 import ru.DmN.tech.test.TestMain;
 
+@ApiStatus.Internal
 public class TestGuiBlockScreenHandler extends MachineCasingSH {
     public TestGuiBlockScreenHandler(int syncId, PlayerInventory playerInventory, PacketByteBuf buf) {
         super(TestMain.TEST_GUI_SCREEN_HANDLER, syncId, playerInventory, buf);
