@@ -23,6 +23,7 @@ import ru.DmN.core.block.entity.InventoryManagerBE;
 import ru.DmN.core.utils.Lazy;
 
 import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import static ru.DmN.core.registry.GlobalRegistry.DEFAULT_ITEM_SETTINGS;
 
@@ -53,29 +54,17 @@ public class InventoryManager extends BlockWithEntity implements BlockEntityTick
 
                     entity.tasks.clear();
 
-                    Direction dir0 = null;
-                    int slot0 = 0;
-                    Direction dir1 = null;
-                    int slot1 = 0;
-
-                    int i = 0;
-                    for (var str : code.toString().split("\n")) {
-                        switch (i) {
-                            case 0 -> dir0 = ofString(str);
-                            case 1 -> slot0 = Integer.parseInt(str);
-                            case 2 -> dir1 = ofString(str);
-                            case 3 -> slot1 = Integer.parseInt(str);
-                            case 4 -> {
-                                switch (str) {
-                                    case "r" -> entity.tasks.add(entity.new TaskReplace(slot0, slot1, dir0, dir1));
-                                    case "m" -> entity.tasks.add(entity.new TaskMove(slot0, slot1, dir0, dir1));
-                                    default -> throw new IllegalStateException("Unexpected value: " + str);
-                                }
-                                i = -1;
-                            }
-                        }
-                        i++;
+                    var strs = code.toString().split("\n");
+                    AtomicInteger i = new AtomicInteger(0);
+                    while (i.get() < strs.length) {
+                        entity.tasks.add(switch (strs[i.getAndIncrement()]) {
+                            case "r" -> entity.TaskReplace(strs, i);
+                            case "m" -> entity.TaskMove(strs, i);
+                            default -> throw new IllegalStateException("Unexpected value at line №" + i);
+                        });
                     }
+
+                    System.out.println();
                 }
                 return ActionResult.SUCCESS;
             }

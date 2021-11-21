@@ -18,8 +18,10 @@ import reborncore.api.blockentity.InventoryProvider;
 import ru.DmN.core.gui.InventoryManagerSH;
 
 import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import static ru.DmN.core.DCore.INVENTORY_MANAGER_BLOCK_ENTITY_TYPE;
+import static ru.DmN.core.block.InventoryManager.ofString;
 
 public class InventoryManagerBE extends BlockEntity implements NamedScreenHandlerFactory {
     public ArrayList<Task> tasks = new ArrayList<>();
@@ -92,6 +94,14 @@ public class InventoryManagerBE extends BlockEntity implements NamedScreenHandle
         }
 
         public abstract void execute(World world);
+    }
+
+    public TaskReplace TaskReplace(String[] in, AtomicInteger count) {
+        return new TaskReplace(Integer.parseInt(in[count.getAndIncrement()]), Integer.parseInt(in[count.getAndIncrement()]), ofString(in[count.getAndIncrement()]), ofString(in[count.getAndIncrement()]));
+    }
+
+    public TaskMove TaskMove(String[] in, AtomicInteger count) {
+        return new TaskMove(Integer.parseInt(in[count.getAndIncrement()]), Integer.parseInt(in[count.getAndIncrement()]), ofString(in[count.getAndIncrement()]), ofString(in[count.getAndIncrement()]));
     }
 
     public class TaskReplace extends Task {
