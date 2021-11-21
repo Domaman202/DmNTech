@@ -43,7 +43,6 @@ public class InventoryManagerBE extends BlockEntity implements NamedScreenHandle
 
     ///
 
-
     @Override
     public NbtCompound writeNbt(NbtCompound nbt) {
         int i = 0;
@@ -81,7 +80,7 @@ public class InventoryManagerBE extends BlockEntity implements NamedScreenHandle
 
     ///
 
-    public abstract class Task {
+    public abstract static class Task {
         public int slot0, slot1;
         public Direction dir0, dir1;
 

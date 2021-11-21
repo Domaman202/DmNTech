@@ -47,7 +47,7 @@ public class InventoryManager extends BlockWithEntity implements BlockEntityTick
                 if (pages != null) {
                     var code = new StringBuilder();
                     for (var page : pages)
-                        code.append(page.asString());
+                        code.append(page.asString()).append('\n');
 
                     InventoryManagerBE entity = (InventoryManagerBE) world.getBlockEntity(pos);
 
