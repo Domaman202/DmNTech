@@ -5,6 +5,7 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.text.LiteralText;
@@ -51,6 +52,7 @@ public class InventoryManagerBE extends BlockEntity implements NamedScreenHandle
             nbt.putInt("b" + i, task.slot1);
             nbt.putInt("c" + i, task.dir0.getId());
             nbt.putInt("d" + i, task.dir1.getId());
+            nbt.putInt("t" + i, task instanceof TaskReplace ? 0 : 1);
             i++;
         }
         nbt.putInt("e", i);
@@ -70,7 +72,7 @@ public class InventoryManagerBE extends BlockEntity implements NamedScreenHandle
                     dir1 = dir;
             }
 
-            this.addTask(nbt.getInt("a" + i), nbt.getInt("b" + i), dir0, dir1);
+            this.tasks.add(nbt.getInt("t" + i) == 0 ? new TaskReplace(nbt.getInt("a" + i), nbt.getInt("b" + i), dir0, dir1) : new TaskMove(nbt.getInt("a" + i), nbt.getInt("b" + i), dir0, dir1));
         }
 
         super.readNbt(nbt);
@@ -79,11 +81,7 @@ public class InventoryManagerBE extends BlockEntity implements NamedScreenHandle
 
     ///
 
-    public void addTask(int slot0, int slot1, Direction dir0, Direction dir1) {
-        this.tasks.add(new Task(slot0, slot1, dir0, dir1));
-    }
-
-    public class Task {
+    public abstract class Task {
         public int slot0, slot1;
         public Direction dir0, dir1;
 
@@ -94,6 +92,15 @@ public class InventoryManagerBE extends BlockEntity implements NamedScreenHandle
             this.dir1 = dir1;
         }
 
+        public abstract void execute(World world);
+    }
+
+    public class TaskReplace extends Task {
+        public TaskReplace(int slot0, int slot1, Direction dir0, Direction dir1) {
+            super(slot0, slot1, dir0, dir1);
+        }
+
+        @Override
         public void execute(World world) {
             var pos0 = pos.offset(dir0);
             var entity0 = world.getBlockEntity(pos0);
@@ -126,6 +133,59 @@ public class InventoryManagerBE extends BlockEntity implements NamedScreenHandle
             var stack0 = inv0.getStack(slot0);
             inv0.setStack(slot0, inv1.getStack(slot1));
             inv1.setStack(slot1, stack0);
+        }
+    }
+
+    public class TaskMove extends Task {
+        public TaskMove(int slot0, int slot1, Direction dir0, Direction dir1) {
+            super(slot0, slot1, dir0, dir1);
+        }
+
+        @Override
+        public void execute(World world) {
+            var pos0 = pos.offset(dir0);
+            var entity0 = world.getBlockEntity(pos0);
+            Inventory inv0;
+
+            if (entity0 == null)
+                return;
+            if (entity0 instanceof Inventory inv)
+                inv0 = inv;
+            else if (entity0 instanceof InventoryProvider inv)
+                inv0 = inv.getInventory();
+            else if (entity0 instanceof net.minecraft.block.InventoryProvider inv)
+                inv0 = inv.getInventory(world.getBlockState(pos0), world, pos0);
+            else return;
+
+            var pos1 = pos.offset(dir1);
+            var entity1 = world.getBlockEntity(pos1);
+            Inventory inv1;
+
+            if (entity1 == null)
+                return;
+            if (entity1 instanceof Inventory inv)
+                inv1 = inv;
+            else if (entity1 instanceof InventoryProvider inv)
+                inv1 = inv.getInventory();
+            else if (entity1 instanceof net.minecraft.block.InventoryProvider inv)
+                inv1 = inv.getInventory(world.getBlockState(pos1), world, pos1);
+            else return;
+
+            var stack0 = inv0.getStack(slot0);
+            ItemStack stack1;
+            if ((stack1 = inv1.getStack(slot1)).isEmpty()) {
+                inv0.setStack(slot0, ItemStack.EMPTY);
+                inv1.setStack(slot1, stack0);
+            } else if (stack0.getItem() == stack1.getItem()) {
+                if (stack0.getMaxCount() < stack0.getCount() + stack1.getCount()) {
+                    stack0.setCount(-(stack0.getMaxCount() - (stack0.getCount() + stack1.getCount())));
+                    stack1.setCount(stack0.getMaxCount());
+                } else {
+                    stack0.setCount(stack0.getCount() + stack1.getCount());
+                    inv0.setStack(slot0, ItemStack.EMPTY);
+                    inv1.setStack(slot1, stack0);
+                }
+            }
         }
     }
 }

@@ -66,7 +66,11 @@ public class InventoryManager extends BlockWithEntity implements BlockEntityTick
                             case 2 -> dir1 = ofString(str);
                             case 3 -> slot1 = Integer.parseInt(str);
                             case 4 -> {
-                                entity.addTask(slot0, slot1, dir0, dir1);
+                                switch (str) {
+                                    case "r" -> entity.tasks.add(entity.new TaskReplace(slot0, slot1, dir0, dir1));
+                                    case "m" -> entity.tasks.add(entity.new TaskMove(slot0, slot1, dir0, dir1));
+                                    default -> throw new IllegalStateException("Unexpected value: " + str);
+                                }
                                 i = -1;
                             }
                         }
@@ -76,6 +80,7 @@ public class InventoryManager extends BlockWithEntity implements BlockEntityTick
                 return ActionResult.SUCCESS;
             }
         } catch (Exception e) {
+            e.printStackTrace();
             player.sendMessage(new LiteralText("Parse Error!"), false);
         }
         // Screen Open
