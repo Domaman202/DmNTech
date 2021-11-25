@@ -6,10 +6,14 @@ import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 import net.fabricmc.fabric.api.command.v1.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
 import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.SpawnReason;
+import net.minecraft.entity.passive.PigEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.screen.ScreenHandlerType;
+import net.minecraft.text.*;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import org.jetbrains.annotations.ApiStatus;
@@ -24,6 +28,9 @@ import ru.DmN.core.test.block.entity.TestMachineBlockEntity;
 import ru.DmN.core.test.gui.InfEnergySourceScreenHandler;
 import ru.DmN.core.test.item.TestEnergyWandD;
 import ru.DmN.core.test.item.TestEnergyWandI;
+
+import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 import static net.minecraft.server.command.CommandManager.argument;
 import static net.minecraft.server.command.CommandManager.literal;
@@ -63,6 +70,19 @@ public class TestMain implements ModInitializer {
                     context.getSource().getPlayer().getMainHandStack().setDamage(context.getArgument("damage", Integer.class));
                     return 1;
                 })))
+                .then(literal("et").executes(context -> {
+                    var world = context.getSource().getWorld();
+                    var player = context.getSource().getPlayer();
+                    var pos = player.getBlockPos().down(2);
+                    //
+                    for (var i = 0; i < 500; i++) {
+                        var entity = EntityType.PIG.spawn(world, null, new LiteralText("Хряк"), player, pos, SpawnReason.COMMAND, false, false);
+                        entity.setMovementSpeed(2f);
+                        entity.setUpwardSpeed(2f);
+                    }
+                    //
+                    return 1;
+                }))
         )));
     }
 }

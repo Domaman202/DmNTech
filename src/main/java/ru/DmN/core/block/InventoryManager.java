@@ -54,7 +54,7 @@ public class InventoryManager extends BlockWithEntity implements BlockEntityTick
 
                     entity.tasks.clear();
 
-                    var strs = code.toString().split("\n");
+                    var strs = code.toString().split("\n| |,");
                     AtomicInteger i = new AtomicInteger(0);
                     while (i.get() < strs.length) {
                         entity.tasks.add(switch (strs[i.getAndIncrement()]) {
