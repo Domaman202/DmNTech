@@ -127,7 +127,7 @@ public class InventoryManagerBE extends BlockEntity implements NamedScreenHandle
         @Override
         public void ofNbt(NbtCompound nbt) {
             slot0 = nbt.getInt("a");
-            slot1 = nbt.getInt("a");
+            slot1 = nbt.getInt("b");
             for (var dir : Direction.values()) {
                 if (dir.getId() == nbt.getInt("c"))
                     dir0 = dir;
