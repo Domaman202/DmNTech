@@ -97,7 +97,7 @@ public class InventoryManagerBE extends BlockEntity implements NamedScreenHandle
     }
 
     public IdIfTask TaskIdIf(String[] in, AtomicInteger count) {
-        return new IdIfTask(ofString(in[count.getAndIncrement()]), in[count.getAndIncrement()], Integer.parseInt(in[count.getAndIncrement()]));
+        return new IdIfTask(ofString(in[count.getAndIncrement()]), in[count.getAndIncrement()].replaceAll("\\\\",""), Integer.parseInt(in[count.getAndIncrement()]));
     }
 
     public interface Task {
@@ -160,30 +160,14 @@ public class InventoryManagerBE extends BlockEntity implements NamedScreenHandle
             var pos0 = pos.offset(dir0);
             var entity0 = world.getBlockEntity(pos0);
             Inventory inv0;
-
-            if (entity0 == null)
+            if ((inv0 = getInventory(world, pos0,entity0)) == null)
                 return;
-            if (entity0 instanceof Inventory inv)
-                inv0 = inv;
-            else if (entity0 instanceof InventoryProvider inv)
-                inv0 = inv.getInventory();
-            else if (entity0 instanceof net.minecraft.block.InventoryProvider inv)
-                inv0 = inv.getInventory(world.getBlockState(pos0), world, pos0);
-            else return;
 
             var pos1 = pos.offset(dir1);
             var entity1 = world.getBlockEntity(pos1);
             Inventory inv1;
-
-            if (entity1 == null)
+            if ((inv1 = getInventory(world, pos1,entity1)) == null)
                 return;
-            if (entity1 instanceof Inventory inv)
-                inv1 = inv;
-            else if (entity1 instanceof InventoryProvider inv)
-                inv1 = inv.getInventory();
-            else if (entity1 instanceof net.minecraft.block.InventoryProvider inv)
-                inv1 = inv.getInventory(world.getBlockState(pos1), world, pos1);
-            else return;
 
             var stack0 = inv0.getStack(slot0);
             inv0.setStack(slot0, inv1.getStack(slot1));
@@ -224,8 +208,9 @@ public class InventoryManagerBE extends BlockEntity implements NamedScreenHandle
                     stack0.setCount(-(stack0.getMaxCount() - (stack0.getCount() + stack1.getCount())));
                     stack1.setCount(stack0.getMaxCount());
                 } else {
-                    stack0.setCount(stack0.getCount() + stack1.getCount());
-                    inv0.setStack(slot0, ItemStack.EMPTY);
+                    var i = stack1.getCount();
+                    stack1.decrement(i);
+                    stack0.setCount(stack0.getCount() + i);
                     inv1.setStack(slot1, stack0);
                 }
             }
