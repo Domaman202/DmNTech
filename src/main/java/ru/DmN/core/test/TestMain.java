@@ -75,7 +75,7 @@ public class TestMain implements ModInitializer {
                     var player = context.getSource().getPlayer();
                     var pos = player.getBlockPos().down(2);
                     //
-                    for (var i = 0; i < 500; i++) {
+                    for (var i = 0; i < 250; i++) {
                         var entity = EntityType.PIG.spawn(world, null, new LiteralText("Хряк"), player, pos, SpawnReason.COMMAND, false, false);
                         entity.setMovementSpeed(2f);
                         entity.setUpwardSpeed(2f);

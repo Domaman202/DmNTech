@@ -1,16 +1,18 @@
 package ru.DmN.core.block;
 
-import net.minecraft.block.BlockRenderType;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.BlockWithEntity;
-import net.minecraft.block.Material;
+import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.*;
+import net.minecraft.item.BlockItem;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.WritableBookItem;
 import net.minecraft.nbt.NbtList;
 import net.minecraft.screen.NamedScreenHandlerFactory;
+import net.minecraft.state.StateManager;
 import net.minecraft.text.LiteralText;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
@@ -22,9 +24,9 @@ import org.jetbrains.annotations.Nullable;
 import ru.DmN.core.block.entity.InventoryManagerBE;
 import ru.DmN.core.utils.Lazy;
 
-import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import static ru.DmN.core.block.Machine.ACTIVE;
 import static ru.DmN.core.registry.GlobalRegistry.DEFAULT_ITEM_SETTINGS;
 
 public class InventoryManager extends BlockWithEntity implements BlockEntityTicker <InventoryManagerBE> {
@@ -32,9 +34,23 @@ public class InventoryManager extends BlockWithEntity implements BlockEntityTick
 
     public InventoryManager() {
         super(Settings.of(Material.METAL));
+        this.setDefaultState(this.getDefaultState().with(ACTIVE, false));
     }
 
     ///
+
+    @Override
+    protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
+        builder.add(ACTIVE);
+    }
+
+    ///
+
+    @Override
+    public void onPlaced(World world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack itemStack) {
+        super.onPlaced(world, pos, state, placer, itemStack);
+        world.setBlockState(pos, state.with(ACTIVE, false));
+    }
 
     @Override
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
@@ -58,13 +74,15 @@ public class InventoryManager extends BlockWithEntity implements BlockEntityTick
                     AtomicInteger i = new AtomicInteger(0);
                     while (i.get() < strs.length) {
                         entity.tasks.add(switch (strs[i.getAndIncrement()]) {
+                            // Replace
                             case "r" -> entity.TaskReplace(strs, i);
+                            // Move
                             case "m" -> entity.TaskMove(strs, i);
+                            // Go to
+                            case "g" -> entity.TaskGoto(strs, i);
                             default -> throw new IllegalStateException("Unexpected value at line №" + i);
                         });
                     }
-
-                    System.out.println();
                 }
                 return ActionResult.SUCCESS;
             }
@@ -103,12 +121,13 @@ public class InventoryManager extends BlockWithEntity implements BlockEntityTick
     }
 
     @Override
-    public void tick(World world, BlockPos blockPos, BlockState blockState, InventoryManagerBE entity) {
-        if (world.isClient)
+    public void tick(World world, BlockPos blockPos, BlockState state, InventoryManagerBE entity) {
+        if (world.isClient || state.get(ACTIVE))
             return;
 
-        for (var task : entity.tasks)
-            task.execute(world);
+        var iter = new InventoryManagerBE.TaskIterator<>(entity.tasks);
+        for (var task : iter)
+            task.execute(world, iter);
     }
 
     ///

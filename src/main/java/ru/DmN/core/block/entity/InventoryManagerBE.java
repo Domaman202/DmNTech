@@ -13,11 +13,14 @@ import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import reborncore.api.blockentity.InventoryProvider;
 import ru.DmN.core.gui.InventoryManagerSH;
 
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import static ru.DmN.core.DCore.INVENTORY_MANAGER_BLOCK_ENTITY_TYPE;
@@ -49,10 +52,9 @@ public class InventoryManagerBE extends BlockEntity implements NamedScreenHandle
     public NbtCompound writeNbt(NbtCompound nbt) {
         int i = 0;
         for (var task : tasks) {
-            nbt.putInt("a" + i, task.slot0);
-            nbt.putInt("b" + i, task.slot1);
-            nbt.putInt("c" + i, task.dir0.getId());
-            nbt.putInt("d" + i, task.dir1.getId());
+            var nNbt = new NbtCompound();
+            task.toNbt(nNbt);
+            nbt.put(String.valueOf(i), nNbt);
             nbt.putInt("t" + i, task instanceof TaskReplace ? 0 : 1);
             i++;
         }
@@ -64,16 +66,13 @@ public class InventoryManagerBE extends BlockEntity implements NamedScreenHandle
     @Override
     public void readNbt(NbtCompound nbt) {
         for (int i = 0; i < nbt.getInt("e"); i++) {
-            Direction dir0 = null, dir1 = null;
+            var e = (NbtCompound) nbt.get(String.valueOf(i));
 
-            for (var dir : Direction.values()) {
-                if (dir.getId() == nbt.getInt("c" + i))
-                    dir0 = dir;
-                if (dir.getId() == nbt.getInt("d" + i))
-                    dir1 = dir;
-            }
-
-            this.tasks.add(nbt.getInt("t" + i) == 0 ? new TaskReplace(nbt.getInt("a" + i), nbt.getInt("b" + i), dir0, dir1) : new TaskMove(nbt.getInt("a" + i), nbt.getInt("b" + i), dir0, dir1));
+            this.tasks.add(switch (nbt.getInt("t" + i)) {
+                case 0 -> new TaskReplace(e);
+                case 1 -> new TaskMove(e);
+                default -> throw new IllegalStateException("Unexpected value: " + nbt.getInt("t" + i));
+            });
         }
 
         super.readNbt(nbt);
@@ -81,20 +80,6 @@ public class InventoryManagerBE extends BlockEntity implements NamedScreenHandle
 
 
     ///
-
-    public abstract static class Task {
-        public int slot0, slot1;
-        public Direction dir0, dir1;
-
-        public Task(int slot0, int slot1, Direction dir0, Direction dir1) {
-            this.slot0 = slot0;
-            this.slot1 = slot1;
-            this.dir0 = dir0;
-            this.dir1 = dir1;
-        }
-
-        public abstract void execute(World world);
-    }
 
     public TaskReplace TaskReplace(String[] in, AtomicInteger count) {
         return new TaskReplace(Integer.parseInt(in[count.getAndIncrement()]), Integer.parseInt(in[count.getAndIncrement()]), ofString(in[count.getAndIncrement()]), ofString(in[count.getAndIncrement()]));
@@ -104,13 +89,67 @@ public class InventoryManagerBE extends BlockEntity implements NamedScreenHandle
         return new TaskMove(Integer.parseInt(in[count.getAndIncrement()]), Integer.parseInt(in[count.getAndIncrement()]), ofString(in[count.getAndIncrement()]), ofString(in[count.getAndIncrement()]));
     }
 
-    public class TaskReplace extends Task {
+    public GotoTask TaskGoto(String[] in, AtomicInteger count) {
+        return new GotoTask(Integer.parseInt(in[count.getAndIncrement()]));
+    }
+
+    public interface Task {
+        <T extends Task> void execute(World world, TaskIterator<T> iter);
+
+        NbtCompound toNbt(NbtCompound nbt);
+
+        void ofNbt(NbtCompound nbt);
+    }
+
+    // Primitive Slot usable Task
+    public abstract static class PSTask implements Task {
+        public int slot0, slot1;
+        public Direction dir0, dir1;
+
+        public PSTask(int slot0, int slot1, Direction dir0, Direction dir1) {
+            this.slot0 = slot0;
+            this.slot1 = slot1;
+            this.dir0 = dir0;
+            this.dir1 = dir1;
+        }
+
+        public PSTask(NbtCompound nbt) {
+            this.ofNbt(nbt);
+        }
+
+        @Override
+        public void ofNbt(NbtCompound nbt) {
+            slot0 = nbt.getInt("a");
+            slot1 = nbt.getInt("a");
+            for (var dir : Direction.values()) {
+                if (dir.getId() == nbt.getInt("c"))
+                    dir0 = dir;
+                if (dir.getId() == nbt.getInt("d"))
+                    dir1 = dir;
+            }
+        }
+
+        @Override
+        public NbtCompound toNbt(NbtCompound nbt) {
+            nbt.putInt("a", slot0);
+            nbt.putInt("b", slot1);
+            nbt.putInt("c", dir0.getId());
+            nbt.putInt("d", dir1.getId());
+            return nbt;
+        }
+    }
+
+    public class TaskReplace extends PSTask {
         public TaskReplace(int slot0, int slot1, Direction dir0, Direction dir1) {
             super(slot0, slot1, dir0, dir1);
         }
 
+        public TaskReplace(NbtCompound nbt) {
+            super(nbt);
+        }
+
         @Override
-        public void execute(World world) {
+        public <T extends Task> void execute(World world, TaskIterator<T> iter) {
             var pos0 = pos.offset(dir0);
             var entity0 = world.getBlockEntity(pos0);
             Inventory inv0;
@@ -145,13 +184,17 @@ public class InventoryManagerBE extends BlockEntity implements NamedScreenHandle
         }
     }
 
-    public class TaskMove extends Task {
+    public class TaskMove extends PSTask {
         public TaskMove(int slot0, int slot1, Direction dir0, Direction dir1) {
             super(slot0, slot1, dir0, dir1);
         }
 
+        public TaskMove(NbtCompound nbt) {
+            super(nbt);
+        }
+
         @Override
-        public void execute(World world) {
+        public <T extends Task> void execute(World world, TaskIterator<T> iter) {
             var pos0 = pos.offset(dir0);
             var entity0 = world.getBlockEntity(pos0);
             Inventory inv0;
@@ -195,6 +238,55 @@ public class InventoryManagerBE extends BlockEntity implements NamedScreenHandle
                     inv1.setStack(slot1, stack0);
                 }
             }
+        }
+    }
+
+    public static class GotoTask implements Task {
+        public int i;
+
+        public GotoTask(int i) {
+            this.i = i;
+        }
+
+        @Override
+        public <T extends Task> void execute(World world, TaskIterator<T> iter) {
+            iter.i += i;
+        }
+
+        @Override
+        public NbtCompound toNbt(NbtCompound nbt) {
+            nbt.putInt("i", i);
+            return nbt;
+        }
+
+        @Override
+        public void ofNbt(NbtCompound nbt) {
+            i = nbt.getInt("i");
+        }
+    }
+
+    public static class TaskIterator<T extends Task> implements Iterator<T>, Iterable<T> {
+        public final List<T> storage;
+        public int i = 0;
+
+        public TaskIterator(List<T> storage) {
+            this.storage = storage;
+        }
+
+        @Override
+        public boolean hasNext() {
+            return i < storage.size();
+        }
+
+        @Override
+        public T next() {
+            return storage.get(i++);
+        }
+
+        @NotNull
+        @Override
+        public Iterator<T> iterator() {
+            return this;
         }
     }
 }
