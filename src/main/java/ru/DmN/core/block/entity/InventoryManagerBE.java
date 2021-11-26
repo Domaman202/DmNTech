@@ -280,7 +280,7 @@ public class InventoryManagerBE extends BlockEntity implements NamedScreenHandle
             var pos0 = pos.offset(dir);
             var entity0 = world.getBlockEntity(pos0);
             Inventory inv0;
-            if ((inv0 = getInventory(world, pos0, entity0)) != null || Registry.ITEM.getId(inv0.getStack(slot).getItem()).toString().equals(id))
+            if ((inv0 = getInventory(world, pos0, entity0)) != null && Registry.ITEM.getId(inv0.getStack(slot).getItem()).toString().equals(id))
                 iter.i += 1;
         }
 
