@@ -34,7 +34,6 @@ public class InventoryManager extends BlockWithEntity implements BlockEntityTick
 
     public InventoryManager() {
         super(Settings.of(Material.METAL));
-        this.setDefaultState(this.getDefaultState().with(ACTIVE, false));
     }
 
     ///
@@ -49,7 +48,6 @@ public class InventoryManager extends BlockWithEntity implements BlockEntityTick
     @Override
     public void onPlaced(World world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack itemStack) {
         super.onPlaced(world, pos, state, placer, itemStack);
-        world.setBlockState(pos, state.with(ACTIVE, false));
     }
 
     @Override
