@@ -72,12 +72,15 @@ public class InventoryManager extends BlockWithEntity implements BlockEntityTick
                     AtomicInteger i = new AtomicInteger(0);
                     while (i.get() < strs.length) {
                         entity.tasks.add(switch (strs[i.getAndIncrement()]) {
-                            // Replace
+                            //
                             case "r" -> entity.TaskReplace(strs, i);
-                            // Move
+                            //
                             case "m" -> entity.TaskMove(strs, i);
-                            // Go to
+                            //
                             case "g" -> entity.TaskGoto(strs, i);
+                            //
+                            case "i" -> entity.TaskIdIf(strs, i);
+                            //
                             default -> throw new IllegalStateException("Unexpected value at line №" + i);
                         });
                     }
