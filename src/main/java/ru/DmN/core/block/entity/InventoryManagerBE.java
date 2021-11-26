@@ -2,6 +2,7 @@ package ru.DmN.core.block.entity;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
@@ -12,6 +13,7 @@ import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -55,7 +57,7 @@ public class InventoryManagerBE extends BlockEntity implements NamedScreenHandle
             var nNbt = new NbtCompound();
             task.toNbt(nNbt);
             nbt.put(String.valueOf(i), nNbt);
-            nbt.putInt("t" + i, task instanceof TaskReplace ? 0 : 1);
+            nbt.putInt("t" + i, task instanceof TaskReplace ? 0 : task instanceof IdIfTask ? 2 : 1);
             i++;
         }
         nbt.putInt("e", i);
@@ -71,6 +73,7 @@ public class InventoryManagerBE extends BlockEntity implements NamedScreenHandle
             this.tasks.add(switch (nbt.getInt("t" + i)) {
                 case 0 -> new TaskReplace(e);
                 case 1 -> new TaskMove(e);
+                case 2 -> new IdIfTask(e);
                 default -> throw new IllegalStateException("Unexpected value: " + nbt.getInt("t" + i));
             });
         }
@@ -91,6 +94,10 @@ public class InventoryManagerBE extends BlockEntity implements NamedScreenHandle
 
     public GotoTask TaskGoto(String[] in, AtomicInteger count) {
         return new GotoTask(Integer.parseInt(in[count.getAndIncrement()]));
+    }
+
+    public IdIfTask TaskIdIf(String[] in, AtomicInteger count) {
+        return new IdIfTask(ofString(in[count.getAndIncrement()]), in[count.getAndIncrement()], Integer.parseInt(in[count.getAndIncrement()]));
     }
 
     public interface Task {
@@ -198,30 +205,14 @@ public class InventoryManagerBE extends BlockEntity implements NamedScreenHandle
             var pos0 = pos.offset(dir0);
             var entity0 = world.getBlockEntity(pos0);
             Inventory inv0;
-
-            if (entity0 == null)
+            if ((inv0 = getInventory(world, pos0, entity0)) == null)
                 return;
-            if (entity0 instanceof Inventory inv)
-                inv0 = inv;
-            else if (entity0 instanceof InventoryProvider inv)
-                inv0 = inv.getInventory();
-            else if (entity0 instanceof net.minecraft.block.InventoryProvider inv)
-                inv0 = inv.getInventory(world.getBlockState(pos0), world, pos0);
-            else return;
 
             var pos1 = pos.offset(dir1);
             var entity1 = world.getBlockEntity(pos1);
             Inventory inv1;
-
-            if (entity1 == null)
+            if ((inv1 = getInventory(world, pos1, entity1)) == null)
                 return;
-            if (entity1 instanceof Inventory inv)
-                inv1 = inv;
-            else if (entity1 instanceof InventoryProvider inv)
-                inv1 = inv.getInventory();
-            else if (entity1 instanceof net.minecraft.block.InventoryProvider inv)
-                inv1 = inv.getInventory(world.getBlockState(pos1), world, pos1);
-            else return;
 
             var stack0 = inv0.getStack(slot0);
             ItemStack stack1;
@@ -244,6 +235,10 @@ public class InventoryManagerBE extends BlockEntity implements NamedScreenHandle
     public static class GotoTask implements Task {
         public int i;
 
+        public GotoTask(NbtCompound nbt) {
+            this.ofNbt(nbt);
+        }
+
         public GotoTask(int i) {
             this.i = i;
         }
@@ -262,6 +257,48 @@ public class InventoryManagerBE extends BlockEntity implements NamedScreenHandle
         @Override
         public void ofNbt(NbtCompound nbt) {
             i = nbt.getInt("i");
+        }
+    }
+
+    public class IdIfTask implements Task {
+        public Direction dir;
+        public String id;
+        public int slot;
+
+        public IdIfTask(NbtCompound nbt) {
+            this.ofNbt(nbt);
+        }
+
+        public IdIfTask(Direction dir, String id, int slot) {
+            this.slot = slot;
+            this.dir = dir;
+            this.id = id;
+        }
+
+        @Override
+        public <T extends Task> void execute(World world, TaskIterator<T> iter) {
+            var pos0 = pos.offset(dir);
+            var entity0 = world.getBlockEntity(pos0);
+            Inventory inv0;
+            if ((inv0 = getInventory(world, pos0, entity0)) != null || Registry.ITEM.getId(inv0.getStack(slot).getItem()).toString().equals(id))
+                iter.i += 1;
+        }
+
+        @Override
+        public NbtCompound toNbt(NbtCompound nbt) {
+            nbt.putInt("a", dir.getId());
+            nbt.putString("b", id);
+            nbt.putInt("c", slot);
+            return nbt;
+        }
+
+        @Override
+        public void ofNbt(NbtCompound nbt) {
+            id = nbt.getString("b");
+            slot = nbt.getInt("c");
+            for (var dir : Direction.values())
+                if (dir.getId() == nbt.getInt("a"))
+                    this.dir = dir;
         }
     }
 
@@ -288,5 +325,19 @@ public class InventoryManagerBE extends BlockEntity implements NamedScreenHandle
         public Iterator<T> iterator() {
             return this;
         }
+    }
+
+    /// TODO: MOVE TO UTILS
+
+    public static Inventory getInventory(World world, BlockPos pos, BlockEntity entity) {
+        if (entity == null)
+            return null;
+        if (entity instanceof Inventory inv)
+            return inv;
+        else if (entity instanceof InventoryProvider inv)
+            return inv.getInventory();
+        else if (entity instanceof net.minecraft.block.InventoryProvider inv)
+            return inv.getInventory(world.getBlockState(pos), world, pos);
+        else return null;
     }
 }
