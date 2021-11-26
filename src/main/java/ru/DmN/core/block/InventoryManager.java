@@ -120,7 +120,7 @@ public class InventoryManager extends BlockWithEntity implements BlockEntityTick
 
     @Override
     public void tick(World world, BlockPos blockPos, BlockState state, InventoryManagerBE entity) {
-        if (world.isClient || state.get(ACTIVE))
+        if (world.isClient)
             return;
 
         var iter = new InventoryManagerBE.TaskIterator<>(entity.tasks);
