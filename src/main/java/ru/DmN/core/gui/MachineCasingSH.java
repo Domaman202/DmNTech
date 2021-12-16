@@ -1,4 +1,4 @@
-package ru.DmN.tech.gui;
+package ru.DmN.core.gui;
 
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.network.PacketByteBuf;
@@ -7,7 +7,6 @@ import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.util.math.BlockPos;
 import org.jetbrains.annotations.Nullable;
 import ru.DmN.core.energy.IESObject;
-import ru.DmN.core.gui.MachineSH;
 import ru.DmN.core.inventory.ConfigurableInventory;
 
 public class MachineCasingSH extends MachineSH {

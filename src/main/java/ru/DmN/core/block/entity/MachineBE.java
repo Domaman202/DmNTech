@@ -53,7 +53,7 @@ public class MachineBE extends SimpleConfigurableLCBE<ConfigurableInventory> imp
 
     public MachineBE(BlockEntityType<?> type, BlockPos pos, BlockState state, ConfigurableInventory inventory, long energy, long maxEnergy) {
         super(type, pos, state, inventory);
-        this.storage = new SimpleConfigurableES<>(energy, maxEnergy);
+        this.storage = new SimpleES<>(energy, maxEnergy);
         this.properties = new MachinePropertyDelegate<>(this);
     }
 
@@ -155,34 +155,6 @@ public class MachineBE extends SimpleConfigurableLCBE<ConfigurableInventory> imp
 
     public class SpecEnergyStorage<T> implements IESObject<T> {
         @Override
-        public void setInsertable(Direction side, boolean value) {
-            markDirty();
-            ItemStack stack;
-            if ((stack = inventory.getStack(0)).getItem() instanceof IESProvider)
-                stack.getOrCreateSubNbt(DMN_DATA).putBoolean(side.getName() + 'l', value);
-        }
-
-        @Override
-        public void setExtractable(Direction side, boolean value) {
-            markDirty();
-            ItemStack stack;
-            if ((stack = inventory.getStack(0)).getItem() instanceof IESProvider)
-                stack.getOrCreateSubNbt(DMN_DATA).putBoolean(side.getName() + 'r', value);
-        }
-
-        @Override
-        public boolean canInsert(Direction side) {
-            ItemStack stack;
-            return (stack = inventory.getStack(0)).getItem() instanceof IESProvider && stack.getOrCreateSubNbt(DMN_DATA).getBoolean(side.getName() + 'l');
-        }
-
-        @Override
-        public boolean canExtract(Direction side) {
-            ItemStack stack;
-            return (stack = inventory.getStack(0)).getItem() instanceof IESProvider && stack.getOrCreateSubNbt(DMN_DATA).getBoolean(side.getName() + 'r');
-        }
-
-        @Override
         public long getEnergy() {
             Item item;
             ItemStack stack;
@@ -210,6 +182,16 @@ public class MachineBE extends SimpleConfigurableLCBE<ConfigurableInventory> imp
             ItemStack stack;
             if ((item = (stack = inventory.getStack(0)).getItem()) instanceof IESProvider)
                 ((IESProvider<ItemStack>) item).getEnergyStorage(stack).setMaxEnergy(value);
+        }
+
+        @Override
+        public long insertEnergy(long value) {
+            return IESObject.super.insertEnergy(value);
+        }
+
+        @Override
+        public long extractEnergy(long value) {
+            return IESObject.super.extractEnergy(value);
         }
     }
 }

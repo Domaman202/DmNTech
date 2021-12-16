@@ -128,20 +128,20 @@ public abstract class CableBlock extends ConnectingBlock implements BlockEntityP
     }
 
     public static void equalizeEnergyWithMachines(World world, BlockPos pos, IESObject<?> storage) {
-        equalize(world, pos.down(), storage, Direction.DOWN);
-        equalize(world, pos.up(), storage, Direction.UP);
-        equalize(world, pos.north(), storage, Direction.NORTH);
-        equalize(world, pos.south(), storage, Direction.SOUTH);
-        equalize(world, pos.east(), storage, Direction.EAST);
-        equalize(world, pos.west(), storage, Direction.WEST);
+        equalize(world, pos.down(), storage);
+        equalize(world, pos.up(), storage);
+        equalize(world, pos.north(), storage);
+        equalize(world, pos.south(), storage);
+        equalize(world, pos.east(), storage);
+        equalize(world, pos.west(), storage);
     }
 
-    public static void equalize(World world, BlockPos pos, IESObject<?> storage, Direction dir) {
+    public static void equalize(World world, BlockPos pos, IESObject<?> storage) {
         if (shouldConnectMachine(world, pos)) {
             var machine = ((IESProvider<?>) world.getBlockEntity(pos)).getEnergyStorage(null);
-            if (checkFull(storage, dir, machine, invert(dir)))
-                storage.suckEnergy(machine, dir, invert(dir));
-            else machine.suckEnergy(storage, dir, invert(dir));
+            if (checkFull(storage, machine))
+                storage.suckEnergy(machine);
+            else machine.suckEnergy(storage);
         }
     }
 
@@ -156,11 +156,11 @@ public abstract class CableBlock extends ConnectingBlock implements BlockEntityP
         };
     }
 
-    public static boolean checkFull(IESObject<?> s0, Direction dir0, IESObject<?> s1, Direction dir1) {
-        return x(s0, dir0) > x(s1, dir1);
+    public static boolean checkFull(IESObject<?> s0, IESObject<?> s1) {
+        return x(s0) > x(s1);
     }
 
-    public static long x(IESObject<?> s, Direction dir) {
+    public static long x(IESObject<?> s) {
         return Math.round((s.getMaxEnergy() - s.getEnergy()) * 100.0 / s.getEnergy());
     }
 }

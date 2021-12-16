@@ -11,12 +11,12 @@ import ru.DmN.tech.DTech;
 
 public class RMPBSH extends MachineSH {
     public RMPBSH(int syncId, PlayerInventory playerInventory, PacketByteBuf buf) {
-        super(DTech.RMPB_SCREEN_HANDLER_TYPE, syncId, playerInventory, buf);
+        super(DTech.RMPB_SHT, syncId, playerInventory, buf);
         this.addSlot(inventory, 0, 15, 30);
     }
 
     public RMPBSH(int syncId, PlayerInventory playerInventory, ConfigurableInventory inventory, PropertyDelegate properties, IESObject<?> storage, BlockPos pos) {
-        super(DTech.RMPB_SCREEN_HANDLER_TYPE, syncId, playerInventory, inventory, properties, storage, pos);
+        super(DTech.RMPB_SHT, syncId, playerInventory, inventory, properties, storage, pos);
         this.addSlot(inventory, 0, 15, 30);
     }
 }

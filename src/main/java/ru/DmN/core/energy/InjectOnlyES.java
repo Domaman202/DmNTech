@@ -4,7 +4,7 @@ package ru.DmN.core.energy;
  * this type of storage does not allow you to give energy, but if you need to take energy, you need to use `setEnergy` method.
  * @param <T> storage object type
  */
-public class InjectOnlyES<T extends SimpleES<T>> extends SimpleConfigurableES<T> {
+public class InjectOnlyES<T extends SimpleES<T>> extends SimpleES <T> {
     public InjectOnlyES(long max) {
         super(max);
     }

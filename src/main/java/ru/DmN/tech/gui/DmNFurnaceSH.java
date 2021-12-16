@@ -9,16 +9,16 @@ import net.minecraft.util.math.BlockPos;
 import ru.DmN.core.inventory.ConfigurableInventory;
 import ru.DmN.core.gui.MachineSH;
 
-import static ru.DmN.tech.DTech.DMN_FURNACE_SCREEN_HANDLER_TYPE;
+import static ru.DmN.tech.DTech.DMNFURNACE_SHT;
 
 public class DmNFurnaceSH extends MachineSH {
     public DmNFurnaceSH(int syncId, PlayerInventory inventory, PacketByteBuf buf) {
-        super(DMN_FURNACE_SCREEN_HANDLER_TYPE, syncId, inventory, buf);
+        super(DMNFURNACE_SHT, syncId, inventory, buf);
         this.addSlots();
     }
 
     public DmNFurnaceSH(int syncId, PlayerInventory playerInventory, ConfigurableInventory inventory, PropertyDelegate properties, BlockPos pos) {
-        super(DMN_FURNACE_SCREEN_HANDLER_TYPE, syncId, playerInventory, inventory, properties, null, pos);
+        super(DMNFURNACE_SHT, syncId, playerInventory, inventory, properties, null, pos);
         this.addSlots();
     }
 

@@ -15,26 +15,6 @@ public class NBTES<T> implements IESObject <T> {
     }
 
     @Override
-    public void setInsertable(Direction side, boolean value) {
-        nbt.putBoolean(side.getName() + 'l', value);
-    }
-
-    @Override
-    public void setExtractable(Direction side, boolean value) {
-        nbt.putBoolean(side.getName() + 'r', value);
-    }
-
-    @Override
-    public boolean canInsert(Direction side) {
-        return nbt.getBoolean(side.getName() + 'l');
-    }
-
-    @Override
-    public boolean canExtract(Direction side) {
-        return nbt.getBoolean(side.getName() + 'r');
-    }
-
-    @Override
     public void setEnergy(long value) {
         nbt.putLong("energy", value);
     }

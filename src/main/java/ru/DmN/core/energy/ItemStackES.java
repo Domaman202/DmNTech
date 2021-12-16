@@ -15,26 +15,6 @@ public class ItemStackES extends NBTES<ItemStack> {
     }
 
     @Override
-    public void setInsertable(ItemStack obj, Direction side, boolean value) {
-        obj.getOrCreateSubNbt(DMN_DATA).putBoolean(side.getName() + 'l', value);
-    }
-
-    @Override
-    public void setExtractable(ItemStack obj, Direction side, boolean value) {
-        obj.getOrCreateSubNbt(DMN_DATA).putBoolean(side.getName() + 'r', value);
-    }
-
-    @Override
-    public boolean canInsert(ItemStack obj, Direction side) {
-        return obj.getOrCreateSubNbt(DMN_DATA).getBoolean(side.getName() + 'l');
-    }
-
-    @Override
-    public boolean canExtract(ItemStack obj, Direction side) {
-        return obj.getOrCreateSubNbt(DMN_DATA).getBoolean(side.getName() + 'r');
-    }
-
-    @Override
     public void setEnergy(ItemStack obj, long value) {
         obj.getOrCreateSubNbt(DMN_DATA).putLong("energy", value);
     }

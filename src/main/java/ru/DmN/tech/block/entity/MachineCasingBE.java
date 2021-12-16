@@ -15,17 +15,17 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.DmN.core.block.Machine;
 import ru.DmN.core.block.entity.MachineBE;
+import ru.DmN.core.gui.MachineCasingSH;
 import ru.DmN.core.inventory.ConfigurableInventory;
 import ru.DmN.core.inventory.SimpleConfigurableInventory;
 import ru.DmN.tech.block.MachineCasing;
-import ru.DmN.tech.gui.MachineCasingSH;
 import ru.DmN.tech.item.module.MachineModule;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import static ru.DmN.tech.DTech.MACHINECASING_SCREEN_HANDLER_TYPE;
+import static ru.DmN.core.DCore.MACHINECASING_SHT;
 
 public abstract class MachineCasingBE extends MachineBE {
     public final Map<String, MachineCasing.IMachineData<?>> specific = new HashMap<>();
@@ -60,7 +60,7 @@ public abstract class MachineCasingBE extends MachineBE {
 
     @Override
     public @Nullable ScreenHandler createMenu(int syncId, PlayerInventory playerInventory, PlayerEntity player) {
-        return new MachineCasingSH(MACHINECASING_SCREEN_HANDLER_TYPE, syncId, playerInventory, this.inventory, this.properties, this.storage, this.pos);
+        return new MachineCasingSH(MACHINECASING_SHT, syncId, playerInventory, this.inventory, this.properties, this.storage, this.pos);
     }
 
     /// NBT

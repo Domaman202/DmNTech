@@ -5,18 +5,19 @@ import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.util.math.BlockPos;
 import ru.DmN.core.energy.IESObject;
+import ru.DmN.core.gui.MachineCasingSH;
 import ru.DmN.core.inventory.ConfigurableInventory;
 
-import static ru.DmN.tech.DTech.SOLAR_PANEL_SCREEN_HANDLER_TYPE;
+import static ru.DmN.tech.DTech.SOLARPANEL_SHT;
 
 public class SolarPanelSH extends MachineCasingSH {
     public SolarPanelSH(int syncId, PlayerInventory playerInventory, PacketByteBuf buf) {
-        super(SOLAR_PANEL_SCREEN_HANDLER_TYPE, syncId, playerInventory, buf);
+        super(SOLARPANEL_SHT, syncId, playerInventory, buf);
         addSlots();
     }
 
     public SolarPanelSH(int syncId, PlayerInventory playerInventory, ConfigurableInventory inventory, PropertyDelegate properties, IESObject<?> storage, BlockPos pos) {
-        super(SOLAR_PANEL_SCREEN_HANDLER_TYPE, syncId, playerInventory, inventory, properties, storage, pos);
+        super(SOLARPANEL_SHT, syncId, playerInventory, inventory, properties, storage, pos);
         addSlots();
     }
 

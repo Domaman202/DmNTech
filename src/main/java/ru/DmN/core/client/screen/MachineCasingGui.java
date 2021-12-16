@@ -1,4 +1,4 @@
-package ru.DmN.tech.client.screen;
+package ru.DmN.core.client.screen;
 
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.Item;
@@ -6,8 +6,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.text.Text;
 import ru.DmN.core.client.gui.DynamicTextComponent;
 import ru.DmN.core.client.gui.MethodCaller;
-import ru.DmN.core.client.screen.MachineGui;
-import ru.DmN.tech.gui.MachineCasingSH;
+import ru.DmN.core.gui.MachineCasingSH;
 import ru.DmN.tech.item.module.MachineModule;
 
 import java.awt.*;

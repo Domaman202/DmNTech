@@ -116,9 +116,13 @@ public abstract class Machine extends HorizontalFacingBlock implements BlockEnti
     }
 
     public static void setActive(Boolean active, World world, BlockPos pos) {
-        BlockState state = world.getBlockState(pos);
-        if (state.getBlock() instanceof Machine)
-            world.setBlockState(pos, state.with(ACTIVE, active));
+        var state = world.getBlockState(pos);
+        if (state.getBlock() instanceof Machine machine)
+            machine.setActive(world, pos, active);
+    }
+
+    public void setActive(World world, BlockPos pos, Boolean active) {
+        world.setBlockState(pos, world.getBlockState(pos).with(ACTIVE, active));
     }
 
     public static boolean isActive(World world, BlockPos pos) {

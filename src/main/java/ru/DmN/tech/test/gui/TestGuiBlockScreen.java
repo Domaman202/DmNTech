@@ -9,7 +9,7 @@ import net.minecraft.text.Text;
 import net.minecraft.util.math.Matrix4f;
 import org.jetbrains.annotations.ApiStatus;
 import ru.DmN.core.client.gui.tab.Tab;
-import ru.DmN.tech.client.screen.MachineCasingGui;
+import ru.DmN.core.client.screen.MachineCasingGui;
 
 import java.awt.*;
 

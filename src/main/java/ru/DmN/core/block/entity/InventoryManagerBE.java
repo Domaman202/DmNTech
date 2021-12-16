@@ -2,7 +2,6 @@ package ru.DmN.core.block.entity;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
@@ -25,14 +24,14 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import static ru.DmN.core.DCore.INVENTORY_MANAGER_BLOCK_ENTITY_TYPE;
+import static ru.DmN.core.DCore.INVENTORY_MANAGER_BET;
 import static ru.DmN.core.block.InventoryManager.ofString;
 
 public class InventoryManagerBE extends BlockEntity implements NamedScreenHandlerFactory {
     public ArrayList<Task> tasks = new ArrayList<>();
 
     public InventoryManagerBE(BlockPos blockPos, BlockState blockState) {
-        super(INVENTORY_MANAGER_BLOCK_ENTITY_TYPE, blockPos, blockState);
+        super(INVENTORY_MANAGER_BET, blockPos, blockState);
     }
 
     ///

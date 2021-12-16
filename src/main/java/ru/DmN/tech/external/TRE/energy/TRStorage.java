@@ -5,8 +5,7 @@ import ru.DmN.core.energy.IESObject;
 import team.reborn.energy.api.EnergyStorage;
 import team.reborn.energy.api.base.SimpleBatteryItem;
 
-@SuppressWarnings("rawtypes")
-public class TRStorage implements IESObject {
+public class TRStorage implements IESObject <ItemStack> {
     public final EnergyStorage storage;
     public final ItemStack stack;
 

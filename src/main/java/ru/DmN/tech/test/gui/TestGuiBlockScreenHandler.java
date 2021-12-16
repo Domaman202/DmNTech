@@ -7,7 +7,7 @@ import net.minecraft.util.math.BlockPos;
 import org.jetbrains.annotations.ApiStatus;
 import ru.DmN.core.energy.IESObject;
 import ru.DmN.core.inventory.ConfigurableInventory;
-import ru.DmN.tech.gui.MachineCasingSH;
+import ru.DmN.core.gui.MachineCasingSH;
 import ru.DmN.tech.test.TestMain;
 
 @ApiStatus.Internal

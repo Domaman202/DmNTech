@@ -11,7 +11,7 @@ import net.minecraft.screen.slot.Slot;
 import net.minecraft.util.math.BlockPos;
 import org.jetbrains.annotations.Nullable;
 import ru.DmN.core.energy.IESObject;
-import ru.DmN.core.energy.SimpleConfigurableES;
+import ru.DmN.core.energy.SimpleES;
 import ru.DmN.core.inventory.ConfigurableInventory;
 import ru.DmN.core.inventory.SimpleConfigurableInventory;
 import ru.DmN.core.screen.DynamicPropertyDelegate;
@@ -40,7 +40,7 @@ public abstract class MachineSH extends AdvancedSH {
         this.pInventory = playerInventory;
         this.properties = properties;
         this.inventory = inventory;
-        this.storage = storage == null ? new SimpleConfigurableES<>(0) : storage;
+        this.storage = storage == null ? new SimpleES<>(0) : storage;
         this.pos = pos;
 
         inventory.onOpen(playerInventory.player);
